@@ -1,0 +1,42 @@
+@font-face {
+  font-family: 'iconfont';  /* project id 207461 */
+  src: url('http://at.alicdn.com/t/font_yo2lmd06ecjwnrk9.eot');
+  src: url('http://at.alicdn.com/t/font_yo2lmd06ecjwnrk9.eot?#iefix') format('embedded-opentype'),
+  url('http://at.alicdn.com/t/font_yo2lmd06ecjwnrk9.woff') format('woff'),
+  url('http://at.alicdn.com/t/font_yo2lmd06ecjwnrk9.ttf') format('truetype'),
+  url('http://at.alicdn.com/t/font_yo2lmd06ecjwnrk9.svg#iconfont') format('svg');
+}
+@font-face {
+  font-family: 'Reem Kufi';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Reem Kufi Regular'), local('ReemKufi-Regular'), url(/fonts/FTp4cbXHs33vRJgqopuR4rO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
+}
+html,body,#App{
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+*{
+  box-sizing:border-box;
+  -moz-box-sizing:border-box; /* Firefox */
+  -webkit-box-sizing:border-box; /* Safari */
+}
+body{
+    background-color: #dfdfdf;
+    background-image: -webkit-linear-gradient(top,#dddbd1,#d2dbdc);
+    background-image: linear-gradient(to bottom,#dddbd1,#d2dbdc);
+    color: #4b4b4b;
+}
+html,body {
+    font-family: 'Reem Kufi','Roboto',sans-serif;
+}
+
+a {
+  color: #00B7FF;
+  text-decoration: none;
+}
+button,textarea,input{
+  outline: none;
+}
