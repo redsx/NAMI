@@ -6,6 +6,12 @@ module.exports = {
         path: __dirname + '/server/public/bundle',
         filename: 'bundle.js',
     },
+    worker: {
+      output: {
+        filename: "hash.worker.js",
+        chunkFilename: "[id].hash.worker.js"
+      }
+    },
     resolve:{
         alias:{
             //...
@@ -46,5 +52,7 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('production')
         })
-  ]
+    ],
+    
+
 }

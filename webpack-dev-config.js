@@ -1,13 +1,17 @@
 const  webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
-    // entry:{
-    //     bundle:'./index.jsx',
-    // },
     entry:['babel-polyfill', './app/index.jsx'],
     output:{
         path: __dirname + '/server/public/bundle',
+        publicPath:'/bundle/',
         filename: 'bundle.js',
+    },
+    worker: {
+      output: {
+        filename: "hash.worker.js",
+        chunkFilename: "[id].hash.worker.js"
+      }
     },
     watch:true,
     resolve:{
@@ -40,8 +44,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('development')
-        })
-  ]
+        new webpack.DefinePlugin({'process.env.NODE_ENV': JSON.stringify('development')})
+    ]
+    
 }
