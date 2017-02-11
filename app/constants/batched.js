@@ -1,0 +1,1 @@
+export const BATCHED_ACTIONS = 'BATCHED_ACTIONS';

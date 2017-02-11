@@ -1,0 +1,1 @@
+export const MERGE_USER_INFO = 'MERGE_USER_INFO';

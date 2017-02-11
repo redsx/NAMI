@@ -1,0 +1,13 @@
+// roomList
+export const INIT_ROOM_LIST = 'ROOM_INIT_LIST';
+export const ADD_ROOM_ITEM = 'ROOM_ADD_ITEM';
+export const REMOVE_ROOM_ITEM = 'REMOVE_ROOM_ITEM';
+export const PUSH_HISTORY = 'ROOM_PUSH_HISTORY';
+export const UNSHIFT_HISTORY = 'ROOM_UNSHIFT_HISTORY';
+export const MERGE_ROOM_INFO = 'MERGE_ROOM_INFO';
+
+// privateList
+// export const INIT_PRIVATE_LIST = 'PRIVATE_INIT_LIST';
+// export const ADD_PRIVATE_ITEM = 'PRIVATE_ADD_ITEM';
+// export const PUSH_PRIVATE = 'PRIVATE_PUSH_HISTORY';
+// export const UNSHIFT_PRIVATE = 'PRIVATE_UNSHIFT_HISTORY';
