@@ -1,0 +1,60 @@
+@import 'common';
+
+.rotate(@deg) {
+    -webkit-transform: rotate(@deg);
+    -moz-transform: rotate(@deg);
+    -o-transform: rotate(@deg);
+    transform: rotate(@deg);
+}
+.transitionCubic(@time:0.5s,@timeFunc: cubic-bezier(0.23, 1, 0.32, 1)){
+    -ms-transition:all @time @timeFunc 0ms;
+    -webkit-transition:all @time @timeFunc 0ms;
+    transition:all @time @timeFunc 0ms;
+}
+
+.scroll-scrollbar-style{
+    // border-radius: 9px;
+    // -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.62);
+    // box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.62);
+    // background-color:rgba(0,0,0,0.2);
+}
+.scroll-thumb-style{
+    width: 5px;
+    height: 5px;
+    background-color:rgba(0,0,0,0.2);
+}
+.scroll-show::-webkit-scrollbar{
+    .scroll-scrollbar-style;
+    .transitionCubic();
+}
+.scroll-show::-webkit-scrollbar-thumb
+{
+    .scroll-thumb-style;
+}
+.scroll-hidden::-webkit-scrollbar{
+    width: 0px;
+    height: 0px;
+    .transitionCubic();
+}
+.icon{
+    font-family: iconfont;
+    font-style: normal;
+    text-align: center;
+    cursor: pointer;
+}
+.displayFlex{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.textOver{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+#clipboard{
+    opacity: 0;
+    top: 0px;
+    position: absolute;
+    z-index: -1;
+}

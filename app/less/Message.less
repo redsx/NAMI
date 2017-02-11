@@ -1,0 +1,118 @@
+@import 'common';
+// 对话框小三角
+.triangle(left,@top,@right,@color){
+    left: @right;
+    border-right: 10px solid @color;
+    .rotate(20deg);
+}
+.triangle(right,@top,@right,@color){
+    right: @right;
+    border-left: 10px solid @color;
+    .rotate(-20deg);
+}
+.triangle(@_,@top,@right,@color){
+    position: absolute;
+    top: @top;
+    border-top: 2px solid transparent;
+    border-bottom: 7px solid transparent; 
+}
+.triangle-left-inner{
+    content: "";
+    .triangle(left,6px,-7px,white);
+}
+.triangle-left-outer{
+    content: "";
+    .triangle(left,5px,-9px,#ccc);
+}
+.triangle-right-inner{
+    content: "";
+    .triangle(right,6px,-7px,white);
+}
+.triangle-right-outer{
+    content: "";
+    .triangle(right,5px,-9px,#ccc);
+}
+
+//
+
+.Message-container{
+    width: 100%;
+    max-width: 980px;
+    padding: 10px 6px 0px 12px;
+    .displayFlex;
+    
+}
+.Message-box{
+    padding: 0 10px;
+    width: 100%;
+}
+.Message-content{
+    position: relative;
+    display: inline-block;
+    word-break: break-all;
+    background: white;
+    text-align: left;
+    padding: 6px 12px;
+    max-width: 90%;
+    min-height: 35px;
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 8px;
+}
+
+.avatar-container-left{
+    margin-top: 5px;
+}
+.avatar-container-right{
+    margin-top: 5px;
+    order: 1;
+}
+.Message-nickname-box{
+    padding: 0px 2px;
+    display: block;
+    font-size: 14px;
+    color: #5f6265;
+}
+.Message-loading{
+    position: absolute;
+    bottom: 0px;
+}
+.Message-loading-left{
+    .Message-loading;
+    right: -30px;
+}
+.Message-loading-right{
+    .Message-loading;
+    left: -30px;
+}
+.Message-loading-image{
+    width: 30px;
+}
+.Message-handle{
+    position: absolute;
+    bottom: 0px;
+    font-size: 18px;
+    display: none;
+    color: #b1a9a9;
+}
+.Message-handle-left{
+    .Message-handle;
+    right: -25px;
+}
+.Message-handle-right{
+    .Message-handle;
+    left: -25px;
+}
+.Message-time{
+    font-size: 12px;
+    padding-left: 10px;
+    display: none;
+}
+.Message-list-item:hover .Message-time{
+    display: inline-block;
+}
+.Message-list-item:hover .Message-handle-left{
+    display: inline-block;
+}
+.Message-list-item:hover .Message-handle-right{
+    display: inline-block;
+}

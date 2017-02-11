@@ -1,0 +1,113 @@
+@import 'common';
+@mAnimaTime: 0.25s;
+.LeftManager-enter {
+    transform: translateX(-100%);
+}
+
+.LeftManager-enter.LeftManager-enter-active {
+    .transitionCubic(@mAnimaTime);
+    transform: translateX(0%);
+}
+
+.LeftManager-leave {
+    transform: translateX(0%);
+}
+
+.LeftManager-leave.LeftManager-leave-active {
+    .transitionCubic(@mAnimaTime);
+    transform: translateX(-100%);
+}
+
+
+.RightManager-enter {
+    transform: translateX(100%);
+}
+
+.RightManager-enter.RightManager-enter-active {
+    .transitionCubic(@mAnimaTime);
+    transform: translateX(0%);
+}
+
+.RightManager-leave {
+    transform: translateX(0%);
+}
+
+.RightManager-leave.RightManager-leave-active {
+    .transitionCubic(@mAnimaTime);
+    transform: translateX(100%);
+}
+
+
+.Snackbar-enter {
+    transform: translateY(50px);
+}
+
+.Snackbar-enter.Snackbar-enter-active {
+    .transitionCubic(@mAnimaTime);
+    transform: translateY(0);
+}
+
+.Snackbar-leave {
+    opacity: 1;
+}
+
+.Snackbar-leave.Snackbar-leave-active {
+    .transitionCubic(@mAnimaTime);
+    opacity: 0;
+}
+
+// IconMenu
+
+.transformOrigin{
+    transform-origin: top left;
+}
+.IconMenu-enter {
+    transform: scale(0);
+}
+.IconMenu-enter.IconMenu-enter-active {
+    .transitionCubic(@mAnimaTime);
+    .transformOrigin(); 
+    transform: scale(1);
+}
+.IconMenu-leave {
+    .transformOrigin(); 
+    transform: scale(1);
+}
+.IconMenu-leave.IconMenu-leave-active {
+    .transitionCubic(@mAnimaTime);
+    .transformOrigin(); 
+    transform: scale(0);
+}
+
+
+// text
+.TextLeftAnima-enter {
+    transform: translateX(-50px);
+}
+.TextLeftAnima-enter.TextLeftAnima-enter-active {
+    .transitionCubic(0.5s,cubic-bezier(0.1, 0.82, 0.25, 1));
+    transform: translateX(0);
+}
+.TextLeftAnima-leave {
+    transform: translateX(0);
+}
+.TextLeftAnima-leave.TextLeftAnima-leave-active {
+    .transitionCubic(0.5s,cubic-bezier(0.1, 0.82, 0.25, 1));
+    transform: translateX(-50px);
+}
+
+// avatar scale
+.AvatarScale-enter {
+    transform: scale(0);
+}
+.AvatarScale-enter.AvatarScale-enter-active {
+    .transitionCubic(0.75s,cubic-bezier(0.1, 0.82, 0.25, 1));
+    transform: scale(1);
+}
+.AvatarScale-leave {
+    transform: scale(1);
+}
+.AvatarScale-leave.AvatarScale-leave-active {
+    .transitionCubic(0.75s,cubic-bezier(0.1, 0.82, 0.25, 1));
+    transform: scale(0);
+}

@@ -1,0 +1,59 @@
+@import 'common';
+.Layout-wrapper{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.Layout-wrapper::after{
+    position: fixed;
+    z-index: -1;
+    background-color: #009688;
+    width: 100%;
+    height: 127px;
+    content: '';
+    top: 0;
+    left: 0;
+}
+.Layout-container{
+    height: 100%;
+    margin: auto;
+    position: relative;
+    overflow: hidden;
+    background-color: #fefefe;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.06),0 2px 5px 0 rgba(0,0,0,.2);
+    .transitionCubic(0.5s);
+    .displayFlex;
+}
+.manager-container{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 9;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    pointer-events: none;
+    .displayFlex;
+    justify-content: space-between;
+}
+.manager{
+    pointer-events: auto;
+    width: 100%;
+    height: 100%;
+}
+.left-manager{
+    background: #f7f7f7;
+    .manager;
+}
+.right-manager{
+    background: #f7f7f7;
+    .manager;
+}
+.list{
+    background: #f7f7f7;
+}
+.chat-area{
+    .transitionCubic(0.5s);
+    background: #e5ddd5;
+}

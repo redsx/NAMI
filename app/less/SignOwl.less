@@ -1,0 +1,79 @@
+.login-owl{
+    width: 211px;
+    height: 108px;
+    top: 100px;
+    left: 50%;
+    margin-left: -111px; 
+    position: absolute;
+    background: url('/images/owl-login.png') no-repeat;
+}
+.login-hand,.login-hand-r,.login-hand-focus,.login-hand-r-focus{
+    width: 34px;
+    height: 34px;
+    background: #472d20;
+    border-radius: 40px;
+    -webkit-transform: scaleY(0.6);
+    transform: scaleY(0.6);
+    position: absolute;
+    -webkit-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+.login-hand{
+    left: 14px;
+    bottom: -8px;
+}
+.login-hand-r{
+    left: 170px;
+    bottom: -8px;
+}
+.password>.login-hand-focus{
+    -webkit-transform: translateY(-20px) translateX(50px) scale(0.7);
+    transform: translateY(-20px) translateX(50px) scale(0.7);
+    left: 14px;
+    bottom: -8px;
+}
+.password>.login-hand-r-focus{
+    -webkit-transform: translateY(-20px) translateX(-50px) scale(0.7);
+    transform: translateY(-20px) translateX(-50px) scale(0.7);
+    left: 170px;
+    bottom: -8px;
+}
+.login-arms{
+    position: absolute;
+    width: 100%;
+    top: 58px;
+    height: 41px;
+    overflow: hidden;
+}
+.login-arm,.login-arm-r,.login-arm-r-focus,.login-arm-focus{
+    width: 40px;
+    height: 65px;
+    position: absolute;
+    background: url('/images/owl-login-arm.png');
+    -webkit-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+.login-arm{
+    -webkit-transform: rotate(-20deg);
+    transform: rotate(-20deg);
+    left: 20px;
+    top: 40px;
+}
+.login-arm-r{
+    -webkit-transform: rotate(20deg) scaleX(-1);
+    transform: rotate(20deg) scaleX(-1);
+    left: 158px;
+    top: 40px;
+}
+.password>.login-arms>.login-arm-focus{
+    -webkit-transform: translateY(-40px) translateX(40px);
+    transform: translateY(-40px) translateX(40px);
+    left: 20px;
+    top: 40px;
+}
+.password>.login-arms>.login-arm-r-focus{
+    -webkit-transform: translateY(-40px) translateX(-40px) scaleX(-1);
+    transform: translateY(-40px) translateX(-40px) scaleX(-1);
+    left: 158px;
+    top: 40px;
+}

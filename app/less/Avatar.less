@@ -1,0 +1,54 @@
+@import 'common';
+
+.Avatar-container {
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+}
+.Avatar{
+    width: 100%;
+    height: 100%;
+    background-image: url('http://oj7h98lzb.bkt.clouddn.com/user.svg');
+    background-color: white;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.Avatar-input-comm{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.Avatar-upload{
+    .Avatar-input-comm;
+    display: none;
+}
+.Avatar-upload-text{
+    .Avatar-input-comm;
+    z-index: 1;
+    .displayFlex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.31);
+    color: white;
+    font-size: xx-large;
+}
+.Avatar-input{
+    .Avatar-input-comm;
+    z-index: 2;
+    opacity: 0;
+}
+.Avatar-container:hover .Avatar-upload{
+    display: block;
+}
+
+// icon avatar
+.IconAvatar{
+    .Avatar-container;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+}

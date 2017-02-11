@@ -1,0 +1,50 @@
+@import 'common';
+.ChatMeta{
+    font-size: 0.9rem;
+    width: 100%;
+}
+.ChatMeta-main{
+    line-height: 30px;
+    .displayFlex;
+}
+.ChatMeta-title{
+    flex-grow: 1;
+}
+.ChatMeta-time{
+    font-size: 12px;
+    color: #999;
+}
+.ChatMeta-marker{
+    height: 16px;
+    margin-top: 6px;
+    padding: 0px 5px;
+    color: #4caf50;
+    font-size: 0.6rem;
+    text-align: center;
+    line-height: 16px;
+    border-radius: 3px;
+    border: 1px solid #4caf50;
+}
+.ChatMeta-secondary{
+    padding-right: 25px; 
+    position: relative;
+}
+.ChatMeta-secondary-text{
+    display: inline-block;
+    max-width: 100%;
+    .textOver;
+    color: #888;
+    line-height: 20px;
+}
+.ChatMeta-menu-btn{
+    display: none;
+    line-height: 20px;
+    font-size: 1.4rem;
+    color: #bbb;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+.ChatMeta:hover .ChatMeta-menu-btn{
+    display: inline-block;
+}

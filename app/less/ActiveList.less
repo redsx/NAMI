@@ -1,0 +1,31 @@
+@import 'common';
+.ActiveList-container{
+    height: 100%;
+    overflow-y: auto;
+}
+.ActiveList-title{
+    padding: 10px 15px;
+    border-bottom: 1px solid #f2f2f2;
+}
+.ActiveListItem{
+    .displayFlex;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+}
+.ActiveListItem-select{
+    background: #e9ebeb;
+}
+.ActiveListItem-avatar-container{
+    display: inline-block;
+    padding: 0px 15px;
+}
+.ActiveListItem-chat-meta{
+    padding: 10px 15px 10px 0px;
+    border-bottom: 1px solid #f2f2f2;
+    flex-grow: 1;
+    width: calc(100% - 79px);
+    .displayFlex;
+    align-items: center;
+    min-height: 71px    
+}
