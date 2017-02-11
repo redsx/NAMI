@@ -17,7 +17,7 @@ function Snackbar(props){
                 return (
                     <div key = {`Snackbar-${index}`}>
                         <span className = 'Snackbar-content'>
-                            <span> {item}</span>
+                            <span>{item}</span>
                         </span>
                     </div>
                 );
