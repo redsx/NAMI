@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'iconfont';  /* project id 207461 */
-  src: url('http://at.alicdn.com/t/font_yo2lmd06ecjwnrk9.eot');
-  src: url('http://at.alicdn.com/t/font_yo2lmd06ecjwnrk9.eot?#iefix') format('embedded-opentype'),
-  url('http://at.alicdn.com/t/font_yo2lmd06ecjwnrk9.woff') format('woff'),
-  url('http://at.alicdn.com/t/font_yo2lmd06ecjwnrk9.ttf') format('truetype'),
-  url('http://at.alicdn.com/t/font_yo2lmd06ecjwnrk9.svg#iconfont') format('svg');
+  src: url('http://at.alicdn.com/t/font_bfksyjorqfh1714i.eot');
+  src: url('http://at.alicdn.com/t/font_bfksyjorqfh1714i.eot?#iefix') format('embedded-opentype'),
+  url('http://at.alicdn.com/t/font_bfksyjorqfh1714i.woff') format('woff'),
+  url('http://at.alicdn.com/t/font_bfksyjorqfh1714i.ttf') format('truetype'),
+  url('http://at.alicdn.com/t/font_bfksyjorqfh1714i.svg#iconfont') format('svg');
 }
 @font-face {
   font-family: 'Reem Kufi';
@@ -22,6 +22,18 @@ html,body,#App{
   box-sizing:border-box;
   -moz-box-sizing:border-box; /* Firefox */
   -webkit-box-sizing:border-box; /* Safari */
+  margin: 0px;
+  padding: 0px;
+}
+*::-webkit-scrollbar-thumb{
+  background-color: rgba(0,0,0,0.2);
+}
+*::-webkit-scrollbar{
+  width: 6px;
+  height: 6px;
+}
+*::-webkit-scrollbar-track{
+  background: rgba(255,255,255,0.08);
 }
 body{
     background-color: #dfdfdf;
@@ -37,6 +49,6 @@ a {
   color: #00B7FF;
   text-decoration: none;
 }
-button,textarea,input{
+button,textarea,input,div{
   outline: none;
 }
