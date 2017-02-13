@@ -3,16 +3,30 @@ import autobind from 'autobind-decorator'
 import immutable from 'immutable'
 import TextMessage from './TextMessage.jsx'
 import messageMiddle from '../middlewares/message.js'
+import Loading from './Loading.jsx'
+import { loadRoomHistory, errPrint } from '../actions/combin.js'
 import '../less/MessageContainer.less'
 
 class MessageContainer extends Component{
     constructor(props){
         super(props);
         this.needScroll = true;
+        this.state = {loading: false};
     }
     @autobind
     scrollToBottom(){
         if(this.msgContent) this.msgContent.scrollTop = this.msgContent.scrollHeight;
+    }
+    @autobind
+    handleScroll(e){
+        const target = e.target;
+        console.log();
+        if(target.scrollHeight !== target.offsetHeight && target.scrollTop === 0 && !this.state.loading){
+            this.setState({loading: true});
+            loadRoomHistory()
+            .then(ret=>this.setState({loading: false}))
+            .catch(err => errPrint(err))
+        }
     }
     //对比下一次收到消息是否为自己发送
     compoareProps(nextProps){
@@ -53,7 +67,8 @@ class MessageContainer extends Component{
         const messagesArr = roomInfo.get('histories') || immutable.fromJS([]);
         return (
             <div className = 'MessageContainer'>
-                <div className = 'MessageContainer-content' ref = {ref => this.msgContent = ref}>
+                <div className = 'MessageContainer-content' ref = {ref => this.msgContent = ref} onScroll = {this.handleScroll}>
+                    { this.state.loading && <Loading /> }
                     {
                         messagesArr.map((id) => {
                             let message = messageMiddle.priToGro(messagesObj.get(id),roomInfo,user);

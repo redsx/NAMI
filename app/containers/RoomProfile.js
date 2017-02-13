@@ -48,7 +48,6 @@ const RoomProfileWarp = (WrappedComponent) => class extends Component{
         const createrId =  this.state.creater ? this.state.creater._id : '';
         const isCreater = this.props.user.get('_id') === createrId;
         const handleChangeRoominfo = isCreater ? this.handleChangeRoominfo : null;
-        console.log(createrId);
         return <WrappedComponent 
             isCreater = {isCreater}
             handleChangeRoominfo = {handleChangeRoominfo}
