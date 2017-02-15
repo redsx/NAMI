@@ -43,7 +43,7 @@ export const loadRoomHistory = dispatchThunk( () => {
               _id = curRoomInfo.get('_id');
         const timestamp = messages.getIn([first,'_timestamp']) || messages.getIn([first,'timestamp']);
         if(curRoomInfo.get('isPrivate')){
-            socketEmit('loadPrivateHistories')({
+            return socketEmit('loadPrivateHistories')({
                 limit, timestamp,
                 fromUserId: _id,
                 toUserId: userId,
@@ -56,14 +56,13 @@ export const loadRoomHistory = dispatchThunk( () => {
                 });
             })
         } else{
-            socketEmit('loadRoomHistories')({limit, timestamp , _id})
+            return socketEmit('loadRoomHistories')({limit, timestamp , _id})
             .then((ret)=>{
                 console.log(ret);
                 let entity = normalize([ret],roomsSchema).entities;
                 let { _id, histories } = entity.rooms[ret._id];
                 addHistories({ histories: entity.histories, room: {_id, histories} });
             })
-            .catch(err => errPrint(err))
         }
         
     }
