@@ -1,11 +1,31 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import PureRender, { shouldComponentUpdate } from '../plugins/PureRender.js'
 import immutable from 'immutable'
-import PureRender from '../plugins/PureRender.js'
+import { connect } from 'react-redux'
 import { changeRoom } from '../actions/combin.js'
 import language from '../config/language.js'
-import ActiveListItem from './ActiveListItem.js'
+import autobind from 'autobind-decorator'
+import ListItem from '../components/ListItem.jsx'
+import item from '../util/item.js'
+
 import '../less/ActiveList.less'
+
+class ActiveListItem extends Component{
+    constructor(props){
+        super(props);
+        this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
+    }
+    @autobind
+    handleClick(){
+        const room = this.props.room;
+        changeRoom(room.get('isPrivate'))(room.get('_id'));
+    }
+    render(){
+        const { room, history } = this.props;
+        const newProps = item.getItemInfo(room,history);
+        return <ListItem {...this.props} {...newProps} handleClick = {this.handleClick}/>
+    }
+}
 
 function ActiveList(props){
     const list = props.list.toJS ?props.list.toJS() : {};

@@ -3,5 +3,6 @@ import PureRender from '../plugins/PureRender.js'
 import Layout from '../components/Layout.jsx'
 
 export default connect(state => ({
-    showRightManager:state.getIn(['pageUI','rightManagerState','isShow'])
+    showRightManager:state.getIn(['pageUI','rightManagerState','isShow']),
+    curRoom: state.getIn(['user','curRoom'])
 }))(PureRender(Layout));
