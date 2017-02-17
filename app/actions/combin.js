@@ -1,6 +1,7 @@
 import language from '../config/language.js'
 import stateManege from '../util/stateManage.js'
 import config from '../config/config.js'
+import socket from './socket.js'
 import { browserHistory } from 'react-router'
 import { mergeUserInfo, updateUserInfo, createRoom } from './user.js'
 import { pushSnackbar, setRightManager, setLeftManager, msgContainerScroll } from './pageUI.js'
@@ -129,4 +130,11 @@ export const joinRoom = (info) => {
         }
     })
     .catch(err => pushSnackbar(language.inviteLinkDisabled))
+}
+
+export const logout = () => {
+    browserHistory.push('/login');
+    delete localStorage.token;
+    socket.disconnect();
+    socket.connect();
 }

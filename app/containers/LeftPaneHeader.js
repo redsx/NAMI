@@ -6,6 +6,7 @@ import Avatar from '../components/Avatar.jsx'
 import IconMenu from '../components/IconMenu.jsx'
 import language from '../config/language.js'
 import { setLeftManager } from '../actions/pageUI.js'
+import { logout } from '../actions/combin.js'
 
 function LeftPaneHeader(props){
     console.log('LeftPaneHeader');
@@ -19,6 +20,12 @@ function LeftPaneHeader(props){
                         <ul className = 'List'>
                             <li className = 'List-item' onClick = {() => setLeftManager({isShow: true, state: 'createGroup'})}>
                                 {language.newGroup}
+                            </li >
+                            <li className = 'List-item' onClick = {() => setLeftManager({isShow: true, state: 'profile'})}>
+                                {language.userProfile}
+                            </li >
+                            <li className = 'List-item' onClick = {logout}>
+                                {language.logout}
                             </li >
                         </ul>
                     </IconMenu>
