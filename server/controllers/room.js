@@ -1,7 +1,6 @@
 const Room = require('../models/room-mongo')
     , jwt = require('jsonwebtoken')
     , User = require('../models/user-mongo')
-    , listUtil = require('../util/list.js')
     , config = require('../config/cr-config')
     , JWT_KEY = require('../config/cr-config').JWT_KEY;
 module.exports = {
@@ -103,17 +102,18 @@ module.exports = {
         cb({isOk: true});
     },
     joinRoom: function *(info,socket,cb) {
+        console.log('--------> join room info: ',info);
         const user = yield User.findOne({_id: info.user});
         const room = yield Room.findOne({inviteLink: info.inviteLink});
-        if(user.rooms.indexOf(room._id) !== -1){
-            return cb({ isOk: true})
+        if(room && user.rooms.indexOf(room._id) !== -1){
+            return cb({ isOk: true, _id: room._id});
         } else if(room && user){
             user.rooms.push(room._id);
             room.users.push(user._id);
             yield room.save();
             yield user.save();
             socket.join(room.name)
-            cb({ isOk: true})
+            cb({ isOk: true,_id: room._id});
         } else {
             return cb({ isError: true, errMsg: 'ERROR1005'})
         }

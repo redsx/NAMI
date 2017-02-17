@@ -1,6 +1,7 @@
 import language from '../config/language.js'
 import stateManege from '../util/stateManage.js'
 import config from '../config/config.js'
+import { browserHistory } from 'react-router'
 import { mergeUserInfo, updateUserInfo, createRoom } from './user.js'
 import { pushSnackbar, setRightManager, setLeftManager, msgContainerScroll } from './pageUI.js'
 import { roomsSchema , historySchema } from '../middlewares/schemas.js'
@@ -58,7 +59,6 @@ export const loadRoomHistory = dispatchThunk( () => {
         } else{
             return socketEmit('loadRoomHistories')({limit, timestamp , _id})
             .then((ret)=>{
-                console.log(ret);
                 let entity = normalize([ret],roomsSchema).entities;
                 let { _id, histories } = entity.rooms[ret._id];
                 addHistories({ histories: entity.histories, room: {_id, histories} });
@@ -99,11 +99,9 @@ export const changeRoomInfo = info => {
 }
 
 export const createGroup = (info) => {
-    console.log('create group info:',info);
     pushSnackbar(language.newGroup);
     createRoom(info)
     .then(ret => {
-        console.log(ret);
         pushSnackbar(language.success);
         setLeftManager({isShow: false});
         changeRoom(false)(ret._id);
@@ -118,4 +116,17 @@ export const exitRoom = (info) => {
         removeItemMessage(info);
     })
     .catch(err => errPrint(err))
+}
+
+export const joinRoom = (info) => {
+    socketEmit('joinRoom')(info)
+    .then(ret => { 
+        if(ret.isOk) {
+            browserHistory.push('/');
+            pushSnackbar(language.joinRoomSuccess);
+            changeRoom(false)(ret._id);
+
+        }
+    })
+    .catch(err => pushSnackbar(language.inviteLinkDisabled))
 }

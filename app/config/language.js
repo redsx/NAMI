@@ -46,6 +46,8 @@ if(regZH.test(language)){
         newGroup: 'New Group',
         success: 'success',
         inviteTitle: 'Invite via link',
+        inviteLinkDisabled: '链接失效',
+        joinRoomSuccess: '成功加入房间',
     }
 }else{
     module.exports = {
@@ -90,5 +92,7 @@ if(regZH.test(language)){
         newGroup: 'New Group',
         success: 'success',
         inviteTitle: 'Invite via link',
+        inviteLinkDisabled: 'Invite link disabled',
+        joinRoomSuccess: 'joined room',
     }
 }

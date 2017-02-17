@@ -7,7 +7,6 @@ const jwt = require('jsonwebtoken')
     , History = require('../models/history-mongo')
     , Private = require('../models/private-mongo')
     , bluebird = require('bluebird')
-    , listUtil = require('../util/list.js')
     , JWT_KEY = require('../config/cr-config').JWT_KEY;
 
 module.exports = {
