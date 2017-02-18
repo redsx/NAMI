@@ -18,6 +18,8 @@ if(regZH.test(language)){
         ERROR10010: '超出限制，用户最多能创建3个房间',
         ERROR10011: '成功创建房间',
         ERROR10012: '该房间已存在',
+        ERROR10013: '权限不足',
+        
         
         email: '邮箱',
         nickname: '昵称',
@@ -48,6 +50,13 @@ if(regZH.test(language)){
         inviteTitle: 'Invite via link',
         inviteLinkDisabled: '链接失效',
         joinRoomSuccess: '成功加入房间',
+        logout: '登出',
+        sendInviteLink: '发送邀请链接',
+        sendInviteLinkByNami: '使用 nami 发送链接',
+        copyLink: '复制链接',
+        refreshLink: '更新链接',
+        copiedLink: '链接已复制到剪贴板',
+        linkTran: 'Anyone with NAMI can follow this link to join this group. Only share it with people you trust.'
     }
 }else{
     module.exports = {
@@ -64,6 +73,7 @@ if(regZH.test(language)){
         ERROR10010: '超出限制，用户最多能创建3个房间',
         ERROR10011: '成功创建房间',
         ERROR10012: '该房间已存在',
+        ERROR10013: 'Insufficient permissions',
 
         email: 'email',
         nickname: 'nickname',
@@ -94,5 +104,13 @@ if(regZH.test(language)){
         inviteTitle: 'Invite via link',
         inviteLinkDisabled: 'Invite link disabled',
         joinRoomSuccess: 'joined room',
+        logout: 'Logout',
+        sendInviteLink: 'send invite link',
+        sendInviteLinkByNami: 'Send link via nami',
+        copyLink: 'Copy link',
+        refreshLink: 'Refresh link',
+        copiedLink: 'Link copied to clipboard',
+        copyError: 'error',
+        linkTran: 'Anyone with nami can follow this link to join this group. Only share it with people you trust.'
     }
 }

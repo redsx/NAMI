@@ -3,8 +3,6 @@ import DelayedAnimation from './DelayedAnimation.jsx'
 import '../less/Dialog.less'
 
 function Dialog(props){
-    console.log('props.params.invite: ');
-    // console.log(props.params.link);
     const { title, children, actions, open } = props;
     return (
         <div>

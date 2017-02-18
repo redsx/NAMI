@@ -20,7 +20,6 @@ class MessageContainer extends Component{
     @autobind
     handleScroll(e){
         const target = e.target;
-        console.log();
         if(target.scrollHeight !== target.offsetHeight && target.scrollTop === 0 && !this.state.loading){
             this.setState({loading: true});
             loadRoomHistory()
@@ -69,6 +68,7 @@ class MessageContainer extends Component{
             <div className = 'MessageContainer'>
                 <div className = 'MessageContainer-content' ref = {ref => this.msgContent = ref} onScroll = {this.handleScroll}>
                     { this.state.loading && <Loading /> }
+                    {/*{ this.state.scrollToBottom && <ScrollButton /> }*/}
                     {
                         messagesArr.map((id) => {
                             let message = messageMiddle.priToGro(messagesObj.get(id),roomInfo,user);
@@ -91,4 +91,11 @@ class MessageContainer extends Component{
         );
     }
 }
+// 下滑至底部按钮
+function ScrollButton(props){
+    return (
+        <div></div>
+    );
+}
+
 export default MessageContainer;
