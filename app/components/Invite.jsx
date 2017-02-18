@@ -14,7 +14,7 @@ import ProfileButton from './ProfileButton.jsx'
 import '../less/Invite.less'
 
 function Invite(props){
-    const { isLoading, room, handleCopyLink, handleRefreshLink } = props;
+    const { isLoading, room, handleCopyLink, handleRefreshLink, handleOpenModal } = props;
     return (
             <div className = 'Profile-container'>
                 <Header 
@@ -31,12 +31,12 @@ function Invite(props){
                         </div>
                     </ProfileSection>
 
-                    <div className = 'Profile-transparent'>{language.userProfileTran}</div>
+                    <div className = 'Profile-transparent'>{language.linkTran}</div>
 
                     <div className = 'UserProfile-margin'>
-                        <ProfileButton text = '使用 nami 发送链接' unicode = '&#xe61b;' color = 'rgb(101, 102, 103)'/>
-                        <ProfileButton text = '复制链接' unicode = '&#xe650;' handleClick = {handleCopyLink} color = 'rgb(101, 102, 103)'/>
-                        <ProfileButton text = '更新链接' unicode = '&#xe751;' handleClick = {handleRefreshLink} color = 'rgb(101, 102, 103)' />
+                        <ProfileButton text = {language.sendInviteLinkByNami} unicode = '&#xe61b;' color = 'rgb(101, 102, 103)' handleClick = {handleOpenModal}/>
+                        <ProfileButton text = {language.copyLink} unicode = '&#xe650;' handleClick = {handleCopyLink} color = 'rgb(101, 102, 103)'/>
+                        <ProfileButton text = {language.refreshLink} unicode = '&#xe751;' handleClick = {handleRefreshLink} color = 'rgb(101, 102, 103)' />
                     </div>
                 </div>  
             </div>

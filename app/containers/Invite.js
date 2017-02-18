@@ -8,6 +8,16 @@ import { getInviteLink, refreshInviteLink } from '../actions/activeList.js'
 import handleClipboard from '../util/clipboard.js'
 import socketConfig from '../config/socketConfig.js'
 import Invite from '../components/Invite.jsx'
+import Modal from '../components/Modal.jsx'
+import language from '../config/language.js'
+
+import item from '../util/item.js'
+import ActiveListWrap from './ActiveListWrap.js'
+import ListItemWrap from './ListItemWrap.js'
+import ListItem from '../components/ListItem.jsx'
+import message from '../util/message.js'
+
+
 
 window.handleClipboard = handleClipboard;
 
@@ -15,41 +25,50 @@ const InviteWarp = (WrappedComponent) => class extends Component{
     constructor(props){
         super(props);
         this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
-        this.state = {isLoading: true, room: immutable.fromJS({})};
+        this.state = {modalState: false, isLoading: true, room: immutable.fromJS({})};
     }
     connectLink(link){
-        return 'http://'+ socketConfig.production.HOST + '/' + link;
+        return 'http://'+ socketConfig.production.HOST + '/invite/' + link;
+    }
+    @autobind
+    handleOpenModal(){
+        this.setState({modalState: true});
+    }
+    @autobind
+    handlecloseModal(){
+        this.setState({modalState: false});
     }
     @autobind
     handleGetInviteLink(){
-        getInviteLink({_id: this.props.curRoom})
+        getInviteLink({_id: this.props.user.get('curRoom')})
         .then((ret) => {
-            ret.link = ret.inviteLink ? this.connectLink(ret.inviteLink) : '没有生成邀请链接';
+            ret.link = ret.inviteLink ? this.connectLink(ret.inviteLink) : '...';
             this.isMount && this.setState({room: immutable.fromJS(ret)});
         })
     }
     @autobind
     handleRefreshLink(){
-        const { curRoom, user } = this.props;
+        const curRoom = this.props.user.get('curRoom');
+        const user = this.props.user.get('_id');
         refreshInviteLink({_id: curRoom, creater: user})
         .then((ret) => {
-            pushSnackbar('更新房间邀请链接');
+            pushSnackbar(language.refreshLink);
             let room = this.state.room.set('inviteLink',ret.inviteLink);
             room = room.set('link',this.connectLink(ret.inviteLink));
             this.isMount && this.setState({room: room});
         })
-        .catch((err) => pushSnackbar('权限不足'))
+        .catch((err) => pushSnackbar(language.ERROR10013))
     }
     @autobind
     handleCopyLink(){
         handleClipboard.setClipboardValue(this.state.room.get('link'));
         const success = handleClipboard.clipboard();
-        if(success) return pushSnackbar('成功复制链接到剪贴板');
-        return pushSnackbar('复制链接到剪贴板失败');
+        if(success) return pushSnackbar(language.copiedLink);
+        return pushSnackbar(language.copyError);
     }
+    
     componentDidMount(){
         this.isMount = true;
-        const _id = this.props.curRoom;
         this.handleGetInviteLink();
     }
     componentWillUnmount(){
@@ -59,13 +78,27 @@ const InviteWarp = (WrappedComponent) => class extends Component{
         const newProps = {
             handleCopyLink: this.handleCopyLink,
             handleRefreshLink: this.handleRefreshLink,
+            handleOpenModal: this.handleOpenModal,
         }
-        return <WrappedComponent  {...this.state} {...newProps}/>
+        const handleClick = message.redirectMessage(this.props.user.toJS(),this.state.room.get('link'),'text',this.handlecloseModal);
+        const ActiveListItem = ListItemWrap(ListItem,item.getItemInfo,handleClick);
+        const ActiveList = ActiveListWrap(ActiveListItem);
+        return (
+            <div>
+                <WrappedComponent  {...this.state} {...newProps}/>
+                <Modal 
+                    open = {this.state.modalState} 
+                    handleClose = {this.handlecloseModal}
+                    title = {language.sendInviteLink}
+                >
+                    <ActiveList />
+                </Modal>
+            </div>
+        );
     }
 }
 
 export default connect((state) =>({
-    curRoom: state.getIn(['user','curRoom']),
-    user: state.getIn(['user','_id']),
+    user: state.get('user'),
 }
 ))(InviteWarp(Invite))

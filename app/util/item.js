@@ -3,7 +3,9 @@ import immutable from 'immutable'
 import language from '../config/language.js'
 
 export default {
-    getItemInfo: function(item,history = immutable.fromJS({})){
+    getItemInfo: function(){
+        const item = this.props.room,
+              history = this.props.history || immutable.fromJS({});
         let secondary,
             time,
             avatar = item.get('avatar'),
