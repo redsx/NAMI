@@ -7,6 +7,7 @@ import { sendMessage } from '../actions/combin.js'
 import language from '../config/language.js'
 import uploadHanle from '../util/upload.js'
 import stateManage from '../util/stateManage'
+import message from '../util/message.js'
 import { createRoom, mergeUserInfo } from '../actions/user.js'
 
 
@@ -24,18 +25,10 @@ const InputContentWarp = (WrappedComponent) => class extends Component{
     }
     @autobind
     handleSend(content,type = 'text'){
-        const { _id, nickname, curRoom, avatar } = this.props.user.toJS();
-        const timestamp = Date.now(),
-              room = curRoom,
-              isPrivate = this.props.isPrivate;
-        if(content){
-            const owner = { _id, avatar, nickname }
-            const message = isPrivate ? {from: _id, to: room, type, content, room } : {_id,type,room,content};
-            const preMessage = isPrivate? 
-                {from: _id, to: room, type, content, room, timestamp, _id: 'P'+timestamp, isLoading: true}
-                :{ _id: 'P'+timestamp, isLoading: true, room, content, timestamp, type, owner};
-            sendMessage(isPrivate)(message,preMessage);
-        }
+        const user = this.props.user.toJS();
+        const isPrivate = this.props.isPrivate;
+        const msg =  message.createMessage(user,content,isPrivate,type);
+        if(msg) sendMessage(isPrivate)(msg.message,msg.preMessage);
     }
     @autobind
     handlePaste(e){
