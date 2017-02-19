@@ -2,6 +2,7 @@ import immutable from 'immutable'
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import PureRender, { shouldComponentUpdate } from '../plugins/PureRender.js'
+import SearchInput from '../components/SearchInput.jsx'
 
 const ActiveListWrap = (ItemComponent) => class extends Component{
     constructor(props){
@@ -13,6 +14,7 @@ const ActiveListWrap = (ItemComponent) => class extends Component{
         const histories = this.props.histories || immutable.fromJS({});
         return (
             <div className = 'ActiveList-container'>
+                <SearchInput/>
                 <ul className = 'List ActiveList-content'>
                 {
                     Object.keys(list).map((item)=>{
