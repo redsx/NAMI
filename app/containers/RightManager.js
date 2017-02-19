@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ManagerContainer from '../components/ManagerContainer.jsx'
 import RightManagerProfile from './RightManagerProfile.js'
-
+import RoomUsers from './RoomUsers.js'
 import Invite from './Invite.js'
 
 function select(state){
     switch(state){
         case 'invite': return <Invite />;
+        case 'roomUsers': return <RoomUsers />;
         case 'profile':
         default: return <RightManagerProfile />;
     }

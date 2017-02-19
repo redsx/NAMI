@@ -17,13 +17,6 @@ const InputContentWarp = (WrappedComponent) => class extends Component{
         this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
     }
     @autobind
-    createRoom(roomName){
-        let id = this.props.user.get('_id');
-        // createRoom({id,roomName})
-        // .then(ret => console.log(ret))
-        // mergeUserInfo({curRoom: roomName});
-    }
-    @autobind
     handleSend(content,type = 'text'){
         const user = this.props.user.toJS();
         const isPrivate = this.props.isPrivate;
@@ -34,6 +27,7 @@ const InputContentWarp = (WrappedComponent) => class extends Component{
     handlePaste(e){
         let items = e.clipboardData.items;
         if(e.clipboardData.types.indexOf('Files') !== -1) {
+            e.preventDefault();
             for (let i = 0; i < items.length; i++) {
                 let item = items[i];
                 if( item && item.kind === 'file' && item.type.match(/^image\/\w+/)){

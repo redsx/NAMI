@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import UserProfile from './UserProfile.js'
 import ManagerContainer from '../components/ManagerContainer.jsx'
+import NewContact from '../components/NewContact.jsx'
 import CreateGroup from './CreateGroup.js'
 
 function select(state){
     switch(state){
         case 'createGroup': return <CreateGroup />;
+        case 'newContact': return <NewContact />;
         case 'profile':
         default: return <UserProfile />;
     }

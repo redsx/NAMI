@@ -9,6 +9,7 @@ import App from './components/App.jsx'
 import Layout from './containers/Layout.js'
 import Login from './pages/sign/Login.jsx'
 import SignUp from './pages/sign/SignUp.jsx'
+import Join from './pages/join/index.jsx'
 import browser from './util/browers.js' 
 import { getUserInfo, mergeUserInfo } from './actions/user.js'
 import { getRoomList, getPrivateList } from './actions/activeList.js'
@@ -44,13 +45,14 @@ const handleInit = (token) => {
     })
     .catch((err) => {
         errPrint(err);
-        // browserHistory.push('/login');
+        browserHistory.push('/login');
     })
 }
 const handleEnter = (nextState,replace) => {
     const token = localStorage.getItem('token');
+    const userId = lastRoom = store.getState().getIn(['user','_id']);
     if(token){
-        return handleInit(token);
+        if(!userId) return handleInit(token);
     } else{
         replace({pathname: '/login'});
     }
@@ -83,9 +85,6 @@ socket.on('reconnect',()=>{
     .then((ret) => handleInit(token))
     .catch(err => errPrint(err))
 })
-
-import Dialog from './components/Dialog.jsx'
-
 render(
     <Provider store ={store}>
     <div>
@@ -93,7 +92,7 @@ render(
             <Route path = '/' component = {App} >
                 <IndexRoute component = {Layout} onEnter = {(nextState,replace)=>handleEnter(nextState,replace)}/>
                 <Route path = '/invite' component = {Layout} onEnter = {(nextState,replace)=>handleEnter(nextState,replace)}>
-                    <Route path = '/invite/:link' component = {Dialog}/>
+                    <Route path = '/invite/:link' component = {Join}/>
                 </Route>
                 <Route path = '/login' component = {Login}/>
                 <Route path = '/signup' component = {SignUp}/>

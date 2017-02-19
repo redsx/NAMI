@@ -15,7 +15,11 @@ function LeftPaneHeader(props){
             leftElement = {<Avatar src = {props.avatar} size= {40} handleClick = {()=>setLeftManager({isShow:true, state: 'profile'})}/>}
             rightElement = {
                 <div className = 'Header-leftElement'>
-                    <IconMenu  iconButtonElement = {<i className = 'icon Header-icon' title = {language.conversation}>&#xe621;</i>}/>
+                    <i 
+                        className = 'icon Header-icon' 
+                        title = {language.conversation} 
+                        onClick = {()=>setLeftManager({isShow: true, state: 'newContact'})}
+                    >&#xe621;</i>
                     <IconMenu iconButtonElement={<i className = 'icon Header-icon'>&#xe612;</i>}>
                         <ul className = 'List'>
                             <li className = 'List-item' onClick = {() => setLeftManager({isShow: true, state: 'createGroup'})}>

@@ -49,10 +49,12 @@
 
 .Snackbar-leave {
     opacity: 1;
+    transform: translateY(0);
 }
 
 .Snackbar-leave.Snackbar-leave-active {
     .transitionCubic(@mAnimaTime);
+    transform: translateY(-50px);
     opacity: 0;
 }
 

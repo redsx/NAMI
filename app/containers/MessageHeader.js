@@ -19,9 +19,9 @@ function MessageHeader(props){
             leftElement = {<Avatar src = {props.avatar} size= {40} handleClick = {()=>setRightManager({isShow:true, state: 'profile'})}/>}
             rightElement = {
                 <div className = 'Header-leftElement'>
-                    <i className = 'icon Header-icon'>&#xe601;</i>
-                    <IconMenu iconButtonElement = {<i className = 'icon Header-icon' title = {language.conversation}>&#xe7cc;</i>}/>
-                    <IconMenu iconButtonElement={<i className = 'icon Header-icon'>&#xe612;</i>} />
+                    <i className = 'icon Header-icon' title = {language.search} onClick = {()=>setRightManager({isShow:true, state: 'roomUsers'})}>&#xe601;</i>
+                    <IconMenu iconButtonElement = {<i className = 'icon Header-icon' title = {language.attach}>&#xe7cc;</i>}/>
+                    <IconMenu iconButtonElement={<i className = 'icon Header-icon' title = {language.menu}>&#xe612;</i>} />
                 </div>
             }
         />

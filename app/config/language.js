@@ -56,7 +56,12 @@ if(regZH.test(language)){
         copyLink: '复制链接',
         refreshLink: '更新链接',
         copiedLink: '链接已复制到剪贴板',
-        linkTran: 'Anyone with NAMI can follow this link to join this group. Only share it with people you trust.'
+        linkTran: 'Anyone with NAMI can follow this link to join this group. Only share it with people you trust.',
+        newContact: '新建对话',
+        participants: '群组成员',
+        search: '搜索...',
+        menu: '菜单',
+        attach: '附件',
     }
 }else{
     module.exports = {
@@ -111,6 +116,11 @@ if(regZH.test(language)){
         refreshLink: 'Refresh link',
         copiedLink: 'Link copied to clipboard',
         copyError: 'error',
-        linkTran: 'Anyone with nami can follow this link to join this group. Only share it with people you trust.'
+        linkTran: 'Anyone with nami can follow this link to join this group. Only share it with people you trust.',
+        newContact: 'New Contact',
+        participants: 'Participants',
+        search: 'search...',
+        menu: 'menu',
+        attach: 'attach',
     }
 }

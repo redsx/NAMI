@@ -21,5 +21,11 @@ export default {
             time = timeDeal.getTimeString(Date.now());
         }
         return {secondary,time,avatar,name}    
+    },
+    getUserInfo: function(){
+        const user = this.props.user;
+        const { avatar, onlineState, nickname , status } = user;
+        const secondary = `[${onlineState || 'offline'}] ${status|| '...'}`;
+        return {secondary,avatar,name: nickname};
     }
 }
