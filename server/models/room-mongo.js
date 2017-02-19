@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+    , jwt = require('jsonwebtoken')
+    , JWT_KEY = require('../config/cr-config').JWT_KEY
     , config = require('../config/cr-config.js');
 const Schema = mongoose.Schema;
 const room = new Schema({
@@ -8,7 +10,7 @@ const room = new Schema({
     },
     avatar: {
         type: String, 
-        default: config.DEFAULT_AVATAR
+        default: config.DEFAULT_GROUP_AVATAR
     },
     inviteLink: String,
     users: [{

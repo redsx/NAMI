@@ -9,7 +9,7 @@ module.exports = {
             rooms = [];
         let userRooms = yield User.findOne({_id: info.token.user}).populate({
             path: 'rooms', 
-            select: 'histories lastMessage name avatar',
+            select: 'histories name avatar bulletin',
             options: { limit: 20 },
             populate: {
                 path: 'histories',
@@ -24,14 +24,14 @@ module.exports = {
         cb(rooms);
     },
     initRoomItem: function *(info,cb){
-        const room = yield Room.findOne({_id: info._id},'lastMessage name avatar');
-        if(room) return cb({_id: room._id, lastMessage: room.lastMessage, name: room.name, avatar: room.avatar, histories: []});
+        const room = yield Room.findOne({_id: info._id},'bulletin name avatar');
+        if(room) return cb({_id: room._id, bulletin: room.bulletin, name: room.name, avatar: room.avatar, histories: []});
         return cb({isError: true, errMsg: 'ERROR1005'});
     },
     loadRoomHistories: function *(info,cb){
         const { _id, limit } = info;
         const timestamp = info.timestamp || Date.now();
-        const room = yield Room.findOne({_id: _id},'histories lastMessage name avatar').populate({
+        const room = yield Room.findOne({_id: _id},'histories bulletin name avatar').populate({
             path: 'histories',
             match: {timestamp: {'$lt': timestamp}},
             options: { sort:'-timestamp', limit },
@@ -43,9 +43,11 @@ module.exports = {
     createRoom: function *(info,socket,cb) {
         const user = yield User.findOne({_id: info.user});
         const count = yield Room.count({creater: user._id});
+        let inviteLink = jwt.sign({ link: Date.now() },JWT_KEY);
+            inviteLink = inviteLink.slice(inviteLink.length-20,inviteLink.length);
         if(count >= config.MAX_ROOM) return cb({isError: true,errMsg: 'ERROR10010'});
         if(user){
-            const room = new Room({name: info.roomName,creater: user._id, users:[user._id]});
+            const room = new Room({inviteLink, name: info.roomName,creater: user._id, users:[user._id]});
             user.rooms.push(room._id);
             yield user.save();
             yield room.save();
@@ -102,7 +104,6 @@ module.exports = {
         cb({isOk: true});
     },
     joinRoom: function *(info,socket,cb) {
-        console.log('--------> join room info: ',info);
         const user = yield User.findOne({_id: info.user});
         const room = yield Room.findOne({inviteLink: info.inviteLink});
         if(room && user.rooms.indexOf(room._id) !== -1){
@@ -118,5 +119,16 @@ module.exports = {
             return cb({ isError: true, errMsg: 'ERROR1005'})
         }
     },
-    
+    getRoomUsers: function *(info,cb){
+        let userInfo = {}
+        if(info.nickname.trim()!=='') userInfo.nickname = new RegExp(info.nickname,'i');
+        if(info.onlineState) userInfo.onlineState = info.onlineState;
+        const room = yield Room.findOne({_id: info.room}).populate({
+            path: 'users', 
+            options: {limit: 20, sort: '-lastOnlineTime'},
+            match: userInfo,
+            select: '_id avatar nickname status onlineState'
+        })
+        cb(room.users);
+    }
 }

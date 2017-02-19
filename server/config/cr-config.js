@@ -4,6 +4,7 @@ module.exports = {
     INIT_ROOM_INFO: '有问题欢迎提issue',
     INIT_ADMIN_EMAIL: 'admin@mdzzapp.com',
     DEFAULT_AVATAR: 'http://oj7h98lzb.bkt.clouddn.com/user.svg',
+    DEFAULT_GROUP_AVATAR: 'http://oj7h98lzb.bkt.clouddn.com/download.svg',
     DAY: 24*60*60*1000,
     JWT_KEY: 'JWT_KEY',
     ROBOT_URL: 'http://www.tuling123.com/openapi/api',
@@ -13,9 +14,5 @@ module.exports = {
     QINIU_SECRET_KEY: '8i3OPlKmgURNH3WQQjqbga-tYwN0r92XnnBdx8Ie',
     QINIU_CNAME: 'http://oj7h98lzb.bkt.clouddn.com',
     QINIU_BUCKET: 'mdzz',
-    MAX_ROOM: 3,
-    AVATAR_ARR: ['呵呵', '哈哈', '吐舌', '啊', '酷', '怒', '开心', '汗', '泪', '黑线',
-                     '鄙视', '不高兴', '真棒', '钱', '疑问', '阴险', '吐', '咦', '委屈', '花心', 
-                     '呼', '笑眼', '冷', '太开心', '滑稽', '勉强', '狂汗', '乖', '睡觉', '惊哭',
-                     '升起', '惊讶', '喷', '爱心', '心碎', '玫瑰', '礼物', '彩虹', '星星月亮', '太阳']
+    MAX_ROOM: 5,
 }

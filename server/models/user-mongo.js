@@ -23,7 +23,7 @@ const user = new Schema({
     }],
     avatar: {
         type: String, 
-        default: 'http://oajmk96un.bkt.clouddn.com/lolo.jpg'
+        default: 'http://oj7h98lzb.bkt.clouddn.com/avatar' + Date.now()%9 +'.jpeg'
     },
     createdAt: {
         type: Date, 

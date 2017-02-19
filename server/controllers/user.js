@@ -13,12 +13,11 @@ module.exports = {
         console.log('info: ', info);
         let user = yield User.findOne({email: email}),
             room = yield Room.findOne({name: config.INIT_ROOM}),
-            avatar = '/images/expressions/' + config.AVATAR_ARR[parseInt(Math.random()*39)] + '.png',
             salt = yield bluebird.promisify(bcrypt.genSalt)(10);
         password = yield bluebird.promisify(bcrypt.hash)(password,salt,null); 
         if(user && room)  return cb({ isError: true, errMsg: 'ERROR1002'});
         let rooms = [room._id];
-        let resault  = yield User.create({ nickname, email, password, avatar, rooms });
+        let resault  = yield User.create({ nickname, email, password, rooms });
         if(resault){ 
             room.users.push(resault._id);
             if(email === config.INIT_ADMIN_EMAIL) room.creater = resault._id;
@@ -70,4 +69,13 @@ module.exports = {
         if(user) return cb({isOk: true});
         cb({ isError: true, errMsg:'ERROR1003'});
     },
+    getUsersList: function*(info,cb){
+        if(info.nickname.trim()===''){
+            delete info.nickname;
+        }else{
+            info.nickname = new RegExp(info.nickname,'i');
+        }
+        const users = yield User.find(info,'_id avatar nickname status onlineState',{limit: 20, sort: '-lastOnlineTime'});
+        cb(users);
+    }
 }

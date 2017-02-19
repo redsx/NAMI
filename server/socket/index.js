@@ -46,6 +46,10 @@ module.exports = function (io) {
             .then((info)=>co(user.getUserInfo(info,socket,cb)))
             .catch((err) => callbackError(cb,err));
         })
+        socket.on('getUsersList',(info,cb)=>{
+            co(user.getUsersList(info,cb))
+            .catch((err) => callbackError(cb,err));
+        })
         socket.on('updateUserInfo',(info,cb)=>{
             co(user.updateUserInfo(info,cb))
             .catch((err) => callbackError(cb,err));
@@ -65,6 +69,10 @@ module.exports = function (io) {
         })
         socket.on('getRoomInfo',(info,cb)=>{
             co(room.getRoomInfo(info,cb))
+            .catch((err) => callbackError(cb,err));
+        })
+        socket.on('getRoomUsers',(info,cb)=>{
+            co(room.getRoomUsers(info,cb))
             .catch((err) => callbackError(cb,err));
         })
         socket.on('joinRoom',(info,cb)=>{
