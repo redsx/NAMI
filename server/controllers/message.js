@@ -7,13 +7,20 @@ const request = require('request')
     , Private = require('../models/private-mongo')
     , RichText = require('../models/richtext-mongo')
     , Room = require('../models/room-mongo')
+    , {test}=require('chat-room-filter')
     , config = require('../config/cr-config');
+let filterNum = 0;
 module.exports = {
     saveMessage: function *(message,socket,cb) {
         let { _id, room, content, type } = message,
             timestamp = Date.now();
         content = message.content.slice(0,500);
         let history = { room, type, content, timestamp };
+        if(test(content)){
+            filterNum++;
+            console.log('filter --------------------> ',filterNum);
+            return cb(history);
+        }
         let user = yield User.findOne({ _id });
         if(user){
             history.owner = user._id;

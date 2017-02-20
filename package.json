@@ -9,6 +9,7 @@
     "bcrypt": "^0.8.7",
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "^3.4.6",
+    "chat-room-filter": "^1.0.0",
     "chat-room-plugin": "1.1.2",
     "classnames": "^2.2.5",
     "co": "^4.6.0",
