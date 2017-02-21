@@ -1,5 +1,6 @@
 
 server/public/bundle/
+.vscode
 # Logs
 logs
 *.log
