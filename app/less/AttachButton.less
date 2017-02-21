@@ -1,0 +1,53 @@
+.AttachButton{
+    position: relative;
+}
+.AttachButton-menu{
+    position: absolute;
+    top: 49px;
+    right: -9px;
+    z-index: 99;
+}
+.AttachButton-menu-item{
+    cursor: pointer;
+    position: relative;
+    list-style: none;
+}
+.AttachButton-item{
+    opacity: 0;
+    width: 51px;
+    height: 51px;
+    margin-top: 17px;
+    border: 0px;
+    border-radius: 50%;
+    transform-origin: top center;
+    transition: all 0.25s ease-out;
+    background-image: url('http://oj7h98lzb.bkt.clouddn.com/image.svg');
+    background-repeat: no-repeat;
+    background-size: 4309px 4397px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.17), 0 6px 8px rgba(0,0,0,0.29);
+}
+.AttachButton-item-active{
+    .AttachButton-item;
+    opacity: 1;
+    transform: translateY(0px) scaleX(1) scaleY(1) !important;
+}
+.AttachButton-item-title{
+    opacity: 0;
+    width: 140px;
+    position: absolute;
+    top: 34px;
+    left: -150px;
+    text-align: right;
+    font-size: 14px;
+    color: white;
+    transition: all 0.35s ease-out;
+    transition-delay: 0.1s;
+}
+.AttachButton-item-text{
+    background-color:  rgba(0,0,0,0.312);
+    padding: 4px 15px;
+    border-radius: 25px;
+}
+.AttachButton-menu-item:hover .AttachButton-item-title{
+    opacity: 1;
+}

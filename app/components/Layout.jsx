@@ -21,7 +21,7 @@ function Layout(props){
     return (
         <div className = 'Layout-wrapper'>
             {props.children}
-            
+
             {/*<Dialog 
                 title = 'test'
                 open = {false}
@@ -31,8 +31,6 @@ function Layout(props){
                 ]}
             />*/}
 
-            {/*<Modal open = {true} title = 'test'><ActiveList /></Modal>*/}
-            
             <PokeballLoading />
             <div className = 'Layout-container'>
                 <div className = 'manager-container'>

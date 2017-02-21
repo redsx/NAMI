@@ -8,6 +8,7 @@ import IconMenu from '../components/IconMenu.jsx'
 import language from '../config/language.js'
 import stateManage from '../util/stateManage.js'
 import { setRightManager } from '../actions/pageUI.js'
+import AttachButton from '../components/AttachButton.jsx'
 
 const src = 'http://oajmk96un.bkt.clouddn.com/lolo.jpg';
 
@@ -20,7 +21,7 @@ function MessageHeader(props){
             rightElement = {
                 <div className = 'Header-leftElement'>
                     <i className = 'icon Header-icon' title = {language.search} onClick = {()=>setRightManager({isShow:true, state: 'roomUsers'})}>&#xe601;</i>
-                    <IconMenu iconButtonElement = {<i className = 'icon Header-icon' title = {language.attach}>&#xe7cc;</i>}/>
+                    <AttachButton />
                     <IconMenu iconButtonElement={<i className = 'icon Header-icon' title = {language.menu}>&#xe612;</i>} />
                 </div>
             }
