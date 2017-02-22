@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import autobind from 'autobind-decorator'
 import immutable from 'immutable'
 import TextMessage from './TextMessage.jsx'
+import ImageMessage from './ImageMessage.jsx'
 import messageMiddle from '../middlewares/message.js'
 import Loading from './Loading.jsx'
 import { loadRoomHistory, errPrint } from '../actions/combin.js'
@@ -78,9 +79,18 @@ class MessageContainer extends Component{
                                 case 'text': {
                                     return <TextMessage 
                                         content = {message} 
-                                        key = {`TextMessage-${message.get('_id')}`}
+                                        key = {`message-${message.get('_id')}`}
                                     />;
                                 }
+                                case 'image': {
+                                    return <ImageMessage 
+                                        content = {message}
+                                        key = {`message-${message.get('_id')}`}
+                                    />
+                                }
+                                case 'file': {
+                                    console.log(message.toJS());
+                                } 
                                 default: return null;
                             }
                         })

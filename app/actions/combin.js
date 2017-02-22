@@ -23,15 +23,43 @@ export const errPrint = (err) => {
     console.error(err); 
     language[err]? pushSnackbar(language[err]): pushSnackbar(language['ERROR1000']);
 }
-export const sendMessage = (isPrivate = false) => (content,preContent) => {
-    addMessage(preContent);
-    getSendFunc(isPrivate)(content)
-    .then((ret) => {
-        let message = {};
-        message[preContent._id] = {isLoading: false};
-        mergeMessage(message);
-    })
+
+function mergeCbMessage(preMsg,ret){
+    let message = {};
+    message[preMsg._id] = {isLoading: false};
+    message.Tid = ret._id;
+    message.Ttimestamp = ret.timestamp;
+    message.Tcontent = ret.content;
+    mergeMessage(message);
+}
+export const sendMessage = (isPrivate = false) => (msg,preMsg) => {
+    addMessage(preMsg);
+    getSendFunc(isPrivate)(msg)
+    .then((ret) => mergeCbMessage(preMsg, ret))
     .catch(err => errPrint(err))
+}
+
+export const sendFile = (isPrivate = false) => (msg,fileHandle) => {
+    fileHandle.getUrlData()
+    .then(ret=>{
+        if(msg.preMessage.type === 'file'){
+            msg.preMessage.content = JSON.stringify(fileHandle.getFileInfo());
+        } else {
+            msg.preMessage.content =  ret;
+        }
+        addMessage(msg.preMessage);
+        return fileHandle.upload();
+    })
+    .then(ret => {
+        if(msg.message.type === 'file'){
+            msg.message.content = JSON.stringify({...fileHandle.getFileInfo(),src: ret.src});
+        } else {
+            msg.message.content = ret.src;
+        }
+        return getSendFunc(isPrivate)(msg.message);
+    })
+    .then((ret) => mergeCbMessage(msg.preMessage,ret))
+    .catch((err) => errPrint(err))
 }
 
 export const loadRoomHistory = dispatchThunk( () => {
@@ -43,7 +71,7 @@ export const loadRoomHistory = dispatchThunk( () => {
               userId =  state.getIn(['user','_id']);
         const first = curRoomInfo.get('histories').first(),
               _id = curRoomInfo.get('_id');
-        const timestamp = messages.getIn([first,'_timestamp']) || messages.getIn([first,'timestamp']);
+        const timestamp = messages.getIn([first,'Ttimestamp']) || messages.getIn([first,'timestamp']);
         if(curRoomInfo.get('isPrivate')){
             return socketEmit('loadPrivateHistories')({
                 limit, timestamp,

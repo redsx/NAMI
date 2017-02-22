@@ -8,9 +8,7 @@ import IconMenu from '../components/IconMenu.jsx'
 import language from '../config/language.js'
 import stateManage from '../util/stateManage.js'
 import { setRightManager } from '../actions/pageUI.js'
-import AttachButton from '../components/AttachButton.jsx'
-
-const src = 'http://oajmk96un.bkt.clouddn.com/lolo.jpg';
+import AttachButton from './AttachButton.js'
 
 function MessageHeader(props){
     console.log('MessageHeader');

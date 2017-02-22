@@ -2,10 +2,13 @@ import config from '../config/config.js'
 import language from '../config/language.js'
 import { ajaxHandle, UPLOAD_URL } from './ajax.js'
 export default function uploadHandle(uploadFile){
-    function detectImage(){
-        let isImgReg = /image\/\w+/;
-        if(!uploadFile || !isImgReg.test(uploadFile.type)) throw 'ERROR1006';
-        if(uploadFile.size > config.MaxImageSize) throw 'ERROR1007';
+    // function detectImage(){
+    //     let isImgReg = /image\/\w+/;
+    //     if(!uploadFile || !isImgReg.test(uploadFile.type)) throw 'ERROR1006';
+    //     if(detectSize(config.MAXFileSize)) throw 'ERROR1007';
+    // }
+    function detectSize(size){
+        if(uploadFile.size > size*1024*1024) {throw 'ERROR1007'};
     }
     function convertBase64UrlToBlob(urlData){
         let bytes = window.atob(urlData.split(',')[1]);
@@ -46,10 +49,10 @@ export default function uploadHandle(uploadFile){
     }
     function getUrlData(){
         return new Promise((resolve,reject)=>{
-            let fileReader = new FileReader();
+            const fileReader = new FileReader();
             fileReader.readAsDataURL(uploadFile);
             fileReader.onload = (event) => {
-                let imgDataUrl = event.target.result;
+                const imgDataUrl = event.target.result;
                 resolve(imgDataUrl);
             }
             fileReader.onerror = (err) => { 
@@ -57,12 +60,17 @@ export default function uploadHandle(uploadFile){
             }
         })
     }
-    function upload(detectIsImage = true,progress){
-        detectIsImage && detectImage();
+    function getFileInfo(){
+        let size = uploadFile.size/1024;
+        size = size > 1024 ? (size/1024).toFixed(2) + 'mb' : size.toFixed(1) + 'kb'; 
+        return {fileName: uploadFile.name, size: size };
+    }
+    function upload(detect = true,progress){
+        detect && detectSize(config.MAXFileSize);
         let formdata = new FormData();
         formdata.append('smfile',uploadFile);
         let progressEvent = typeof progress === 'function' ? uploadProgress(progress): null;
         return ajaxHandle.request('POST',UPLOAD_URL,formdata,progressEvent);
     }
-    return { getUrlData, comporessImage, upload }
+    return { getUrlData, comporessImage, upload, detectSize, getFileInfo }
 }

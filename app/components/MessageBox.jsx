@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Avatar from './Avatar.jsx'
 import timeDeal from '../util/time.js'
 import config from '../config/config.js'
+import PureRender from '../plugins/PureRender.js'
 import { changeRoom } from '../actions/combin.js'
 import '../less/Message.less'
  
@@ -10,7 +11,6 @@ class MessageBox extends React.Component{
     constructor(props){
         super(props);
     }
-    
     render(){
         console.log('MessageBox');
         let { children, Menu, content } = this.props;
@@ -28,7 +28,7 @@ class MessageBox extends React.Component{
                         <Avatar src = {avatar} handleClick = {() => changeRoom(true)(_id)}/>
                     </div>
                     <div className = 'Message-box' style = {{ textAlign:dir }}>
-                        <Nickname nickname = {nickname} time = {time} />
+                        <PureNickname nickname = {nickname} time = {time} />
                         <MessageContent dir = {dir} isLoading = {isLoading} Content = {children} Menu = {Menu}/>
                     </div>
                 </div>
@@ -37,6 +37,9 @@ class MessageBox extends React.Component{
     }
 }
 // 不可复用组件
+const PureTriangle = PureRender(Triangle),
+    PureNickname = PureRender(Nickname);
+
 function Triangle(props){
     return (
         <span>
@@ -59,7 +62,7 @@ function MessageContent(props){
     return (
         <div className = 'Message-content'>
             {Content}
-            <Triangle dir = {dir}/>
+            <PureTriangle dir = {dir}/>
             {
                 isLoading?
                 <div className = {'Message-loading-'+dir}>

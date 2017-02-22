@@ -1,7 +1,6 @@
 import React , {PropTypes, Component} from 'react'
 import PureRender from '../plugins/PureRender.js'
 import MessageBox from './MessageBox.jsx'
-import '../less/SignOwl.less'
 
 function replaceContent(content){
     let repContent = content || '';
