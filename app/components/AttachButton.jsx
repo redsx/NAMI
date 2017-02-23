@@ -36,8 +36,8 @@ class AttachButton extends Component{
                 <span onClick = {()=>this.setState({showMenu: !showMenu})} >
                     <i className = 'icon Header-icon' title = {language.attach}>&#xe7cc;</i>
                 </span>
-                <div className = 'AttachButton-menu'>
-                    <ul style = {{pointerEvents: showMenu?'auto':'none'}}>
+                <div className = 'AttachButton-menu' style = {{pointerEvents: showMenu?'auto':'none'}}>
+                    <ul>
                         <ButtonItem 
                             info = {config.bgCoordinates[0]} 
                             index = {0}
