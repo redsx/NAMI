@@ -62,7 +62,7 @@ export default function uploadHandle(uploadFile){
     }
     function getFileInfo(){
         let size = uploadFile.size/1024;
-        size = size > 1024 ? (size/1024).toFixed(2) + 'mb' : size.toFixed(1) + 'kb'; 
+        size = size > 1024 ? (size/1024).toFixed(2) + ' MB' : size.toFixed(1) + ' KB'; 
         return {fileName: uploadFile.name, size: size };
     }
     function upload(detect = true,progress){

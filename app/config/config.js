@@ -6,6 +6,7 @@ export default {
     ErrorImage: 'http://oj7h98lzb.bkt.clouddn.com/error.svg',
     defaultGroupAvatar: 'http://oj7h98lzb.bkt.clouddn.com/download.svg',
     ScreenMessageLenght: 15,
+    FileImage: 'http://oj7h98lzb.bkt.clouddn.com/file.png',
     bgCoordinates: [{
         title: 'Photos',
         coordinate: [-1802,-1804]

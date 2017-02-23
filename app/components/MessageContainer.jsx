@@ -3,6 +3,7 @@ import autobind from 'autobind-decorator'
 import immutable from 'immutable'
 import TextMessage from './TextMessage.jsx'
 import ImageMessage from './ImageMessage.jsx'
+import FileMessage from './FileMessage.jsx'
 import messageMiddle from '../middlewares/message.js'
 import Loading from './Loading.jsx'
 import { loadRoomHistory, errPrint } from '../actions/combin.js'
@@ -89,7 +90,10 @@ class MessageContainer extends Component{
                                     />
                                 }
                                 case 'file': {
-                                    console.log(message.toJS());
+                                    return <FileMessage 
+                                        content = {message}
+                                        key = {`message-${message.get('_id')}`}
+                                    />
                                 } 
                                 default: return null;
                             }
