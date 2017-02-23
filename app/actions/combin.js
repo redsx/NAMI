@@ -27,9 +27,9 @@ export const errPrint = (err) => {
 function mergeCbMessage(preMsg,ret){
     let message = {};
     message[preMsg._id] = {isLoading: false};
-    message.Tid = ret._id;
-    message.Ttimestamp = ret.timestamp;
-    message.Tcontent = ret.content;
+    message[preMsg._id].Tid = ret._id;
+    message[preMsg._id].Ttimestamp = ret.timestamp;
+    message[preMsg._id].Tcontent = ret.content;
     mergeMessage(message);
 }
 export const sendMessage = (isPrivate = false) => (msg,preMsg) => {
