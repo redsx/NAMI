@@ -10,27 +10,15 @@ import MessageHeader from '../containers/MessageHeader.js'
 import ActiveList from '../containers/ActiveList.js'
 import LeftManager from '../containers/LeftManager.js'
 import RightManager from '../containers/RightManager.js'
+import Welcome from './Welcome.jsx'
 import '../less/Layout.less'
 
-import Dialog from './Dialog.jsx'
-import RaisedButton from './RaisedButton.jsx'
-import Modal from './Modal.jsx'
-import Welcome from './Welcome.jsx'
-
+import ImagePanel from './ImagePanel.jsx'
 function Layout(props){
     return (
         <div className = 'Layout-wrapper'>
             {props.children}
-
-            {/*<Dialog 
-                title = 'test'
-                open = {false}
-                actions = {[
-                    <RaisedButton label = 'DISABLED' disabled = {true} key = {1}/>,
-                    <RaisedButton label = 'SUBMIT' key = {2}/>
-                ]}
-            />*/}
-
+            <ImagePanel />
             <PokeballLoading />
             <div className = 'Layout-container'>
                 <div className = 'manager-container'>

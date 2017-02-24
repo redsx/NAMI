@@ -29,7 +29,9 @@ class Avatar extends Component{
         size = size || 39;
         const avatarContainerStyle = {
             width: size + 'px',
+            minWidth: size + 'px',
             height: size + 'px',
+            minHeight: size + 'px',
             borderRadius: radius + 'px' || '50%'
         }
         const background = {backgroundImage: src ? 'url(' + src + ')' : null}

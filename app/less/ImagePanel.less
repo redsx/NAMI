@@ -1,0 +1,46 @@
+.ImagePanel{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 99;
+    top: 0px;
+    left: 0px;
+    background: rgba(255,255,255,0.86);
+}
+.ImagePanel-header{
+    height: 60px;
+    align-items: center;
+    padding: 0px 10px;
+    background: rgba(255,255,255,0.98);
+}
+.ImagePanel-info{
+    flex: 1;
+    flex-grow: 1;
+    min-width: 0;
+    overflow: hidden;
+    padding-left: 15px;
+}
+.ImagePanel-menu{
+    align-items: center;
+    list-style: none;
+    min-width: 250px;
+    align-items: center;
+    justify-content: flflex-end;
+    font-size: 22px;
+}
+.ImagePanel-menu>li{
+    padding: 14px;
+}
+.ImagePanel-image-container{
+    width: 100%;
+    height: calc(100% - 60px);
+    align-items: center;
+    justify-content: center;
+}
+.ImagePanel-image{
+    max-width: 500px;
+    transition: all 0.25s ease-in-out;
+}
+.ImagePanel-image>img{
+    width: 100%;
+}
