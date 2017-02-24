@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import autobind from 'autobind-decorator'
 import immutable from 'immutable'
 import TextMessage from './TextMessage.jsx'
@@ -13,7 +14,7 @@ class MessageContainer extends Component{
     constructor(props){
         super(props);
         this.needScroll = true;
-        this.state = {loading: false};
+        this.state = {loading: false, scrollToBottom: false};
     }
     @autobind
     scrollToBottom(){
@@ -23,10 +24,19 @@ class MessageContainer extends Component{
     handleScroll(e){
         const target = e.target;
         if(target.scrollHeight !== target.offsetHeight && target.scrollTop === 0 && !this.state.loading){
+            this.needScroll = false;
             this.setState({loading: true});
             loadRoomHistory()
             .then(ret=>this.setState({loading: false}))
             .catch(err => errPrint(err))
+        }
+        if(target.scrollHeight < target.offsetHeight + target.scrollTop +10){
+            if(this.state.scrollToBottom) this.setState({scrollToBottom: false});
+            if(!this.needScroll) this.needScroll = true;
+        }
+        if(target.scrollHeight > target.offsetHeight + target.scrollTop +30 && !this.state.scrollToBottom){
+            this.needScroll = false;
+            this.setState({scrollToBottom: true});
         }
     }
     //对比下一次收到消息是否为自己发送
@@ -37,7 +47,7 @@ class MessageContainer extends Component{
               nArr = nextProps.roomInfo.get('histories') || arr;
         const tSize = tArr.size,
               nSize = nArr.size,
-              nUser = nextProps.messagesObj.getIn([tArr.last(),'owner','_id']);
+              nUser = nextProps.messagesObj.getIn([nArr.last(),'owner','_id']);
         if(1 === nSize - tSize && nUser === thisProps.user.get('_id')) return true;
         return false;
     }
@@ -68,9 +78,16 @@ class MessageContainer extends Component{
         const messagesArr = roomInfo.get('histories') || immutable.fromJS([]);
         return (
             <div className = 'MessageContainer'>
+                <ReactCSSTransitionGroup
+                    component = 'div'
+                    transitionName = 'DialogScale'
+                    transitionEnterTimeout = {250}
+                    transitionLeaveTimeout = {250}
+                >
+                    { this.state.scrollToBottom && <ScrollButton handleClick = {this.scrollToBottom}/> }
+                </ReactCSSTransitionGroup>
                 <div className = 'MessageContainer-content' ref = {ref => this.msgContent = ref} onScroll = {this.handleScroll}>
                     { this.state.loading && <Loading /> }
-                    {/*{ this.state.scrollToBottom && <ScrollButton /> }*/}
                     {
                         messagesArr.map((id) => {
                             let message = messageMiddle.priToGro(messagesObj.get(id),roomInfo,user);
@@ -108,7 +125,9 @@ class MessageContainer extends Component{
 // 下滑至底部按钮
 function ScrollButton(props){
     return (
-        <div></div>
+        <div className = 'MessageContainer-ScrollButton' onClick = {props.handleClick}>
+            <i className = 'icon'>&#xe60d;</i>
+        </div>
     );
 }
 

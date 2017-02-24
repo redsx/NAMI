@@ -114,17 +114,22 @@
     transform: scale(0);
 }
 
+//DialogScale
 .DialogScale-enter {
     transform: scale(0);
+    opacity: 0;
 }
 .DialogScale-enter.DialogScale-enter-active {
     .transitionCubic(@mAnimaTime,cubic-bezier(0.1, 0.82, 0.25, 1));
     transform: scale(1);
+    opacity: 1;
 }
 .DialogScale-leave {
     transform: scale(1);
+    opacity: 1;
 }
 .DialogScale-leave.DialogScale-leave-active {
     .transitionCubic(@mAnimaTime,cubic-bezier(0.1, 0.82, 0.25, 1));
     transform: scale(0);
+    opacity: 0;
 }
