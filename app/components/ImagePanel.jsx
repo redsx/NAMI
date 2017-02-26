@@ -1,33 +1,67 @@
 import React , {Component} from 'react'
+import autobind from 'autobind-decorator'
 import Avatar from '../components/Avatar.jsx'
-import PureRender from '../plugins/PureRender.js'
+import timeDeal from '../util/time.js'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import PureRender, {shouldComponentUpdate} from '../plugins/PureRender.js'
 import '../less/ImagePanel.less'
 // 
-function ImagePanel(props){
-    let { title, secondary, time, marker, Menu } = props;
-    return (
-        <div className = 'ImagePanel'>
-            <header className = 'displayFlex ImagePanel-header'>
-                <Avatar size = {40}/>
-                <div className = 'ImagePanel-info'>
-                    <p className = 'textOver'>@ mdzz</p>
-                    <p className = 'textOver'>2/21/2017 at 9:47 AM</p>
+class ImagePanel extends Component{
+    constructor(props){
+        super(props);
+        this.state = {scale: 1};
+    }
+    @autobind
+    handleZoomIn(){
+        const scale = this.state.scale + 0.3;
+        this.setState({scale: scale > 5 ? 5 : scale});
+    }
+    @autobind
+    handleZoomOut(){
+        const scale = this.state.scale - 0.3;
+        this.setState({scale: scale < 0.3 ? 0.3 : scale})
+    }
+
+    render(){
+        const style = {transform: `scale(${this.state.scale})`};
+        const { content, isShow, handleClose } = this.props;
+        const timestamp = content.get('timestamp'),
+            image = content.get('content'),
+            nickname = content.getIn(['owner','nickname']);
+        return (
+            <ReactCSSTransitionGroup
+                component = 'div'
+                transitionName = 'DialogScale'
+                transitionEnterTimeout = {500}
+                transitionLeaveTimeout = {500}
+            >
+            {
+                !isShow ? null : 
+                <div className = 'ImagePanel'>
+                    <header className = 'displayFlex ImagePanel-header'>
+                        <Avatar size = {40}/>
+                        <div className = 'ImagePanel-info'>
+                            <p className = 'textOver'>{'@ ' + nickname}</p>
+                            <p className = 'textOver'>{timeDeal.getYDHString(timestamp)+' at '+ timeDeal.getTimeString(timestamp)}</p>
+                        </div>
+                        <ul className = 'displayFlex ImagePanel-menu'>
+                            <li onClick = {this.handleZoomIn}><i className = 'icon'>&#xe623;</i></li>
+                            <li onClick = {this.handleZoomOut}><i className = 'icon'>&#xe622;</i></li>
+                            <li><i className = 'icon'>&#xe8e4;</i></li>
+                            <li><a href = {image} download = 'image'><i className = 'icon'>&#xe636;</i></a></li>
+                            <li onClick = {handleClose}><i className = 'icon'>&#xe93d;</i></li>
+                        </ul>
+                    </header>
+                    <div className = 'ImagePanel-image-container displayFlex'>
+                        <div className = 'ImagePanel-image' style = {style}>
+                            <img src = {image}/>
+                        </div>
+                    </div>
                 </div>
-                <ul className = 'displayFlex ImagePanel-menu'>
-                    <li><i className = 'icon'>&#xe623;</i></li>
-                    <li><i className = 'icon'>&#xe622;</i></li>
-                    <li><i className = 'icon'>&#xe8e4;</i></li>
-                    <li><i className = 'icon'>&#xe636;</i></li>
-                    <li><i className = 'icon'>&#xe93d;</i></li>
-                </ul>
-            </header>
-            <div className = 'ImagePanel-image-container displayFlex'>
-                <div className = 'ImagePanel-image'>
-                    <img src = 'https://ooo.0o0.ooo/2017/02/19/58a9526dec72f.gif'/>
-                </div>
-            </div>
-        </div>
-    );
+            }
+            </ReactCSSTransitionGroup>
+        );
+    }
 }
 
 export default ImagePanel;

@@ -18,7 +18,6 @@ function Layout(props){
     return (
         <div className = 'Layout-wrapper'>
             {props.children}
-            <ImagePanel />
             <PokeballLoading />
             <div className = 'Layout-container'>
                 <div className = 'manager-container'>
