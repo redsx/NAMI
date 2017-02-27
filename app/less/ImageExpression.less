@@ -1,0 +1,37 @@
+.ImageExpression{
+    width: 100%;
+    height: 238px;
+    background-color: #f7f0f7;
+    padding: 6px;
+    // display: flex;
+    // align-items: flex-start;
+    // flex-wrap: wrap;
+    // align-content: flex-start;
+}
+.ImageExpression-image-container{
+    width: 50px;
+    height: 50px;
+    margin: 6px;
+    position: relative;
+    display: inline-block;
+}
+.ImageExpression-image{
+    width: 100%;
+    height: 100%;
+}
+.ImageExpression-image-zoom{
+    position: absolute;
+    opacity: 0px;
+    top: -88px;
+    left: 40px;
+    transform: scale(0);
+    pointer-events: none;
+    transform-origin: left bottom;
+    transition: all 0.25s ease-in-out;
+    max-width: 200px;
+    z-index: 10;
+}
+.ImageExpression-image-container:hover .ImageExpression-image-zoom{
+    transform: scale(1);
+    opacity: 1;
+}   

@@ -13,7 +13,9 @@ import RightManager from '../containers/RightManager.js'
 import Welcome from './Welcome.jsx'
 import '../less/Layout.less'
 
-import ImagePanel from './ImagePanel.jsx'
+import ImageExpression from './ImageExpression.jsx'
+
+
 function Layout(props){
     return (
         <div className = 'Layout-wrapper'>
@@ -37,6 +39,7 @@ function Layout(props){
                             <MessageHeader/>
                             <MessageContainer />
                             <InputArea />
+                            <ImageExpression />
                         </div>
                     }
                 </span>
