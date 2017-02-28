@@ -74,10 +74,11 @@ class MessageContainer extends Component{
     }
     render(){
         console.log('MessageContainer');
-        const { roomInfo, messagesObj, user } = this.props;
+        const { roomInfo, messagesObj, user, showExpression } = this.props;
         const messagesArr = roomInfo.get('histories') || immutable.fromJS([]);
+        const style = {height: `calc(100% - 121px - ${showExpression? '238px':'0px'})`};
         return (
-            <div className = 'MessageContainer'>
+            <div className = 'MessageContainer' style = {style}>
                 <ReactCSSTransitionGroup
                     component = 'div'
                     transitionName = 'DialogScale'

@@ -13,7 +13,7 @@ import RightManager from '../containers/RightManager.js'
 import Welcome from './Welcome.jsx'
 import '../less/Layout.less'
 
-import ImageExpression from './ImageExpression.jsx'
+import ImageExpression from '../containers/ImageExpression.js'
 
 
 function Layout(props){
@@ -39,7 +39,7 @@ function Layout(props){
                             <MessageHeader/>
                             <MessageContainer />
                             <InputArea />
-                            <ImageExpression />
+                            {props.showExpression?<ImageExpression />:null}
                         </div>
                     }
                 </span>

@@ -4,5 +4,6 @@ import Layout from '../components/Layout.jsx'
 
 export default connect(state => ({
     showRightManager:state.getIn(['pageUI','rightManagerState','isShow']),
-    curRoom: state.getIn(['user','curRoom'])
+    curRoom: state.getIn(['user','curRoom']),
+    showExpression: state.getIn(['pageUI','expressionState'])
 }))(PureRender(Layout));

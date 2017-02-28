@@ -8,12 +8,14 @@ import {
     PUSH_SNACKBAR,
     SHIFT_SNACKBAR,
     MESSAGE_CONTAINER_SCROLL,
+    SET_EXPRESSION_STATE,
 } from '../constants/pageUI.js'
 import browers from '../util/browers.js'
 
 let defaultState = immutable.fromJS({
     leftManagerState: {isShow: false},
     rightManagerState: {isShow: false, state: 'invite'},
+    expressionState: false,
     language: browers.language,
     loadingState: {isShow: false, text: ''},
     isSupportRecorder: recoderHandle.isSupport,
@@ -42,6 +44,9 @@ export default function reducer(state = defaultState,action) {
         }
         case MESSAGE_CONTAINER_SCROLL: {
             return state.set('msgContainerScroll',immutable.fromJS({needScroll: action.payload, _id: Date.now()}))
+        }
+        case SET_EXPRESSION_STATE: {
+            return state.set('expressionState',action.payload);
         }
         default: {
             return state;
