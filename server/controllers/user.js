@@ -56,10 +56,11 @@ module.exports = {
             user.device = device;
             user.onlineState = 'online';
             user.online = onliner._id;
-            let { nickname, avatar, _id, status } = user;
+            let { nickname, avatar, _id, status, expressions } = user;
+            expressions = expressions || [];
             yield onliner.save();
             yield user.save();
-            cb({nickname, avatar, device, _id, status});
+            cb({nickname, avatar, device, _id, status, expressions});
         } else {
             cb({ isError: true, errMsg:'ERROR1003' });
         }
@@ -77,5 +78,20 @@ module.exports = {
         }
         const users = yield User.find(info,'_id avatar nickname status onlineState',{limit: 20, sort: '-lastOnlineTime'});
         cb(users);
+    },
+    addExpression: function*(info,cb){
+        const { expression, _id } = info;
+        const user = yield User.findOne({_id: _id});
+        if(user){
+            const expressions = user.expressions || [];
+            if(expressions.indexOf(expression) === -1){
+                expressions.push(expression);
+                user.expressions = expressions;
+                yield user.save();
+            }
+            cb({isOk: true});
+        } else{
+            cb({ isError: true, errMsg:'ERROR1003' });
+        }
     }
 }

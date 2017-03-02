@@ -9,6 +9,10 @@ const user = new Schema({
     onlineState: String,
     lastRoom: String,
     isPrivate: Boolean,
+    expressions: {
+        type: Array,
+        default: []
+    },
     lastOnlineTime: {
         type: Number,
         default: Date.now()

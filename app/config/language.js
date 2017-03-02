@@ -62,6 +62,7 @@ if(regZH.test(language)){
         search: '搜索...',
         menu: '菜单',
         attach: '附件',
+        addExpression: '成功添加表情',
     }
 }else{
     module.exports = {
@@ -122,5 +123,7 @@ if(regZH.test(language)){
         search: 'search...',
         menu: 'menu',
         attach: 'attach',
+        addExpression: 'added expression',
+        
     }
 }

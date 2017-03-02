@@ -4,6 +4,7 @@ import Avatar from '../components/Avatar.jsx'
 import timeDeal from '../util/time.js'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import PureRender, {shouldComponentUpdate} from '../plugins/PureRender.js'
+import { addExpression } from '../actions/combin.js'
 import '../less/ImagePanel.less'
 // 
 class ImagePanel extends Component{
@@ -26,6 +27,7 @@ class ImagePanel extends Component{
         const style = {transform: `scale(${this.state.scale})`};
         const { content, isShow, handleClose } = this.props;
         const timestamp = content.get('timestamp'),
+            _id = content.getIn(['owner','_id']),
             image = content.get('content'),
             nickname = content.getIn(['owner','nickname']);
         return (
@@ -44,13 +46,15 @@ class ImagePanel extends Component{
                             <p className = 'textOver'>{'@ ' + nickname}</p>
                             <p className = 'textOver'>{timeDeal.getYDHString(timestamp)+' at '+ timeDeal.getTimeString(timestamp)}</p>
                         </div>
+
                         <ul className = 'displayFlex ImagePanel-menu'>
                             <li onClick = {this.handleZoomIn}><i className = 'icon'>&#xe623;</i></li>
                             <li onClick = {this.handleZoomOut}><i className = 'icon'>&#xe622;</i></li>
-                            <li><i className = 'icon'>&#xe8e4;</i></li>
+                            <li onClick = {()=>addExpression({_id,expression: image})}><i className = 'icon'>&#xe8e4;</i></li>
                             <li><a href = {image} download = 'image'><i className = 'icon'>&#xe636;</i></a></li>
                             <li onClick = {handleClose}><i className = 'icon'>&#xe93d;</i></li>
                         </ul>
+                        
                     </header>
                     <div className = 'ImagePanel-image-container displayFlex'>
                         <div className = 'ImagePanel-image' style = {style}>

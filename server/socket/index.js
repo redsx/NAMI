@@ -54,6 +54,10 @@ module.exports = function (io) {
             co(user.updateUserInfo(info,cb))
             .catch((err) => callbackError(cb,err));
         })
+        socket.on('addExpression',(info,cb)=>{
+            co(user.addExpression(info,cb))
+            .catch((err) => callbackError(cb,err));
+        })
         socket.on('initRoomList',(info,cb)=>{
             parseToken(info)
             .then((info)=>co(room.initRoomList(info,socket,cb)))

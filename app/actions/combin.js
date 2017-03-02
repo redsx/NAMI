@@ -3,7 +3,7 @@ import stateManege from '../util/stateManage.js'
 import config from '../config/config.js'
 import socket from './socket.js'
 import { browserHistory } from 'react-router'
-import { mergeUserInfo, updateUserInfo, createRoom } from './user.js'
+import { mergeUserInfo, updateUserInfo, createRoom, pushExpression } from './user.js'
 import { pushSnackbar, setRightManager, setLeftManager, msgContainerScroll } from './pageUI.js'
 import { roomsSchema , historySchema } from '../middlewares/schemas.js'
 import { socketEmit, dispatchAction, dispatchThunk } from './common.js'
@@ -159,6 +159,16 @@ export const joinRoom = (info) => {
     })
     .catch(err => pushSnackbar(language.inviteLinkDisabled))
 }
+
+export const addExpression = (info) => {
+    socketEmit('addExpression')(info)
+    .then(()=>{
+        pushExpression(info.expression);
+        pushSnackbar(language.addExpression);
+    })
+    .catch((err)=>errPrint(err));
+};
+
 
 export const logout = () => {
     browserHistory.push('/login');

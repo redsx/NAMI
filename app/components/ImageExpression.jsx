@@ -9,9 +9,18 @@ function ImageExpression(props){
         const msg = message.createMessage(props.user.toJS(),content,props.isPrivate,'image');
         sendMessage(msg.isPrivate)(msg.message,msg.preMessage);
     }
+    const expressions = props.user.get('expressions');
     return (
         <div className = 'ImageExpression'>
-            <ImageComponent src={src} handleClick={()=>handleSend(src)}/>
+            {
+                expressions.map((expression,index) =>{
+                    return <ImageComponent 
+                        src={expression} 
+                        handleClick={()=>handleSend(expression)}
+                        key = {'expression'+ index }
+                    />;
+                })
+            }
         </div>
     );
 }
