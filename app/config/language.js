@@ -64,6 +64,8 @@ if(regZH.test(language)){
         attach: '附件',
         addExpression: '成功添加表情',
         exitGroup: '退出房间',
+        deleteContact: '删除对话',
+        blockContact: '屏蔽对话',
     }
 }else{
     module.exports = {
@@ -126,5 +128,7 @@ if(regZH.test(language)){
         attach: 'attach',
         addExpression: 'added expression',
         exitGroup: 'Exit group',
+        deleteContact: 'Delete Contact',
+        blockContact: 'Block Contact',
     }
 }

@@ -13,7 +13,7 @@ import AttachButton from './AttachButton.js'
 
 function MessageHeader(props){
     console.log('MessageHeader');
-    const { user, room, title, avatar } = props;
+    const { user, room, title, avatar, isPrivate } = props;
     return (
         <Header 
             title = {title}
@@ -24,10 +24,10 @@ function MessageHeader(props){
                     <AttachButton />
                     <IconMenu iconButtonElement={<i className = 'icon Header-icon' title = {language.menu}>&#xe612;</i>}>
                         <li className = 'List-item' onClick = {() => setRightManager({isShow: true, state: 'profile'})}>
-                                {language.groupInfo}
+                                {isPrivate ? language.contactInfo : language.groupInfo}
                         </li >
                         <li className = 'List-item' onClick = {() => exitRoom({room,user})}>
-                                {language.exitGroup}
+                                {isPrivate ? language.deleteContact : language.exitGroup}
                         </li >
                     </IconMenu>
                 </div>
@@ -42,5 +42,6 @@ export default connect((state) =>{
         avatar: roomInfo.get('avatar'),
         user: state.getIn(['user','_id']),
         room: roomInfo.get('_id'),
+        isPrivate: roomInfo.get('isPrivate'),
     }
 })(MessageHeader);

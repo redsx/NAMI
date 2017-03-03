@@ -77,7 +77,7 @@ function RoomProfile(props){
                             className = 'RoomProfile-margin' 
                             color = '#D70000' 
                             unicode = '&#xe616;' 
-                            text = 'Exit group' 
+                            text = {language.exitGroup}
                             handleClick = {handleExitRoom}
                         />
                         

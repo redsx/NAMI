@@ -38,8 +38,8 @@ function ContactProfile(props){
                         
                         <ProfileSection className = 'RoomProfile-margin' title = {language.status} content = {status || '...'}/>
                         
-                        <ProfileButton className = 'RoomProfile-margin' color = '#635f5f' unicode = '&#xe794;' text = 'Block Contact'/>
-                        <ProfileButton className = 'RoomProfile-margin' color = '#D70000' unicode = '&#xe607;' text = 'Delete Contact'/>
+                        <ProfileButton className = 'RoomProfile-margin' color = '#635f5f' unicode = '&#xe794;' text = {language.blockContact}/>
+                        <ProfileButton className = 'RoomProfile-margin' color = '#D70000' unicode = '&#xe607;' text = {language.deleteContact}/>
                        
                     </div>  
                 }
