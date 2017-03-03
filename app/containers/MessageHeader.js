@@ -20,7 +20,7 @@ function MessageHeader(props){
             leftElement = {<Avatar src = {avatar} size= {40} handleClick = {()=>setRightManager({isShow:true, state: 'profile'})}/>}
             rightElement = {
                 <div className = 'Header-leftElement'>
-                    <i className = 'icon Header-icon' title = {language.search} onClick = {()=>setRightManager({isShow:true, state: 'roomUsers'})}>&#xe601;</i>
+                   { !isPrivate && <i className = 'icon Header-icon' title = {language.search} onClick = {()=>setRightManager({isShow:true, state: 'roomUsers'})}>&#xe601;</i> }
                     <AttachButton />
                     <IconMenu iconButtonElement={<i className = 'icon Header-icon' title = {language.menu}>&#xe612;</i>}>
                         <li className = 'List-item' onClick = {() => setRightManager({isShow: true, state: 'profile'})}>

@@ -34,9 +34,9 @@ function Invite(props){
                     <div className = 'Profile-transparent'>{language.linkTran}</div>
 
                     <div className = 'UserProfile-margin'>
-                        <ProfileButton text = {language.sendInviteLinkByNami} unicode = '&#xe61b;' color = 'rgb(101, 102, 103)' handleClick = {handleOpenModal}/>
-                        <ProfileButton text = {language.copyLink} unicode = '&#xe650;' handleClick = {handleCopyLink} color = 'rgb(101, 102, 103)'/>
-                        <ProfileButton text = {language.refreshLink} unicode = '&#xe751;' handleClick = {handleRefreshLink} color = 'rgb(101, 102, 103)' />
+                        <ProfileButton text = {language.sendInviteLinkByNami} unicode = '&#xe61b;' color = '#888' handleClick = {handleOpenModal}/>
+                        <ProfileButton text = {language.copyLink} unicode = '&#xe650;' handleClick = {handleCopyLink} color = '#888'/>
+                        <ProfileButton text = {language.refreshLink} unicode = '&#xe751;' handleClick = {handleRefreshLink} color = '#888' />
                     </div>
                 </div>  
             </div>

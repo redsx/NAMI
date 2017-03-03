@@ -5,10 +5,13 @@ import ManagerContainer from '../components/ManagerContainer.jsx'
 import NewContact from '../components/NewContact.jsx'
 import CreateGroup from './CreateGroup.js'
 
+import Setting from '../components/Setting.jsx'
+
 function select(state){
     switch(state){
         case 'createGroup': return <CreateGroup />;
         case 'newContact': return <NewContact />;
+        case 'setting': return <Setting />;
         case 'profile':
         default: return <UserProfile />;
     }

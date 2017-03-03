@@ -13,7 +13,7 @@ import {
 import browers from '../util/browers.js'
 
 let defaultState = immutable.fromJS({
-    leftManagerState: {isShow: false},
+    leftManagerState: {isShow: true, state: 'setting'},
     rightManagerState: {isShow: false, state: 'invite'},
     expressionState: false,
     language: browers.language,

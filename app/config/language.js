@@ -66,6 +66,9 @@ if(regZH.test(language)){
         exitGroup: '退出房间',
         deleteContact: '删除对话',
         blockContact: '屏蔽对话',
+        setting: '设置',
+        notifications: '提醒设置',
+        help: '帮助',
     }
 }else{
     module.exports = {
@@ -130,5 +133,9 @@ if(regZH.test(language)){
         exitGroup: 'Exit group',
         deleteContact: 'Delete Contact',
         blockContact: 'Block Contact',
+        setting: 'Setting',
+        notifications: 'Notifications',
+        help: 'Help',
+        blocked: 'Blocked',
     }
 }
