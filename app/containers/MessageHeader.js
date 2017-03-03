@@ -8,19 +8,28 @@ import IconMenu from '../components/IconMenu.jsx'
 import language from '../config/language.js'
 import stateManage from '../util/stateManage.js'
 import { setRightManager } from '../actions/pageUI.js'
+import { exitRoom } from '../actions/combin.js'
 import AttachButton from './AttachButton.js'
 
 function MessageHeader(props){
     console.log('MessageHeader');
+    const { user, room, title, avatar } = props;
     return (
         <Header 
-            title = {props.title}
-            leftElement = {<Avatar src = {props.avatar} size= {40} handleClick = {()=>setRightManager({isShow:true, state: 'profile'})}/>}
+            title = {title}
+            leftElement = {<Avatar src = {avatar} size= {40} handleClick = {()=>setRightManager({isShow:true, state: 'profile'})}/>}
             rightElement = {
                 <div className = 'Header-leftElement'>
                     <i className = 'icon Header-icon' title = {language.search} onClick = {()=>setRightManager({isShow:true, state: 'roomUsers'})}>&#xe601;</i>
                     <AttachButton />
-                    <IconMenu iconButtonElement={<i className = 'icon Header-icon' title = {language.menu}>&#xe612;</i>} />
+                    <IconMenu iconButtonElement={<i className = 'icon Header-icon' title = {language.menu}>&#xe612;</i>}>
+                        <li className = 'List-item' onClick = {() => setRightManager({isShow: true, state: 'profile'})}>
+                                {language.groupInfo}
+                        </li >
+                        <li className = 'List-item' onClick = {() => exitRoom({room,user})}>
+                                {language.exitGroup}
+                        </li >
+                    </IconMenu>
                 </div>
             }
         />
@@ -30,6 +39,8 @@ export default connect((state) =>{
     const roomInfo = stateManage.getCurRoomInfo(state);
     return {
         title: roomInfo.get('name'),
-        avatar: roomInfo.get('avatar')
+        avatar: roomInfo.get('avatar'),
+        user: state.getIn(['user','_id']),
+        room: roomInfo.get('_id'),
     }
 })(MessageHeader);

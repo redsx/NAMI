@@ -63,6 +63,7 @@ if(regZH.test(language)){
         menu: '菜单',
         attach: '附件',
         addExpression: '成功添加表情',
+        exitGroup: '退出房间',
     }
 }else{
     module.exports = {
@@ -124,6 +125,6 @@ if(regZH.test(language)){
         menu: 'menu',
         attach: 'attach',
         addExpression: 'added expression',
-        
+        exitGroup: 'Exit group',
     }
 }
