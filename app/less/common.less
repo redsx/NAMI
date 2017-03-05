@@ -36,14 +36,17 @@
     height: 0px;
     .transitionCubic();
 }
+.noSelect{
+    user-select: none;
+    -webkit-user-select: -webkit-none;
+    -moz-user-select: -moz-none;
+}
 .icon{
     font-family: iconfont;
     font-style: normal;
     text-align: center;
     cursor: pointer;
-    user-select: none;
-    -webkit-user-select: -webkit-none;
-    -moz-user-select: -moz-none;
+    .noSelect;
 }
 .displayFlex{
     display: -webkit-box;

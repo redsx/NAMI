@@ -5,6 +5,7 @@ import Avatar from './Avatar.jsx'
 import ProfileHeader from './ProfileHeader.jsx'
 import ProfileButton from './ProfileButton.jsx'
 import ProfileSection from './ProfileSection.jsx'
+import '../less/Setting.less'
 
 function Setting(props){
     return (

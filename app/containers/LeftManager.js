@@ -6,12 +6,13 @@ import NewContact from '../components/NewContact.jsx'
 import CreateGroup from './CreateGroup.js'
 
 import Setting from '../components/Setting.jsx'
-
+import NotificationSetting from '../components/NotificationSetting.jsx'
 function select(state){
     switch(state){
         case 'createGroup': return <CreateGroup />;
         case 'newContact': return <NewContact />;
-        case 'setting': return <Setting />;
+        case 'setting': return <NotificationSetting />;
+        case 'notificationSetting': return <NotificationSetting />;
         case 'profile':
         default: return <UserProfile />;
     }
