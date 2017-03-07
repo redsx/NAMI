@@ -69,6 +69,10 @@ if(regZH.test(language)){
         setting: '设置',
         notifications: '提醒设置',
         help: '帮助',
+        desktopAlerts: '桌面弹窗',
+        showDesktopPreviews: '桌面弹窗消息预览',
+        showMessagePreviews: '消息预览',
+        showImages: '显示图片消息',
     }
 }else{
     module.exports = {
@@ -137,5 +141,9 @@ if(regZH.test(language)){
         notifications: 'Notifications',
         help: 'Help',
         blocked: 'Blocked',
+        desktopAlerts: 'Desktop Alerts',
+        showDesktopPreviews: 'Show Desktop Previews',
+        showMessagePreviews: 'Show Message Previews',
+        showImages: 'Show Images',
     }
 }

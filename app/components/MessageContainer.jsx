@@ -87,8 +87,8 @@ class MessageContainer extends Component{
                 >
                     { this.state.scrollToBottom && <ScrollButton handleClick = {this.scrollToBottom}/> }
                 </ReactCSSTransitionGroup>
+                { this.state.loading && <Loading /> }
                 <div className = 'MessageContainer-content' ref = {ref => this.msgContent = ref} onScroll = {this.handleScroll}>
-                    { this.state.loading && <Loading /> }
                     {
                         messagesArr.map((id) => {
                             let message = messageMiddle.priToGro(messagesObj.get(id),roomInfo,user);

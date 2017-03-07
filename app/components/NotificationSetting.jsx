@@ -4,22 +4,36 @@ import language from '../config/language.js'
 import ProfileHeader from './ProfileHeader.jsx'
 
 function NotificationSetting(props){
+    const notifications = props.notifications.toJS();
     return (
         <div className = 'Profile-container'>
             <ProfileHeader title = {language.notifications} />
-            <Checkbox id = 'test' label = '1234'/>
+            <div className = 'NotificationSetting-checkbox-group'>
+                {
+                    Object.keys(notifications).map((key) => {
+                        return <Checkbox 
+                            id = {`notifications-${key}`}
+                            key = {`notifications-${key}`}
+                            label = {language[key]} 
+                            checked = {notifications[key]} 
+                            handleChange = {()=>{}}
+                        />
+                    })
+                }
+            </div>
         </div>
     );
 }
 
 function Checkbox(props){
+    const { id, label, checked, handleChange } = props;
     return (
-        <div>
-            <div className = 'Setting-checkbox-conatienr'>
-                <input className = 'Setting-checkbox' type = 'checkbox' id = {props.id}/>
+        <div className = 'Setting-checkbox-conatienr'>
+            <div className = 'Setting-checkbox-content'>
+                <input className = 'Setting-checkbox' type = 'checkbox' id = {id} defaultChecked = {checked}/>
                 <div className = 'Setting-checked'><i className = 'icon'>&#xe780;</i></div>
             </div>
-            <label htmlFor={props.id} className = 'Setting-checkbox-label noSelect'>{props.label}</label>
+            <label htmlFor={id} className = 'Setting-checkbox-label noSelect'>{label}</label>
         </div>
     );
 }

@@ -4,9 +4,9 @@ import UserProfile from './UserProfile.js'
 import ManagerContainer from '../components/ManagerContainer.jsx'
 import NewContact from '../components/NewContact.jsx'
 import CreateGroup from './CreateGroup.js'
+import NotificationSetting from './NotificationSetting.js'
 
 import Setting from '../components/Setting.jsx'
-import NotificationSetting from '../components/NotificationSetting.jsx'
 function select(state){
     switch(state){
         case 'createGroup': return <CreateGroup />;

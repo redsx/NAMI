@@ -20,7 +20,13 @@ let defaultState = immutable.fromJS({
     loadingState: {isShow: false, text: ''},
     isSupportRecorder: recoderHandle.isSupport,
     snackbars: [],
-    msgContainerScroll: {needScroll: true, _id: Date.now()}
+    msgContainerScroll: {needScroll: true, _id: Date.now()},
+    notifications: {
+        desktopAlerts: true,
+        showDesktopPreviews: true,
+        showMessagePreviews: true,
+        showImages: true,
+    }
 });
 
 export default function reducer(state = defaultState,action) {
