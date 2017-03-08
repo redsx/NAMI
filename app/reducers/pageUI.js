@@ -9,6 +9,7 @@ import {
     SHIFT_SNACKBAR,
     MESSAGE_CONTAINER_SCROLL,
     SET_EXPRESSION_STATE,
+    SET_NOTIFICATIONS_STATE,
 } from '../constants/pageUI.js'
 import browers from '../util/browers.js'
 
@@ -49,10 +50,13 @@ export default function reducer(state = defaultState,action) {
             return state.set('snackbars',snackbars.slice(1,4));
         }
         case MESSAGE_CONTAINER_SCROLL: {
-            return state.set('msgContainerScroll',immutable.fromJS({needScroll: action.payload, _id: Date.now()}))
+            return state.set('msgContainerScroll',immutable.fromJS({needScroll: action.payload, _id: Date.now()}));
         }
         case SET_EXPRESSION_STATE: {
             return state.set('expressionState',action.payload);
+        }
+        case SET_NOTIFICATIONS_STATE: {
+            return state.set('notifications',state.get('notifications').merge(immutable.fromJS(action.payload)));
         }
         default: {
             return state;

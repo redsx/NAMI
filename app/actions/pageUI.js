@@ -7,6 +7,7 @@ import {
     SHIFT_SNACKBAR,
     MESSAGE_CONTAINER_SCROLL,
     SET_EXPRESSION_STATE,
+    SET_NOTIFICATIONS_STATE,
  } from '../constants/pageUI.js'
 // payload: bool
 export const setLeftManager = dispatchAction(SET_LEFT_MANAGER);
@@ -17,6 +18,8 @@ export const setLoadingState = dispatchAction(SET_LOADING_STATE);
 export const msgContainerScroll = dispatchAction(MESSAGE_CONTAINER_SCROLL);
 
 export const setExpressionState = dispatchAction(SET_EXPRESSION_STATE);
+
+export const setNotificationState = dispatchAction(SET_NOTIFICATIONS_STATE);
 
 export const pushSnackbar = (content) => {
     dispatchAction(PUSH_SNACKBAR)(content);
