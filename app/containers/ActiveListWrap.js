@@ -26,6 +26,7 @@ const ActiveListWrap = (ItemComponent) => class extends Component{
                                     history = {history}
                                     key = {`ActiveList-${item}`} 
                                     isSelect = {list[item]['_id'] === this.props.curRoom}
+                                    showMessagePreviews = {this.props.showMessagePreviews}
                                 />
                         }
                     })
@@ -40,7 +41,8 @@ export default (ListItem) => (
         (state) => ({
             curRoom: state.getIn(['user','curRoom']),
             list: state.get('activeList'),
-            histories: state.get('messages')
+            histories: state.get('messages'),
+            showMessagePreviews: state.getIn(['pageUI','notifications','showMessagePreviews']),
         })
     )(ActiveListWrap(ListItem))
 );

@@ -12,9 +12,9 @@ const notification = {
             });
         }
     },
-    showNotification: function (title,options) {
+    showNotification: function (options) {
         if(this.isPermissionGranted() && this.isNotificationSupported){
-            var n = new Notification(title,options);
+            var n = new Notification(options.title,options);
             n.onclick = function () {
                 window.focus();
                 n.close();

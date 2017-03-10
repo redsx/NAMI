@@ -1,9 +1,10 @@
 import timeDeal from './time.js'
 import immutable from 'immutable'
+import handleMessage from '../util/message.js'
 import language from '../config/language.js'
 
 export default {
-    getItemInfo: function(){
+    getItemInfo: function(showPre = true){
         const item = this.props.room,
               history = this.props.history || immutable.fromJS({});
         let secondary,
@@ -11,7 +12,7 @@ export default {
             avatar = item.get('avatar'),
             name = item.get('name');
         if(history.get('owner')){
-            secondary = history.getIn(['owner','nickname'])+ ': ' + history.get('content') ;
+            secondary = history.getIn(['owner','nickname'])+ ': ' + handleMessage.getMessagePreview(history);
             time = timeDeal.getTimeString(history.get('timestamp'));
         } else if(history.get('from')){
             secondary = history.get('content');
@@ -20,6 +21,7 @@ export default {
             secondary = language.startConv;
             time = timeDeal.getTimeString(Date.now());
         }
+        !showPre && (secondary = '[ hidden ]')
         return {secondary,time,avatar,name}    
     },
     getUserInfo: function(){

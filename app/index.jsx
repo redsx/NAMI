@@ -20,11 +20,15 @@ import { disconnect } from './actions/connect.js'
 import language from './config/language.js'
 import { roomsSchema, privateSchema, getInitPrivateData } from './middlewares/schemas.js'
 import { normalize } from 'normalizr'
+import notification from './util/notification.js'
+import handleMessage from './util/message.js'
 
 import './less/media.less'
 import './less/CSSTransition.less'
 import './less/List.less'
 import './less/Profile.less'
+
+notification.requestPermission();
 
 const device = browser.versions.mobile ? 'mobile' : 'PC';
 const handleInit = (token) => {
@@ -59,8 +63,18 @@ const handleEnter = (nextState,replace) => {
 }
 
 socket.on('newMessage',(message)=>{
-    console.log('recive message: ',message);
+    const state = store.getState();
+    const desktopAlerts = state.getIn(['pageUI','notifications','desktopAlerts']),
+        showDesktopPreviews = state.getIn(['pageUI','notifications','showDesktopPreviews']);
+    if(document.hidden && desktopAlerts){
+        notification.showNotification({
+            title: message.owner.nickname,
+            body:  showDesktopPreviews ? handleMessage.getMessagePreview(message) : '[hidden]',
+            icon: message.owner.avatar,
+        })
+    }
     recevieMessage(message);
+
 })
 socket.on('privateMessage',(message)=>{
     console.log('recive private message: ',message);

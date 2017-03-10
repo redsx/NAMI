@@ -1,4 +1,5 @@
 import { changeRoom, sendMessage } from '../actions/combin.js'
+import immutable from 'immutable';
 
 const handleMessage = {
     createMessage: function(user,content,isPrivate,type='text',to){
@@ -23,6 +24,19 @@ const handleMessage = {
             typeof cb === 'function' && cb();
             if(msg) sendMessage(isPrivate)(msg.message,msg.preMessage);
             changeRoom(isPrivate)(room.get('_id'));
+        }
+    },
+    getMessagePreview: function(message){
+        let { type, content } = message;
+        if(!!message.toJS){
+            type = message.get('type');
+            content = message.get('content');
+        }
+        switch(type){
+            case 'text': return content;
+            case 'file': return '[ file message ]';
+            case 'image': return '[ image message ]';
+            default: return '[ undefined ]';
         }
     }
 }

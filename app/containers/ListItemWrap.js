@@ -8,7 +8,7 @@ const ListItemWarp = (WrappedComponent,dealProps,handleClick) => class extends C
         this.handleClick = typeof handleClick === 'function' ? handleClick.bind(this) : function(){};
     }
     render(){
-        const newProps = typeof dealProps === 'function' ? dealProps.call(this) : {};
+        const newProps = typeof dealProps === 'function' ? dealProps.call(this,this.props.showMessagePreviews) : {};
         return <WrappedComponent {...this.props} {...newProps} handleClick = {this.handleClick}/>
     }
 }
