@@ -27,7 +27,7 @@ module.exports = {
             let owner = {avatar: user.avatar, _id: user._id,nickname: user.nickname},
                 newHistory = new History(history),
                 tRoom = yield Room.findOne({_id: message.room});
-            if(tRoom){
+            if(tRoom && user.rooms.indexOf(tRoom._id) !== -1){
                 tRoom.histories.push(newHistory._id);
                 tRoom.lastMessage = timestamp;
                 yield newHistory.save();

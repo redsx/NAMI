@@ -1,7 +1,7 @@
 import {createStore,applyMiddleware,compose} from 'redux'
 import thunk from 'redux-thunk'
 import reducer from '../reducers'
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { composeWithDevTools } from 'redux-devtools-extension'
 
 let store;
 if(process.env.NODE_ENV === 'development'){

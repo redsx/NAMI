@@ -13,7 +13,7 @@ module.exports = {
             options: { limit: 20 },
             populate: {
                 path: 'histories',
-                options: { limit: 1, sort: '-timestamp' },
+                options: { limit: 1, sort: '-_id' },
                 populate: {path: 'owner', select: '_id avatar nickname'}
             }
         });
@@ -34,7 +34,7 @@ module.exports = {
         const room = yield Room.findOne({_id: _id},'histories bulletin name avatar').populate({
             path: 'histories',
             match: {timestamp: {'$lt': timestamp}},
-            options: { sort:'-timestamp', limit },
+            options: {sort:'-_id', limit },
             populate: {path: 'owner', select: '_id avatar nickname'}
         });
         if(room) return cb(room);

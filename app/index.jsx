@@ -35,6 +35,7 @@ const handleInit = (token) => {
     getUserInfo({token,device})
     .then((ret) => {
         ret.curRoom = lastRoom;
+        ret.token = token;
         mergeUserInfo(ret);
         return getRoomList({token}); 
     })
@@ -53,8 +54,9 @@ const handleInit = (token) => {
     })
 }
 const handleEnter = (nextState,replace) => {
-    const token = localStorage.getItem('token');
-    const userId = lastRoom = store.getState().getIn(['user','_id']);
+    const state = store.getState();
+    const token = localStorage.getItem('token') || state.getIn(['user','token']);
+    const userId = state.getIn(['user','_id']);
     if(token){
         if(!userId) return handleInit(token);
     } else{

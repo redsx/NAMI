@@ -56,7 +56,13 @@ export default function reducer(state = defaultState,action) {
             return state.set('expressionState',action.payload);
         }
         case SET_NOTIFICATIONS_STATE: {
-            return state.set('notifications',state.get('notifications').merge(immutable.fromJS(action.payload)));
+            const notifications = state.get('notifications').merge(immutable.fromJS(action.payload));
+            try{
+                localStorage.setItem('notifications',JSON.stringify(notifications.toJS()));
+            }catch(err){
+                console.warn(err);
+            }
+            return state.set('notifications',notifications);
         }
         default: {
             return state;

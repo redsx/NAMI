@@ -9,7 +9,7 @@ module.exports = {
             const privateHistories = yield Private.find(
                 {timestamp: {$gt: lastOnlineTime},to: _id},
                 null,
-                {sort:'-timestamp'})
+                {sort:'-_id'})
                 .populate({path: 'from', select: '_id avatar nickname'});
             cb(privateHistories);
         } else{
@@ -50,7 +50,7 @@ module.exports = {
             timestamp: {'$lt': timestamp}
         },
         null,
-        {sort:'-timestamp',limit})
+        {sort:'-_id',limit})
         if(privateMessage) return cb(privateMessage);
         return cb({ isError: true, errMsg:'ERROR1005'});
     }

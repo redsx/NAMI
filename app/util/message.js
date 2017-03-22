@@ -3,12 +3,12 @@ import immutable from 'immutable';
 
 const handleMessage = {
     createMessage: function(user,content,isPrivate,type='text',to){
-        const { _id, nickname, curRoom, avatar } = user;
+        const { _id, nickname, curRoom, avatar, token } = user;
         const timestamp = Date.now(),
               room = to || curRoom;
         if(content){
             const owner = { _id, avatar, nickname }
-            const message = isPrivate ? {from: _id, to: room, type, content, room } : {_id,type,room,content};
+            const message = isPrivate ? {from: _id, to: room, type, content, room, token } : {token,_id,type,room,content};
             const preMessage = isPrivate? 
                 {from: _id, to: room, type, content, room, timestamp, _id: 'P'+timestamp, isLoading: true}
                 :{ _id: 'P'+timestamp, isLoading: true, room, content, timestamp, type, owner};

@@ -105,7 +105,8 @@ module.exports = function (io) {
             .catch((err) => callbackError(cb,err));
         })
         socket.on('message',(msg,cb) => {
-            co(message.saveMessage(msg,socket,cb))
+            parseToken(msg)
+            .then(msg=>co(message.saveMessage(msg,socket,cb)))
             .catch((err) => callbackError(cb,err));
         })
         socket.on('initPrivateList',(info,cb)=>{
@@ -127,7 +128,8 @@ module.exports = function (io) {
             .catch((err) => callbackError(cb,err));
         })
         socket.on('private',(msg,cb) => {
-            co(private.savePrivateMessage(msg,socket,cb))
+            parseToken(msg)
+            .then(msg=>co(private.savePrivateMessage(msg,socket,cb)))
             .catch((err) => callbackError(cb,err));
         })
         

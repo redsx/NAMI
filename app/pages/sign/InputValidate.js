@@ -7,6 +7,7 @@ import {shouldComponentUpdate} from '../../plugins/PureRender.js'
 import { login, signUp } from '../../actions/user.js'
 import { pushSnackbar } from '../../actions/pageUI.js'
 import language from '../../config/language.js'
+import { mergeUserInfo } from '../../actions/user.js'
 
 const InputValidate = (WrappedComponent) => class extends Component{
     constructor(props){
@@ -43,6 +44,7 @@ const InputValidate = (WrappedComponent) => class extends Component{
         (() => isLogin? login(info) : signUp(info))()
         .then((resault)=>{
             localStorage.setItem('token',resault.token);
+            mergeUserInfo({token: resault.token});
             browserHistory.push('/');
         })
         .catch((err)=>{

@@ -36,7 +36,10 @@ export const sendMessage = (isPrivate = false) => (msg,preMsg) => {
     addMessage(preMsg);
     getSendFunc(isPrivate)(msg)
     .then((ret) => mergeCbMessage(preMsg, ret))
-    .catch(err => errPrint(err))
+    .catch(err => {
+        errPrint(err);
+        browserHistory.push('/login');
+    })
 }
 
 export const sendFile = (isPrivate = false) => (msg,fileHandle) => {
