@@ -15,8 +15,11 @@ function select(state){
 }
 function renderRightManager(props){
     const { isShow, state } = props;
-    if(isShow) return <div className = 'right-manager' key = {state}>{select(state)}</div>;
-    return null;
+    if(isShow){
+        return <div className = 'right-manager' key = {state}>{select(state)}</div>
+    } else{
+        return null;
+    };
 }
 function RightManager(props){
     return <ManagerContainer transitionName = 'RightManager'>{renderRightManager(props)}</ManagerContainer>

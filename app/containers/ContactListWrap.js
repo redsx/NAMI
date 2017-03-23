@@ -12,11 +12,12 @@ const ContactListWrap = (ItemComponent,handleSearch) => class extends Component{
     constructor(props){
         super(props);
         this.state = {users:[], isLoading: false};
-        this.handleSearch = typeof handleSearch === 'function'?handleSearch.bind(this):function(){}
+        if(Object.prototype.toString.call(handleSearch) === '[object Function]'){
+            this.handleSearch = handleSearch.bind(this);
+        }
     }
     componentDidMount(){
-        this.handleSearch('','online')
-            .catch(err=>errPrint(err));
+        this.handleSearch && this.handleSearch('','online').catch(err => err);
     }
     render(){
         return (
