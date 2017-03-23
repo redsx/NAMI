@@ -23,6 +23,9 @@ class MessageContainer extends Component{
     @autobind
     handleScroll(e){
         const target = e.target;
+        if(target !== this.msgContent){
+            return;
+        }
         if(target.scrollHeight !== target.offsetHeight && target.scrollTop === 0 && !this.state.loading){
             this.needScroll = false;
             this.setState({loading: true});
@@ -74,7 +77,7 @@ class MessageContainer extends Component{
     }
     render(){
         console.log('MessageContainer');
-        const { roomInfo, messagesObj, user, showExpression } = this.props;
+        const { roomInfo, messagesObj, user, showExpression, showImage } = this.props;
         const messagesArr = roomInfo.get('histories') || immutable.fromJS([]);
         const style = {height: `calc(100% - 121px - ${showExpression? '238px':'0px'})`};
         return (
@@ -104,6 +107,7 @@ class MessageContainer extends Component{
                                 case 'image': {
                                     return <ImageMessage 
                                         content = {message}
+                                        showImage = {showImage}
                                         key = {`message-${message.get('_id')}`}
                                     />
                                 }

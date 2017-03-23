@@ -9,6 +9,7 @@ export default connect((state) =>{
     const roomInfo = state.getIn(['activeList',room]) || immutable.fromJS({}),
           messagesObj = state.get('messages') || immutable.fromJS({}),
           showExpression = state.getIn(['pageUI','expressionState']),
+          showImage = state.getIn(['pageUI','notifications','showImages']),
           msgContainerScroll = state.getIn(['pageUI','msgContainerScroll']) || immutable.fromJS({});
-    return { roomInfo, messagesObj, user , msgContainerScroll, showExpression};
+    return { roomInfo, messagesObj, user , msgContainerScroll, showExpression, showImage};
 })(PureRender(MessageContainer))

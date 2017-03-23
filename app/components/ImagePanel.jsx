@@ -22,7 +22,6 @@ class ImagePanel extends Component{
         const scale = this.state.scale - 0.3;
         this.setState({scale: scale < 0.3 ? 0.3 : scale})
     }
-
     render(){
         const style = {transform: `scale(${this.state.scale})`};
         const { content, isShow, handleClose } = this.props;

@@ -13,7 +13,7 @@ import Join from './pages/join/index.jsx'
 import browser from './util/browers.js' 
 import { getUserInfo, mergeUserInfo } from './actions/user.js'
 import { getRoomList, getPrivateList } from './actions/activeList.js'
-import { pushSnackbar } from './actions/pageUI.js'
+import { pushSnackbar, setNotificationState } from './actions/pageUI.js'
 import { recevieMessage, initActiveListMessages, receviePrivate } from './actions/messages.js'
 import { errPrint } from './actions/combin.js'
 import { disconnect } from './actions/connect.js'
@@ -31,7 +31,17 @@ import './less/Profile.less'
 notification.requestPermission();
 
 const device = browser.versions.mobile ? 'mobile' : 'PC';
+function initLocalSetting(){
+    let notifications = {};
+    try{
+        notifications = JSON.parse(localStorage.getItem('notifications'));
+    }catch(err){
+        console.warn(err);
+    }
+    setNotificationState(notifications);
+}
 const handleInit = (token) => {
+    initLocalSetting();
     getUserInfo({token,device})
     .then((ret) => {
         ret.curRoom = lastRoom;

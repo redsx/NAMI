@@ -13,11 +13,15 @@ class ImageMessage extends Component{
     }
     render(){
         const reg = /^data:image\//;
-        let content =  this.props.content.get('content');
+        let content =  this.props.content.get('content'),
+            showImage = this.props.showImage;
         content = reg.test(content) ? content : content + config.ImageStyle;
         return(
             <MessageBox {...this.props}>
-                <img  className = 'Message-image' src={content} onClick = {()=>this.setState({showImagePanel: true})}/>
+                <div onClick = {()=>this.setState({showImagePanel: true})}>
+                    <img  className = 'Message-image' src={content} />
+                    {!showImage && <div className = 'Message-image-cover'></div>}
+                </div>
                 <ImagePanel 
                     content = {this.props.content}
                     isShow = {this.state.showImagePanel}
