@@ -52,3 +52,10 @@ a {
 button,textarea,input,div{
   outline: none;
 }
+
+/*不标准*/
+button,div,span,i,ul,li,img{
+    user-select: none;
+    -webkit-user-select: -webkit-none;
+    -moz-user-select: -moz-none;
+}

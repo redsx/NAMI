@@ -28,6 +28,9 @@ function LeftPaneHeader(props){
                             <li className = 'List-item' onClick = {() => setLeftManager({isShow: true, state: 'profile'})}>
                                 {language.userProfile}
                             </li >
+                            <li className = 'List-item' onClick = {() => setLeftManager({isShow: true, state: 'setting'})}>
+                                {language.setting}
+                            </li >
                             <li className = 'List-item' onClick = {logout}>
                                 {language.logout}
                             </li >

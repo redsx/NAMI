@@ -14,7 +14,7 @@ function TextMessage(props){
     const content = replaceContent(props.content.get('content'));
     return(
         <MessageBox {...props}>
-            <span  dangerouslySetInnerHTML={ {__html: content}}></span>
+            <span  className = 'select' dangerouslySetInnerHTML={ {__html: content}}></span>
         </MessageBox>
     );
 }

@@ -11,7 +11,7 @@ function select(state){
     switch(state){
         case 'createGroup': return <CreateGroup />;
         case 'newContact': return <NewContact />;
-        case 'setting': return <NotificationSetting />;
+        case 'setting': return <Setting />;
         case 'notificationSetting': return <NotificationSetting />;
         case 'profile':
         default: return <UserProfile />;
