@@ -17,6 +17,10 @@ const room = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'user'
     }],
+    block: [{
+        type: Schema.Types.ObjectId,
+        ref: 'user'
+    }],
     creater: {
         type: Schema.Types.ObjectId,
         ref: 'user'

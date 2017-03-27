@@ -1,6 +1,7 @@
 import React , {Component} from 'react'
 import autobind from 'autobind-decorator'
 import { errPrint } from '../actions/combin.js'
+import language from '../config/language.js'
 import '../less/SearchInput.less'
 
 class SearchInput extends Component {
@@ -31,7 +32,7 @@ class SearchInput extends Component {
                 <input 
                     type = 'text' 
                     className = {active?'SearchInput-input-active':'SearchInput-input'} 
-                    placeholder = {active?'':'搜索或开始新的对话'} 
+                    placeholder = {active?'': language.searchInput} 
                     ref = {ref=>this.input=ref}
                     onFocus = {()=>{this.setState({active: true})}}
                     onBlur = {this.handleBlur}

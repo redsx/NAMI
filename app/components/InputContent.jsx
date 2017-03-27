@@ -8,6 +8,7 @@ import '../less/InputArea.less'
 class InputContent extends Component{
     constructor(props){
         super(props);
+        this.state = {isInput: !props.isSupportRecorder};
     }
     @autobind
     handleClick(){
@@ -18,6 +19,17 @@ class InputContent extends Component{
     @autobind
     handleEnter(e){
         if(e.keyCode === 13 && e.target === this.input) this.handleClick();
+    }
+    @autobind
+    handleChange(e){
+        if(this.props.isSupportRecorder){
+            if(!this.state.isInput && e.target.value !== ''){
+                return this.setState({isInput: true});
+            }
+            if(this.state.isInput && e.target.value === ''){
+                return this.setState({isInput: false});
+            }
+        }
     }
     componentDidMount(){
         document.addEventListener('keydown',this.handleEnter);
@@ -33,9 +45,10 @@ class InputContent extends Component{
                     ref = {ref => this.input = ref} 
                     placeholder = {language.inputAreaPlaceholder}
                     onPaste = {this.props.handlePaste}
+                    onChange = {this.handleChange}
                 />
                 {
-                    this.props.isSupportRecorder?
+                    !this.state.isInput?
                     <InputButton handleClick = {this.handleClick} title = {language.send} unicode = '&#xe666;'/>
                     :<InputButton handleClick = {this.handleClick} title = {language.send} unicode = '&#xe8f3;'/>
                 }
