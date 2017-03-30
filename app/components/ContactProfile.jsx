@@ -11,9 +11,10 @@ import Loading from './Loading.jsx'
 import timedeal from '../util/time.js'
 import ProfileSection from './ProfileSection.jsx'
 import ProfileButton from './ProfileButton.jsx'
+import { addBlock, removeBlock } from '../actions/combin.js'
 
 function ContactProfile(props){
-    const { avatar, status, lastOnlineTime, nickname, isLoading } = props;
+    const { avatar, status, lastOnlineTime, nickname, isLoading, isBlock, curRoom, _id } = props;
     return (
             <div className = 'Profile-container'>
                 <Header 
@@ -37,9 +38,29 @@ function ContactProfile(props){
                         </ProfileSection>
                         
                         <ProfileSection className = 'RoomProfile-margin' title = {language.status} content = {status || '...'}/>
-                        
-                        <ProfileButton className = 'RoomProfile-margin' color = '#635f5f' unicode = '&#xe794;' text = {language.blockContact}/>
-                        <ProfileButton className = 'RoomProfile-margin' color = '#D70000' unicode = '&#xe607;' text = {language.deleteContact}/>
+                        {
+                            isBlock?
+                            <ProfileButton 
+                                className = 'RoomProfile-margin' 
+                                color = 'rgb(7, 188, 76)' 
+                                unicode = '&#xe794;'
+                                text = {language.removeBlock}
+                                handleClick = {()=>removeBlock({blockId: curRoom,_id})}
+                            />
+                            :<ProfileButton 
+                                className = 'RoomProfile-margin' 
+                                color = '#635f5f' 
+                                unicode = '&#xe794;' 
+                                text = {language.blockContact}
+                                handleClick = {()=>addBlock({blockId: curRoom,_id})}
+                            />
+                        }
+                        <ProfileButton 
+                            className = 'RoomProfile-margin' 
+                            color = '#D70000' 
+                            unicode = '&#xe607;' 
+                            text = {language.deleteContact}
+                        />
                        
                     </div>  
                 }

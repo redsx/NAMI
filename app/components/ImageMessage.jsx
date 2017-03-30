@@ -16,11 +16,11 @@ class ImageMessage extends Component{
         let content =  this.props.content.get('content'),
             showImage = this.props.showImage;
         content = reg.test(content) ? content : content + config.ImageStyle;
+        const blur = {filter: 'blur(8px)'};
         return(
             <MessageBox {...this.props}>
                 <div onClick = {()=>this.setState({showImagePanel: true})}>
-                    <img  className = 'Message-image' src={content} />
-                    {!showImage && <div className = 'Message-image-cover'></div>}
+                    <img  className = 'Message-image' src={content} style = {showImage?{}:blur}/>
                 </div>
                 <ImagePanel 
                     content = {this.props.content}

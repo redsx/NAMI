@@ -56,11 +56,12 @@ module.exports = {
             user.device = device;
             user.onlineState = 'online';
             user.online = onliner._id;
-            let { nickname, avatar, _id, status, expressions } = user;
+            let { nickname, avatar, _id, status, expressions, blocks } = user;
+            blocks = blocks || [];
             expressions = expressions || [];
             yield onliner.save();
             yield user.save();
-            cb({nickname, avatar, device, _id, status, expressions});
+            cb({nickname, avatar, device, _id, status, expressions, blocks});
         } else {
             cb({ isError: true, errMsg:'ERROR1003' });
         }
@@ -87,6 +88,39 @@ module.exports = {
             if(expressions.indexOf(expression) === -1){
                 expressions.push(expression);
                 user.expressions = expressions;
+                yield user.save();
+            }
+            cb({isOk: true});
+        } else{
+            cb({ isError: true, errMsg:'ERROR1003' });
+        }
+    },
+    addBlock: function*(info,cb){
+        const { blockId, _id } = info;
+        const user = yield User.findOne({_id: _id});
+        if(user){
+            const blocks = user.blocks || [];
+            if(blocks.length > config.MAX_BLOCK){
+                return cb({isError: true, errMsg:'超出最大屏蔽人数'})
+            }
+            if(blocks.indexOf(blockId) === -1){
+                blocks.push(blockId);
+                user.blocks = blocks;
+                yield user.save();
+            }
+            cb({isOk: true});
+        } else{
+            cb({ isError: true, errMsg:'ERROR1003' });
+        }
+    },
+    removeBlock: function*(info,cb){
+        const { blockId, _id } = info;
+        const user = yield User.findOne({_id: _id});
+        if(user){
+            const blocks = user.blocks || [];
+            const index = blocks.indexOf(blockId)
+            if(index !== -1){
+                user.blocks = blocks.slice(0,index).concat(blocks.slice(index+1));;
                 yield user.save();
             }
             cb({isOk: true});

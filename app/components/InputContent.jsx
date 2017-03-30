@@ -18,7 +18,9 @@ class InputContent extends Component{
     }
     @autobind
     handleEnter(e){
-        if(e.keyCode === 13 && e.target === this.input) this.handleClick();
+        if(e.keyCode === 13 && e.target === this.input) {
+            this.handleClick();
+        }
     }
     @autobind
     handleChange(e){
@@ -43,7 +45,8 @@ class InputContent extends Component{
                 <input 
                     className = 'InputArea-input' 
                     ref = {ref => this.input = ref} 
-                    placeholder = {language.inputAreaPlaceholder}
+                    disabled = {this.props.isBlock}
+                    placeholder = {this.props.isBlock?language.blockAreaPlaceholder:language.inputAreaPlaceholder}
                     onPaste = {this.props.handlePaste}
                     onChange = {this.handleChange}
                 />

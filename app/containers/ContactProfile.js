@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import autobind from 'autobind-decorator'
 import { connect } from 'react-redux'
 import { shouldComponentUpdate } from '../plugins/PureRender.js'
 import { getPrivateInfo } from '../actions/activeList.js'
@@ -23,7 +24,7 @@ const ContactProfileWarp = (WrappedComponent) => class extends Component{
         this.isMount = false;
     }
     render(){
-        return <WrappedComponent  {...this.state}/>
+        return <WrappedComponent  {...this.state} {...this.props}/>
     }
 }
 

@@ -51,10 +51,15 @@ const InputContentWarp = (WrappedComponent) => class extends Component{
 }
 
 export default connect(state => {
-    const isPrivate = !!stateManage.getCurRoomInfo(state).get('isPrivate');
+    const roomInfo = stateManage.getCurRoomInfo(state);
+    const isPrivate = !!roomInfo.get('isPrivate');
+    const user = state.get('user');
+    const blocks = user.get('blocks');
+    const isBlock = blocks.includes(roomInfo.get('_id'));
     return {
         isPrivate,
-        user:state.get('user'),
+        user,
+        isBlock,
         isSupportRecorder: state.getIn(['pageUI','isSupportRecorder'])
     }
 })(InputContentWarp(InputContent));

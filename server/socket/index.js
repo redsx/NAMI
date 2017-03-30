@@ -58,6 +58,14 @@ module.exports = function (io) {
             co(user.addExpression(info,cb))
             .catch((err) => callbackError(cb,err));
         })
+        socket.on('addBlock',(info,cb)=>{
+            co(user.addBlock(info,cb))
+            .catch((err) => callbackError(cb,err));
+        })
+        socket.on('removeBlock',(info,cb)=>{
+            co(user.removeBlock(info,cb))
+            .catch((err) => callbackError(cb,err));
+        })
         socket.on('initRoomList',(info,cb)=>{
             parseToken(info)
             .then((info)=>co(room.initRoomList(info,socket,cb)))

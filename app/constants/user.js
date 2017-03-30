@@ -1,2 +1,4 @@
 export const MERGE_USER_INFO = 'MERGE_USER_INFO';
 export const PUSH_EXPRESSION = 'PUSH_EXPRESSION';
+export const PUSH_BLOCK = 'PUSH_BLOCK';
+export const DELETE_BLOCK = 'DELETE_BLOCK';

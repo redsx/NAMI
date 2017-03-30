@@ -1,5 +1,10 @@
 import { socketEmit, dispatchAction } from './common.js'
-import { MERGE_USER_INFO, PUSH_EXPRESSION } from '../constants/user.js'
+import { 
+    MERGE_USER_INFO, 
+    PUSH_EXPRESSION,
+    PUSH_BLOCK,
+    DELETE_BLOCK,
+} from '../constants/user.js'
 
 export const login = socketEmit('login');
 export const signUp = socketEmit('signUp');
@@ -10,3 +15,8 @@ export const updateUserInfo = socketEmit('updateUserInfo');
 export const mergeUserInfo = dispatchAction(MERGE_USER_INFO);
 
 export const pushExpression = dispatchAction(PUSH_EXPRESSION);
+
+export const addBlockContact = socketEmit('addBlock');
+export const removeBlockContact = socketEmit('removeBlock');
+export const pushBlock = dispatchAction(PUSH_BLOCK);
+export const deleteBlock = dispatchAction(DELETE_BLOCK);

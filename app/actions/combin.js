@@ -3,7 +3,6 @@ import stateManege from '../util/stateManage.js'
 import config from '../config/config.js'
 import socket from './socket.js'
 import { browserHistory } from 'react-router'
-import { mergeUserInfo, updateUserInfo, createRoom, pushExpression } from './user.js'
 import { pushSnackbar, setRightManager, setLeftManager, msgContainerScroll } from './pageUI.js'
 import { roomsSchema , historySchema } from '../middlewares/schemas.js'
 import { socketEmit, dispatchAction, dispatchThunk } from './common.js'
@@ -18,6 +17,16 @@ import {
     initItem,
     removeItemMessage,
 } from './messages.js'
+import { 
+    mergeUserInfo, 
+    updateUserInfo, 
+    createRoom, 
+    pushExpression,
+    addBlockContact,
+    removeBlockContact,
+    pushBlock,
+    deleteBlock,
+} from './user.js'
 
 export const errPrint = (err) => {
     console.error(err); 
@@ -172,6 +181,22 @@ export const addExpression = (info) => {
     .catch((err)=>errPrint(err));
 };
 
+export const addBlock = (info) => {
+    addBlockContact(info)
+    .then(()=>{
+        pushBlock(info.blockId);
+        pushSnackbar(language.blockContact);
+    })
+    .catch(()=>pushSnackbar('block contact error'))
+}
+export const removeBlock = (info) => {
+    removeBlockContact(info)
+    .then(()=>{
+        deleteBlock(info.blockId);
+        pushSnackbar(language.removeBlock);
+    })
+    .catch(()=>pushSnackbar('delete block contact error'))
+}
 
 export const logout = () => {
     browserHistory.push('/login');

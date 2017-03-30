@@ -7,12 +7,14 @@ const user = new Schema({
     email: String,
     sex: String,
     onlineState: String,
-    lastRoom: String,
-    isPrivate: Boolean,
     expressions: {
         type: Array,
         default: []
     },
+    blocks: [{
+        type: Schema.Types.ObjectId,
+        ref: 'user'
+    }],
     lastOnlineTime: {
         type: Number,
         default: Date.now()

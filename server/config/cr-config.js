@@ -15,4 +15,5 @@ module.exports = {
     QINIU_CNAME: 'http://oj7h98lzb.bkt.clouddn.com',
     QINIU_BUCKET: 'mdzz',
     MAX_ROOM: 5,
+    MAX_BLOCK: 30,
 }
