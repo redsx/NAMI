@@ -18,5 +18,6 @@ export const pushExpression = dispatchAction(PUSH_EXPRESSION);
 
 export const addBlockContact = socketEmit('addBlock');
 export const removeBlockContact = socketEmit('removeBlock');
+export const getBlockList = socketEmit('getBlockList');
 export const pushBlock = dispatchAction(PUSH_BLOCK);
 export const deleteBlock = dispatchAction(DELETE_BLOCK);

@@ -11,7 +11,7 @@ import Loading from './Loading.jsx'
 import timedeal from '../util/time.js'
 import ProfileSection from './ProfileSection.jsx'
 import ProfileButton from './ProfileButton.jsx'
-import { addBlock, removeBlock } from '../actions/combin.js'
+import { addBlock, removeBlock, exitRoom } from '../actions/combin.js'
 
 function ContactProfile(props){
     const { avatar, status, lastOnlineTime, nickname, isLoading, isBlock, curRoom, _id } = props;
@@ -60,6 +60,7 @@ function ContactProfile(props){
                             color = '#D70000' 
                             unicode = '&#xe607;' 
                             text = {language.deleteContact}
+                            handleClick  = {() => exitRoom({room: curRoom,user: _id})}
                         />
                        
                     </div>  

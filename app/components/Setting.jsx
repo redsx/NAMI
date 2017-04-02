@@ -18,7 +18,7 @@ function Setting(props){
                 </div>
             </ProfileSection>
             <ProfileButton text = {language.notifications} unicode = '&#xe844;' color = '#888' handleClick = {()=>setLeftManager({isShow: true,state: 'notificationSetting'})}/>
-            <ProfileButton text = {language.blockContact} unicode = '&#xe618;' color = '#888'/>
+            <ProfileButton text = {language.blockContact} unicode = '&#xe618;' color = '#888' handleClick = {()=>setLeftManager({isShow: true,state: 'blockContact'})}/>
             <ProfileButton text = {language.help} unicode = '&#xe614;' color = '#888' />
         </div>
     );

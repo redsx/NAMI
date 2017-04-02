@@ -5,6 +5,7 @@ import ManagerContainer from '../components/ManagerContainer.jsx'
 import NewContact from '../components/NewContact.jsx'
 import CreateGroup from './CreateGroup.js'
 import NotificationSetting from './NotificationSetting.js'
+import BlockContact from './BlockContact.js'
 
 import Setting from '../components/Setting.jsx'
 function select(state){
@@ -13,6 +14,7 @@ function select(state){
         case 'newContact': return <NewContact />;
         case 'setting': return <Setting />;
         case 'notificationSetting': return <NotificationSetting />;
+        case 'blockContact': return <BlockContact />;
         case 'profile':
         default: return <UserProfile />;
     }

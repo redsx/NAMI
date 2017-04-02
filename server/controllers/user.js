@@ -10,7 +10,6 @@ const User = require('../models/user-mongo')
 module.exports = {
     createUser: function *(info,cb) {
         let { password, nickname, email } = info;
-        console.log('info: ', info);
         let user = yield User.findOne({email: email}),
             room = yield Room.findOne({name: config.INIT_ROOM}),
             salt = yield bluebird.promisify(bcrypt.genSalt)(10);
@@ -124,6 +123,22 @@ module.exports = {
                 yield user.save();
             }
             cb({isOk: true});
+        } else{
+            cb({ isError: true, errMsg:'ERROR1003' });
+        }
+    },
+    /**
+     * 
+     * 
+     * @param {object} info _id
+     * @param {function} cb callback
+     */
+    getBlockList: function*(info,cb){
+        const _id = info._id;
+        const user = yield User.findOne({_id: _id},'blocks -_id').populate({path: 'blocks', select: '_id onlineState avatar nickname status'});
+        if(user){
+            const blocks = user.blocks || [];
+            cb({blocks});
         } else{
             cb({ isError: true, errMsg:'ERROR1003' });
         }

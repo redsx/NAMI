@@ -53,5 +53,21 @@ module.exports = {
         {sort:'-_id',limit})
         if(privateMessage) return cb(privateMessage);
         return cb({ isError: true, errMsg:'ERROR1005'});
+    },
+    /**
+     * 
+     * 
+     * @param {object} info _id & parsed token
+     * @param {function} cb callback
+     */
+    revokePrivate: function*(info,cb){
+        const _id = info._id,
+            userId = info.token.user;
+        const ret = yield Private.remove({_id: _id, from: userId}); 
+        if(ret){
+            return cb({isOk: true});
+        } else{
+            return cb({isError: true, errMsg:'ERROR1003'});
+        }
     }
 }

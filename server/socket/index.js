@@ -66,6 +66,10 @@ module.exports = function (io) {
             co(user.removeBlock(info,cb))
             .catch((err) => callbackError(cb,err));
         })
+        socket.on('getBlockList',(info,cb)=>{
+            co(user.getBlockList(info,cb))
+            .catch((err) => callbackError(cb,err));
+        })
         socket.on('initRoomList',(info,cb)=>{
             parseToken(info)
             .then((info)=>co(room.initRoomList(info,socket,cb)))
@@ -115,6 +119,16 @@ module.exports = function (io) {
         socket.on('message',(msg,cb) => {
             parseToken(msg)
             .then(msg=>co(message.saveMessage(msg,socket,cb)))
+            .catch((err) => callbackError(cb,err));
+        })
+        socket.on('revokeMessage',(info,cb)=>{
+            parseToken(info)
+            .then(info=>co(message.revokeMessage(info,cb)))
+            .catch((err) => callbackError(cb,err));
+        })
+        socket.on('revokePrivate',(info,cb)=>{
+            parseToken(info)
+            .then(info=>co(private.revokePrivate(info,cb)))
             .catch((err) => callbackError(cb,err));
         })
         socket.on('initPrivateList',(info,cb)=>{

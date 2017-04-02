@@ -43,4 +43,20 @@ module.exports = {
             cb({ isError: true, errMsg:'ERROR1003'});
         }
     },
+    /**
+     * 
+     * 
+     * @param {object} info _id & parsed token
+     * @param {function} cb callback
+     */
+    revokeMessage: function*(info,cb){
+        const _id = info._id,
+            userId = info.token.user;
+        const ret = yield History.remove({_id: _id, owner: userId}); 
+        if(ret){
+            return cb({isOk: true});
+        } else{
+            return cb({isError: true, errMsg:'ERROR1003'});
+        }
+    }
 }

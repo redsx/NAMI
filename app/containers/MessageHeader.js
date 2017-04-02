@@ -8,7 +8,7 @@ import IconMenu from '../components/IconMenu.jsx'
 import language from '../config/language.js'
 import stateManage from '../util/stateManage.js'
 import { setRightManager } from '../actions/pageUI.js'
-import { exitRoom } from '../actions/combin.js'
+import { exitRoom, addBlock } from '../actions/combin.js'
 import AttachButton from './AttachButton.js'
 
 function MessageHeader(props){
@@ -24,12 +24,12 @@ function MessageHeader(props){
                     <AttachButton />
                     <IconMenu iconButtonElement={<i className = 'icon Header-icon' title = {language.menu}>&#xe612;</i>}>
                         <li className = 'List-item' onClick = {() => setRightManager({isShow: true, state: 'profile'})}>
-                                {isPrivate ? language.contactInfo : language.groupInfo}
+                            {isPrivate ? language.contactInfo : language.groupInfo}
                         </li >
                         <li className = 'List-item' onClick = {() => exitRoom({room,user})}>
-                                {isPrivate ? language.deleteContact : language.exitGroup}
+                            {isPrivate ? language.deleteContact : language.exitGroup}
                         </li >
-                    </IconMenu>
+                    </IconMenu> 
                 </div>
             }
         />
