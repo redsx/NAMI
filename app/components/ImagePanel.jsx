@@ -43,7 +43,7 @@ class ImagePanel extends Component{
                         <Avatar size = {40}/>
                         <div className = 'ImagePanel-info'>
                             <p className = 'textOver'>{'@ ' + nickname}</p>
-                            <p className = 'textOver'>{timeDeal.getYDHString(timestamp)+' at '+ timeDeal.getTimeString(timestamp)}</p>
+                            <p className = 'textOver'>{timeDeal.getYDHString(timestamp)}</p>
                         </div>
 
                         <ul className = 'displayFlex ImagePanel-menu'>

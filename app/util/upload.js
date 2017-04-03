@@ -28,6 +28,13 @@ export default function uploadHandle(uploadFile){
             }
         }
     }
+    function getImageSize(urlData){
+        let img = new Image();
+        img.src = urlData;
+        const width = img.width,
+            height = img.height;
+        return {width,height}
+    }
     function comporessImage(urlData,canvas){
         let img = new Image();
         img.src = urlData;
@@ -72,5 +79,5 @@ export default function uploadHandle(uploadFile){
         let progressEvent = typeof progress === 'function' ? uploadProgress(progress): null;
         return ajaxHandle.request('POST',UPLOAD_URL,formdata,progressEvent);
     }
-    return { getUrlData, comporessImage, upload, detectSize, getFileInfo }
+    return { getUrlData, comporessImage, upload, detectSize, getFileInfo, getImageSize }
 }
