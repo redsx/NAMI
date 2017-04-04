@@ -46,13 +46,14 @@ module.exports = {
     /**
      * 
      * 
-     * @param {object} info _id & parsed token
+     * @param {object} info _id & ownerId
      * @param {function} cb callback
      */
     revokeMessage: function*(info,cb){
         const _id = info._id,
-            userId = info.token.user;
-        const ret = yield History.remove({_id: _id, owner: userId}); 
+            ownerId = info.ownerId;
+        const ret = yield History.remove({_id: _id, owner: ownerId}); 
+        console.log('withdraw',info);
         if(ret){
             return cb({isOk: true});
         } else{

@@ -1,7 +1,11 @@
 import immutable from 'immutable'
 export default {
     priToGro: function(message,room,user){
-        if(message.get('owner')) return message;
+        if(message.get('owner')) {
+            message = message.set('isPrivate',false);
+            return message;
+        };
+        message = message.set('isPrivate',true);
         const userId = user.get('_id'),
               fromId = message.get('from'),
               roomId = room.get('_id');

@@ -77,6 +77,9 @@ if(regZH.test(language)){
         showMessagePreviews: '消息预览',
         showImages: '显示图片消息',
         searchInput: '搜索或开始新的对话',
+        withdrawn: '撤回',
+        sendMessage: '发送消息',
+        
     }
 }else{
     module.exports = {
@@ -153,5 +156,7 @@ if(regZH.test(language)){
         showMessagePreviews: 'Show Message Previews',
         showImages: 'Show Images',
         searchInput :'Search or start new chat',
+        withdrawn: 'withdrawn',
+        sendMessage: 'Send Message',
     }
 }

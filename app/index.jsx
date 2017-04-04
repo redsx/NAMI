@@ -15,7 +15,7 @@ import { getUserInfo, mergeUserInfo } from './actions/user.js'
 import { getRoomList, getPrivateList } from './actions/activeList.js'
 import { pushSnackbar, setNotificationState } from './actions/pageUI.js'
 import { recevieMessage, initActiveListMessages, receviePrivate } from './actions/messages.js'
-import { errPrint } from './actions/combin.js'
+import { errPrint, changeRoom } from './actions/combin.js'
 import { disconnect } from './actions/connect.js'
 import language from './config/language.js'
 import { roomsSchema, privateSchema, getInitPrivateData } from './middlewares/schemas.js'
@@ -44,7 +44,6 @@ const handleInit = (token) => {
     initLocalSetting();
     getUserInfo({token,device})
     .then((ret) => {
-        ret.curRoom = lastRoom;
         ret.token = token;
         mergeUserInfo(ret);
         return getRoomList({token}); 
@@ -56,6 +55,9 @@ const handleInit = (token) => {
     })
     .then((ret)=>{
         const entity = getInitPrivateData(ret);
+        if(lastRoom && lastRoom.room){
+            changeRoom(lastRoom.isPrivate)(lastRoom.room);
+        }
         return initActiveListMessages(entity);
     })
     .catch((err) => {
@@ -96,7 +98,10 @@ socket.on('privateMessage',(message)=>{
 let lastOnlineTime, lastRoom, disconnectCount = 0;
 socket.on('disconnect',()=>{
     console.log('disconnect');
-    lastRoom = store.getState().getIn(['user','curRoom']);
+    const state = store.getState();
+    const room = state.getIn(['user','curRoom']);
+    const isPrivate = state.getIn(['activeList',room,'isPrivate']);
+    lastRoom = { room, isPrivate };
     lastOnlineTime = Date.now();
 })
 socket.on('reconnecting',()=>{

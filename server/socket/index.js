@@ -122,13 +122,11 @@ module.exports = function (io) {
             .catch((err) => callbackError(cb,err));
         })
         socket.on('revokeMessage',(info,cb)=>{
-            parseToken(info)
-            .then(info=>co(message.revokeMessage(info,cb)))
+            co(message.revokeMessage(info,cb))
             .catch((err) => callbackError(cb,err));
         })
         socket.on('revokePrivate',(info,cb)=>{
-            parseToken(info)
-            .then(info=>co(private.revokePrivate(info,cb)))
+            co(private.revokePrivate(info,cb))
             .catch((err) => callbackError(cb,err));
         })
         socket.on('initPrivateList',(info,cb)=>{

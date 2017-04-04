@@ -17,6 +17,7 @@ html,body,#App{
   height: 100%;
   padding: 0;
   margin: 0;
+  transform: translate3d(0,0,0);
 }
 *{
   box-sizing:border-box;

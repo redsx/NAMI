@@ -16,6 +16,8 @@ import {
     addHistories, 
     initItem,
     removeItemMessage,
+    getRevokeFunc,
+    removeHistories,
 } from './messages.js'
 import { 
     mergeUserInfo, 
@@ -203,4 +205,20 @@ export const logout = () => {
     delete localStorage.token;
     socket.disconnect();
     socket.connect();
+}
+
+/**
+ * 
+ * 
+ * @param {object} info _id & ownerId & isPrivate & Tid
+ * 
+ */
+export const revokeMessage = (info) => {
+    const _id = info.Tid || info._id;
+    getRevokeFunc(info.isPrivate)({ownerId: info.ownerId, _id})
+    .then(()=>{
+        removeHistories([info._id]);
+        pushSnackbar(language.withdrawn);
+    })
+    .catch((err => errPrint(err)))
 }

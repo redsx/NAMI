@@ -4,19 +4,6 @@ import ActiveListItem from '../containers/ActiveListItem.js'
 import IconMenu from './IconMenu.jsx'
 import '../less/ActiveList.less'
 
-function Menu(props){
-    return (
-        <IconMenu iconButtonElement={<i className = 'icon'>&#xe60d;</i>}>
-            <ul className = 'List'>
-                <li className = 'List-item'>Archive chat</li >
-                <li className = 'List-item'>Mute</li >
-                <li className = 'List-item'>Exit group</li >
-                <li className = 'List-item'>Mark as unread</li >
-            </ul>
-        </IconMenu>
-    );
-}
-
 function ActiveList(props){
     const list = props.list.toJS ?props.list.toJS() : {};
     const histories = props.histories || immutable.fromJS({});

@@ -94,13 +94,16 @@ class MessageContainer extends Component{
                 <div className = 'MessageContainer-content' ref = {ref => this.msgContent = ref} onScroll = {this.handleScroll}>
                     {
                         messagesArr.map((id) => {
+                            if(!messagesObj.get(id)){
+                                return null;
+                            }
                             let message = messageMiddle.priToGro(messagesObj.get(id),roomInfo,user);
                             const dir =  user.get('_id') === message.getIn(['owner','_id']) ? 'right' : 'left';
                             message = message.set('dir',dir);
                             switch(message.get('type')){
                                 case 'text': {
                                     return <TextMessage 
-                                        content = {message} 
+                                        content = {message}
                                         key = {`message-${message.get('_id')}`}
                                     />;
                                 }

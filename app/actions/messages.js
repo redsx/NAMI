@@ -4,6 +4,8 @@ import stateManege from '../util/stateManage.js'
 import { batchedActions } from './batched.js'
 import { socketEmit, dispatchAction, dispatchThunk } from './common.js'
 import { getRoomItem, getPrivateItem, addRoomItem } from './activeList.js'
+import { errPrint } from './combin.js'
+import { pushSnackbar } from './pageUI.js'
 import { roomsSchema } from '../middlewares/schemas.js'
 import { normalize } from 'normalizr'
 
@@ -20,6 +22,7 @@ import {
     UNSHIFT_HISTORY,
     REMOVE_ROOM_ITEM
 } from '../constants/activeList.js'
+
 
 export const mergeMessage = dispatchAction(MERGE_MESSAGE);
 
@@ -75,6 +78,10 @@ export const clearHistory = dispatchThunk((payload) => {
         }
     }
 })
+
+// {array} histories
+export const removeHistories = dispatchAction(CLEAR_MESSAGES);
+
 export const removeItemMessage = dispatchThunk((payload) => {
     return (dispatch,getState) => {
         const state = getState();
@@ -124,3 +131,8 @@ export const receviePrivate = dispatchThunk((payload) => {
     }
 })
 // - - - - - - - - - - -
+
+export const getRevokeFunc = (isPrivate) => {
+    return isPrivate ? socketEmit('revokePrivate') : socketEmit('revokeMessage');
+}
+

@@ -57,12 +57,12 @@ module.exports = {
     /**
      * 
      * 
-     * @param {object} info _id & parsed token
+     * @param {object} info _id & ownerId
      * @param {function} cb callback
      */
     revokePrivate: function*(info,cb){
         const _id = info._id,
-            userId = info.token.user;
+            userId = info.ownerId;
         const ret = yield Private.remove({_id: _id, from: userId}); 
         if(ret){
             return cb({isOk: true});
