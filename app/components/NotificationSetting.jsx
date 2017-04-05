@@ -3,12 +3,19 @@ import { setLeftManager } from '../actions/pageUI.js'
 import language from '../config/language.js'
 import ProfileHeader from './ProfileHeader.jsx'
 import { setNotificationState } from '../actions/pageUI.js'
+import { changeUserInfo } from '../actions/combin.js'
 
 function setNotification(key){
     return function(val){
         let payload = {};
         payload[key] = val;
         setNotificationState(payload);
+    }
+}
+function disabledPrivate(payload){
+    return function(val){
+        payload.blockAll = val;
+        changeUserInfo(payload);
     }
 }
 function NotificationSetting(props){
@@ -28,6 +35,13 @@ function NotificationSetting(props){
                         />
                     })
                 }
+                <Checkbox 
+                    id = {`notifications-${language.disabledPrivate}`}
+                    key = {`notifications-${language.disabledPrivate}`}
+                    label = {language.disabledPrivate} 
+                    checked = {props.blockAll}
+                    handleChange = {disabledPrivate({_id: props._id})}
+                />
             </div>
         </div>
     );

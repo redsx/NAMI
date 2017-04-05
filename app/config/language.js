@@ -158,5 +158,6 @@ if(regZH.test(language)){
         searchInput :'Search or start new chat',
         withdrawn: 'withdrawn',
         sendMessage: 'Send Message',
+        disabledPrivate: 'Reject Private Message'
     }
 }

@@ -127,7 +127,7 @@ export const changeRoom = isPrivate => curRoom => {
         if(length < maxLength) return loadRoomHistory();
     })()
 }
-export const changeUserInfo = info => {
+export const changeUserInfo = (info) => {
     updateUserInfo(info)
     .then(ret => mergeUserInfo(info))
     .catch(err => errPrint(err))

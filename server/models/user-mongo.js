@@ -7,6 +7,10 @@ const user = new Schema({
     email: String,
     sex: String,
     onlineState: String,
+    blockAll: {
+        type: Boolean,
+        default: false,
+    },
     expressions: {
         type: Array,
         default: []

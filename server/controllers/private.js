@@ -23,9 +23,15 @@ module.exports = {
         const toUser = yield User.findOne({_id: to}).populate('online'),
               fromUser = yield User.findOne({_id: from});
         if(fromUser && toUser){
-            const privateMessage = new Private({from, to, timestamp, type, content });
+            const msg = {from, to, timestamp, type, content };
+            if(toUser.blocks.indexOf(from) !== -1 || toUser.blockAll){
+                return cb(msg);
+            }
+            const privateMessage = new Private(msg);
             yield privateMessage.save();
-            if(toUser.online) socket.broadcast.to(toUser.online.socket).emit('privateMessage',privateMessage);
+            if(toUser.online) {
+                socket.broadcast.to(toUser.online.socket).emit('privateMessage',privateMessage);
+            }
             cb(privateMessage);
         } else{
             cb({ isError: true, errMsg:'ERROR1003'});

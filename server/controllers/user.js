@@ -55,12 +55,12 @@ module.exports = {
             user.device = device;
             user.onlineState = 'online';
             user.online = onliner._id;
-            let { nickname, avatar, _id, status, expressions, blocks } = user;
+            let { nickname, avatar, _id, status, expressions, blocks, blockAll } = user;
             blocks = blocks || [];
             expressions = expressions || [];
             yield onliner.save();
             yield user.save();
-            cb({nickname, avatar, device, _id, status, expressions, blocks});
+            cb({nickname, avatar, device, _id, status, expressions, blocks , blockAll});
         } else {
             cb({ isError: true, errMsg:'ERROR1003' });
         }
