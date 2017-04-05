@@ -2,7 +2,7 @@ module.exports = {
     ROBOT_NAME: '机器人小z',
     INIT_ROOM: 'MDZZ',
     INIT_ROOM_INFO: '有问题欢迎提issue',
-    INIT_ADMIN_EMAIL: 'admin@mdzzapp.com',
+    INIT_ADMIN_EMAIL: 'mdzz',
     DEFAULT_AVATAR: 'http://oj7h98lzb.bkt.clouddn.com/user.svg',
     DEFAULT_GROUP_AVATAR: 'http://oj7h98lzb.bkt.clouddn.com/download.svg',
     DAY: 24*60*60*1000,

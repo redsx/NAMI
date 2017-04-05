@@ -54,6 +54,10 @@ module.exports = function (io) {
             co(user.updateUserInfo(info,cb))
             .catch((err) => callbackError(cb,err));
         })
+        socket.on('getAdminId',(info,cb)=>{
+            co(user.getAdminId(cb))
+            .catch((err) => callbackError(cb,err));
+        })
         socket.on('addExpression',(info,cb)=>{
             co(user.addExpression(info,cb))
             .catch((err) => callbackError(cb,err));

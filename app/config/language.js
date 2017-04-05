@@ -79,7 +79,7 @@ if(regZH.test(language)){
         searchInput: '搜索或开始新的对话',
         withdrawn: '撤回',
         sendMessage: '发送消息',
-        
+        disabledPrivate: '屏蔽私聊消息'
     }
 }else{
     module.exports = {

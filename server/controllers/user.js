@@ -142,5 +142,13 @@ module.exports = {
         } else{
             cb({ isError: true, errMsg:'ERROR1003' });
         }
+    },
+    getAdminId: function*(cb){
+        const admin = yield User.findOne({email: config.INIT_ADMIN_EMAIL});
+        if(admin){
+            cb({_id: admin._id});
+        } else{
+            cb({ isError: true, errMsg:'ERROR1003' });
+        }
     }
 }
