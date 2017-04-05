@@ -6,7 +6,7 @@ import { shouldComponentUpdate } from '../plugins/PureRender.js'
 import { pushSnackbar } from '../actions/pageUI.js'
 import { getInviteLink, refreshInviteLink } from '../actions/activeList.js'
 import handleClipboard from '../util/clipboard.js'
-import socketConfig from '../config/socketConfig.js'
+import config from '../config/config'
 import Invite from '../components/Invite.jsx'
 import Modal from '../components/Modal.jsx'
 import language from '../config/language.js'
@@ -28,7 +28,7 @@ const InviteWarp = (WrappedComponent) => class extends Component{
         this.state = {modalState: false, isLoading: true, room: immutable.fromJS({})};
     }
     connectLink(link){
-        return 'http://'+ socketConfig.production.HOST + '/invite/' + link;
+        return config.inviteLink + link;
     }
     @autobind
     handleOpenModal(){

@@ -22,7 +22,9 @@ const handleMessage = {
             const isPrivate = !!room.get('isPrivate');
             const msg = handleMessage.createMessage(user,conetent,isPrivate,type,room.get('_id'));
             typeof cb === 'function' && cb();
-            if(msg) sendMessage(isPrivate)(msg.message,msg.preMessage);
+            if(msg){
+                sendMessage(isPrivate)(msg.message,msg.preMessage);
+            }
             changeRoom(isPrivate)(room.get('_id'));
         }
     },
