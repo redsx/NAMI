@@ -6,7 +6,7 @@ import { browserHistory } from 'react-router'
 import { pushSnackbar, setRightManager, setLeftManager, msgContainerScroll } from './pageUI.js'
 import { roomsSchema , historySchema } from '../middlewares/schemas.js'
 import { socketEmit, dispatchAction, dispatchThunk } from './common.js'
-import { updateRoomInfo, mergeRoomInfo } from './activeList.js'
+import { updateRoomInfo, mergeRoomInfo, clearUnreadCount } from './activeList.js'
 import { normalize } from 'normalizr'
 import { 
     getSendFunc, 
@@ -31,7 +31,7 @@ import {
 } from './user.js'
 
 export const errPrint = (err) => {
-    console.error(err); 
+    console.error(err, language[err]);
     language[err]? pushSnackbar(language[err]): pushSnackbar(language['ERROR1000']);
 }
 
@@ -115,6 +115,7 @@ export const changeRoom = isPrivate => curRoom => {
     msgContainerScroll(true);
     setRightManager({isShow: false});
     clearHistory();
+    clearUnreadCount({_id: curRoom});
     mergeUserInfo({curRoom});
     dispatchThunk(() => (dispatch,getState) =>{
         const state = getState(),

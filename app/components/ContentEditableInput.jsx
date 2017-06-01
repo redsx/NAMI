@@ -8,18 +8,24 @@ class ContentEditableInput extends Component{
     constructor(props){
         super(props);
         const count = props.defaultContent ? props.count - props.defaultContent.length : props.count;
-        this.state = {editable: props.intEditable, count};
+        this.state = {
+            editable: props.intEditable, 
+            count
+        };
     }
     @autobind
     handleInput(e){
         const { count } = this.state;
         const length = e.target.innerText.length;
-        if(typeof count === 'number') this.setState({count: this.props.count-length});
+        if(typeof count === 'number') {
+            this.setState({count: this.props.count-length});
+        }
     }
     @autobind
     handleSubmit(){
-        if(this.state.count >= 0 && this.state.count < this.props.count){
-            this.props.handleSubmit(this.edit.innerText);
+        const content = this.edit.innerText.trim();
+        if(this.state.count >= 0 && this.state.count < this.props.count && content.length !== 0){
+            this.props.handleSubmit(content);
             this.setState({editable: false});
         }
     }

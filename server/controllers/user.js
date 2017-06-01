@@ -66,8 +66,16 @@ module.exports = {
         }
     },
     updateUserInfo: function*(info,cb){
+        if(info.nickname) {
+            const user = yield User.findOne({nickname: info.nickname});
+            if(user) {
+                return cb({ isError: true, errMsg:'ERROR10014'});
+            }
+        }
         const user = yield User.update({_id: info._id},{$set: info});
-        if(user) return cb({isOk: true});
+        if(user){
+            return cb({isOk: true});
+        }
         cb({ isError: true, errMsg:'ERROR1003'});
     },
     getUsersList: function*(info,cb){

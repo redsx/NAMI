@@ -19,6 +19,7 @@ if(regZH.test(language)){
         ERROR10011: '成功创建房间',
         ERROR10012: '该房间已存在',
         ERROR10013: '权限不足',
+        ERROR10014: '昵称被占用',
         
         
         email: '邮箱',
@@ -97,6 +98,7 @@ if(regZH.test(language)){
         ERROR10011: '成功创建房间',
         ERROR10012: '该房间已存在',
         ERROR10013: 'Insufficient permissions',
+        ERROR10014: '昵称被占用',
 
         email: 'email',
         nickname: 'nickname',

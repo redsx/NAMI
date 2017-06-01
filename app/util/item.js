@@ -9,6 +9,7 @@ export default {
               history = this.props.history || immutable.fromJS({});
         let secondary,
             time,
+            unreadCount = item.get('unread'),
             avatar = item.get('avatar'),
             name = item.get('name');
         if(history.get('owner')){
@@ -21,8 +22,11 @@ export default {
             secondary = language.startConv;
             time = timeDeal.getTimeString(Date.now());
         }
-        !showPre && (secondary = '[ hidden ]')
-        return {secondary,time,avatar,name}    
+        if(!showPre) {
+            secondary = '[ hidden ]';
+            unreadCount = 0;
+        }
+        return { secondary, time, avatar, name, unreadCount }; 
     },
     getUserInfo: function(){
         const user = this.props.user;

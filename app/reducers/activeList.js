@@ -8,6 +8,8 @@ import {
     UNSHIFT_HISTORY,
     MERGE_ROOM_INFO,
     REMOVE_ROOM_ITEM,
+    ADD_UNREAD_COUNT,
+    CLEAR_UNREAD_COUNT,
  } from '../constants/activeList.js'
 import browers from '../util/browers.js'
 
@@ -27,6 +29,13 @@ export default function reducer(state = defaultState,action) {
         }
         case REMOVE_ROOM_ITEM: {
             return state.delete(action.payload);
+        }
+        case ADD_UNREAD_COUNT: {
+            const count = state.getIn([action.payload._id, 'unread']) || 0;
+            return state.setIn([action.payload._id, 'unread'], count+1);
+        }
+        case CLEAR_UNREAD_COUNT: {
+            return state.setIn([action.payload._id, 'unread'], 0);
         }
         case PUSH_HISTORY: 
         case UNSHIFT_HISTORY: {

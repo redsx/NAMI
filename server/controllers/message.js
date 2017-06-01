@@ -1,5 +1,4 @@
 const request = require('request')
-    , xss = require('xss')
     , bluebird = require('bluebird')
     , User = require('../models/user-mongo')
     , Online = require('../models/online-mongo')
@@ -49,12 +48,13 @@ module.exports = {
      * @param {object} info _id & ownerId
      * @param {function} cb callback
      */
-    revokeMessage: function*(info,cb){
+    revokeMessage: function*(info,socket,cb){
         const _id = info._id,
             ownerId = info.ownerId;
         const ret = yield History.remove({_id: _id, owner: ownerId}); 
         console.log('withdraw',info);
         if(ret){
+            socket.broadcast.emit('revokeMessage', info);
             return cb({isOk: true});
         } else{
             return cb({isError: true, errMsg:'ERROR1003'});

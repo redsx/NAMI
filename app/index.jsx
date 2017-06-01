@@ -11,17 +11,40 @@ import Login from './pages/sign/Login.jsx'
 import SignUp from './pages/sign/SignUp.jsx'
 import Join from './pages/join/index.jsx'
 import browser from './util/browers.js' 
-import { getUserInfo, mergeUserInfo } from './actions/user.js'
-import { getRoomList, getPrivateList } from './actions/activeList.js'
-import { pushSnackbar, setNotificationState } from './actions/pageUI.js'
-import { recevieMessage, initActiveListMessages, receviePrivate } from './actions/messages.js'
-import { errPrint, changeRoom } from './actions/combin.js'
-import { disconnect } from './actions/connect.js'
 import language from './config/language.js'
-import { roomsSchema, privateSchema, getInitPrivateData } from './middlewares/schemas.js'
-import { normalize } from 'normalizr'
 import notification from './util/notification.js'
 import handleMessage from './util/message.js'
+import { disconnect } from './actions/connect.js'
+import { 
+    getUserInfo, 
+    mergeUserInfo 
+} from './actions/user.js'
+import { 
+    getRoomList, 
+    getPrivateList,
+    addUnreadCount,
+} from './actions/activeList.js'
+import { 
+    pushSnackbar, 
+    setNotificationState 
+} from './actions/pageUI.js'
+import { 
+    recevieMessage, 
+    initActiveListMessages, 
+    receviePrivate, 
+    removeHistories 
+} from './actions/messages.js'
+import { 
+    errPrint, 
+    changeRoom 
+} from './actions/combin.js'
+import { 
+    roomsSchema, 
+    privateSchema, 
+    getInitPrivateData 
+} from './middlewares/schemas.js'
+import { normalize } from 'normalizr'
+
 
 import './less/media.less'
 import './less/CSSTransition.less'
@@ -77,6 +100,8 @@ const handleEnter = (nextState,replace) => {
 }
 
 socket.on('newMessage',(message)=>{
+    console.log('newMessage: ',message);
+    addUnreadCount({_id: message.room});
     const state = store.getState();
     const desktopAlerts = state.getIn(['pageUI','notifications','desktopAlerts']),
         showDesktopPreviews = state.getIn(['pageUI','notifications','showDesktopPreviews']);
@@ -92,7 +117,11 @@ socket.on('newMessage',(message)=>{
 })
 socket.on('privateMessage',(message)=>{
     console.log('recive private message: ',message);
+    addUnreadCount({_id: message.room});
     receviePrivate(message);
+})
+socket.on('revokeMessage', (info) => {
+    removeHistories([info._id]);
 })
 
 let lastOnlineTime, lastRoom, disconnectCount = 0;

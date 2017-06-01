@@ -27,7 +27,8 @@ class ImagePanel extends Component{
         const { content, isShow, handleClose } = this.props;
         const timestamp = content.get('timestamp'),
             _id = content.getIn(['owner','_id']),
-            image = content.get('content'),
+            avatar = content.getIn(['owner','avatar']),
+            image = content.get('Tcontent') || content.get('content'),
             nickname = content.getIn(['owner','nickname']);
         return (
             <ReactCSSTransitionGroup
@@ -40,7 +41,7 @@ class ImagePanel extends Component{
                 !isShow ? null : 
                 <div className = 'ImagePanel'>
                     <header className = 'displayFlex ImagePanel-header'>
-                        <Avatar size = {40}/>
+                        <Avatar size = {40} src = {avatar}/>
                         <div className = 'ImagePanel-info'>
                             <p className = 'textOver'>{'@ ' + nickname}</p>
                             <p className = 'textOver'>{timeDeal.getYDHString(timestamp)}</p>

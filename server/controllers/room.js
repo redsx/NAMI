@@ -25,7 +25,9 @@ module.exports = {
     },
     initRoomItem: function *(info,cb){
         const room = yield Room.findOne({_id: info._id},'bulletin name avatar');
-        if(room) return cb({_id: room._id, bulletin: room.bulletin, name: room.name, avatar: room.avatar, histories: []});
+        if(room){
+            return cb({_id: room._id, bulletin: room.bulletin, name: room.name, avatar: room.avatar, histories: []});
+        }
         return cb({isError: true, errMsg: 'ERROR1005'});
     },
     loadRoomHistories: function *(info,cb){

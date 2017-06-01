@@ -126,7 +126,7 @@ module.exports = function (io) {
             .catch((err) => callbackError(cb,err));
         })
         socket.on('revokeMessage',(info,cb)=>{
-            co(message.revokeMessage(info,cb))
+            co(message.revokeMessage(info,socket,cb))
             .catch((err) => callbackError(cb,err));
         })
         socket.on('revokePrivate',(info,cb)=>{

@@ -71,8 +71,8 @@
   },
   "scripts": {
     "start": "node ./server/bin/www",
-    "client-start-dev": "webpack --config webpack-dev-config.js -d",
-    "client-start-prod": "webpack --config webpack-prod-config.js -d"
+    "dev": "webpack --config webpack-dev-config.js -d",
+    "prod": "webpack --config webpack-prod-config.js -p"
   },
   "keywords": [
     "react",
