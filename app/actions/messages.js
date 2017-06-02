@@ -66,7 +66,7 @@ export const clearHistory = dispatchThunk((payload) => {
         let room = {},
             deleteHistories = [],
             curRoomInfo = stateManege.getCurRoomInfo(state);
-        const length = curRoomInfo.get('histories').size;
+        const length = (curRoomInfo.get('histories') && curRoomInfo.get('histories').size) || 0;
         if( length > maxLength){
             deleteHistories = curRoomInfo.get('histories').slice(0,length - maxLength);
             curRoomInfo = curRoomInfo.set('histories',curRoomInfo.get('histories').slice(length - maxLength,length));

@@ -83,12 +83,13 @@ export const loadRoomHistory = dispatchThunk( () => {
         const curRoomInfo = stateManege.getCurRoomInfo(state),
               messages = state.get('messages'),
               userId =  state.getIn(['user','_id']);
-        const first = curRoomInfo.get('histories').first(),
+        const first = curRoomInfo.get('histories') && curRoomInfo.get('histories').first(),
               _id = curRoomInfo.get('_id');
-        const timestamp = messages.getIn([first,'Ttimestamp']) || messages.getIn([first,'timestamp']);
+        const timestamp = messages.getIn([first,'Ttimestamp']) || messages.getIn([first,'timestamp']) || 0;
         if(curRoomInfo.get('isPrivate')){
             return socketEmit('loadPrivateHistories')({
-                limit, timestamp,
+                limit, 
+                timestamp,
                 fromUserId: _id,
                 toUserId: userId,
             })
@@ -122,10 +123,20 @@ export const changeRoom = isPrivate => curRoom => {
               maxLength = config.ScreenMessageLenght;
         const curRoom = state.getIn(['user','curRoom']);
         const curRoomInfo = state.getIn(['activeList',curRoom]);
-        if(!curRoom) return;
-        if(!curRoomInfo) return initItem(isPrivate)(curRoom).then(()=>loadRoomHistory());
-        const length = curRoomInfo.get('histories').size;
-        if(length < maxLength) return loadRoomHistory();
+        if(!curRoom) {
+            return ;
+        }
+        if(!curRoomInfo || !curRoomInfo.get('_id')) {
+            initItem(isPrivate)(curRoom)
+            .then(()=>loadRoomHistory())
+            .catch(err=>errPrint(err));
+        } else {
+            const length = curRoomInfo.get('histories').size;
+            if(length < maxLength) {
+                loadRoomHistory()
+                .catch(err=>errPrint(err));
+            }
+        }
     })()
 }
 export const changeUserInfo = (info) => {

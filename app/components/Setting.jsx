@@ -12,6 +12,7 @@ import '../less/Setting.less'
 function getHelp(){
     socketEmit('getAdminId')()
     .then(ret => {
+        console.log('------>ret: ', ret);
         setLeftManager({isShow: false})
         changeRoom(true)(ret._id)
     })
