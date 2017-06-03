@@ -1,6 +1,5 @@
 import store from '../store/index.js'
 let language = store.getState().getIn(['pageUI','language']);
-console.log('language:',language);
 let regZH = /zh/i,
     regEN = /en/i;
 if(regZH.test(language)){
@@ -20,7 +19,7 @@ if(regZH.test(language)){
         ERROR10012: '该房间已存在',
         ERROR10013: '权限不足',
         ERROR10014: '昵称被占用',
-        
+        ERROR10015: '账号在其他设备登录!!!',
         
         email: '邮箱',
         nickname: '昵称',
@@ -80,7 +79,9 @@ if(regZH.test(language)){
         searchInput: '搜索或开始新的对话',
         withdrawn: '撤回',
         sendMessage: '发送消息',
-        disabledPrivate: '屏蔽私聊消息'
+        disabledPrivate: '屏蔽私聊消息',
+        offline: '网络故障，重新连接中...',
+        
     }
 }else{
     module.exports = {
@@ -99,6 +100,7 @@ if(regZH.test(language)){
         ERROR10012: '该房间已存在',
         ERROR10013: 'Insufficient permissions',
         ERROR10014: '昵称被占用',
+        ERROR10015: 'login with a different device ',
 
         email: 'email',
         nickname: 'nickname',
@@ -160,6 +162,7 @@ if(regZH.test(language)){
         searchInput :'Search or start new chat',
         withdrawn: 'withdrawn',
         sendMessage: 'Send Message',
-        disabledPrivate: 'Reject Private Message'
+        disabledPrivate: 'Reject Private Message',
+        offline: 'Network Failure Error，Rconnect...',
     }
 }

@@ -23,7 +23,6 @@ class Avatar extends Component{
         .catch(err => errPrint(err))
     }
     render(){
-        console.log('avatar');
         let { size, handleClick, radius, handleUpload } = this.props;
         let src = this.state.src;
         size = size || 39;

@@ -11,7 +11,6 @@ export const shouldComponentUpdate = function(nextProps = {}, nextState = {}) {
   }
   for (const key in nextProps) {
       if (!Immutable.is(thisProps[key], nextProps[key])) {
-        //   console.log(key + ' is not equal');
           return true;
       }
   }

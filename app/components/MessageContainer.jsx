@@ -6,8 +6,12 @@ import TextMessage from './TextMessage.jsx'
 import ImageMessage from './ImageMessage.jsx'
 import FileMessage from './FileMessage.jsx'
 import messageMiddle from '../middlewares/message.js'
+import SignOwl from './SignOwl.jsx'
 import Loading from './Loading.jsx'
+import language from '../config/language.js'
 import { loadRoomHistory, errPrint } from '../actions/combin.js'
+import { setMenuState } from '../actions/pageUI.js'
+
 import '../less/MessageContainer.less'
 
 class MessageContainer extends Component{
@@ -76,12 +80,18 @@ class MessageContainer extends Component{
         }
     }
     render(){
-        console.log('MessageContainer');
         const { roomInfo, messagesObj, user, showExpression, showImage } = this.props;
         const messagesArr = roomInfo.get('histories') || immutable.fromJS([]);
         const style = {height: `calc(100% - 121px - ${showExpression? '238px':'0px'})`};
         return (
             <div className = 'MessageContainer' style = {style}>
+                {user.get('onlineState') === 'offline' && <div className = 'MessageContainer-offline'>{language.offline}</div>}
+                <div 
+                    className= 'MessageContainer-SignOwl'
+                    onClick = {() => setMenuState(true)}
+                >
+                    <SignOwl isFocus = {this.props.owlState}/>
+                </div>
                 <ReactCSSTransitionGroup
                     component = 'div'
                     transitionName = 'DialogScale'

@@ -25,7 +25,6 @@ function replaceContent(content){
     return repContent;
 }
 function TextMessage(props){
-    console.log('textMessage');
     const content = replaceContent(props.content.get('content'));
     return(
         <MessageBox {...props}>

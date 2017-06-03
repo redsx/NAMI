@@ -30,11 +30,6 @@ import {
     deleteBlock,
 } from './user.js'
 
-export const errPrint = (err) => {
-    console.error(err, language[err]);
-    language[err]? pushSnackbar(language[err]): pushSnackbar(language['ERROR1000']);
-}
-
 function mergeCbMessage(preMsg,ret){
     let message = {};
     message[preMsg._id] = {isLoading: false};
@@ -43,6 +38,13 @@ function mergeCbMessage(preMsg,ret){
     message[preMsg._id].Tcontent = ret.content;
     mergeMessage(message);
 }
+
+export const errPrint = (err) => {
+    console.error(err, language[err]);
+    language[err]? pushSnackbar(language[err]): pushSnackbar(language['ERROR1000']);
+}
+
+
 export const sendMessage = (isPrivate = false) => (msg,preMsg) => {
     addMessage(preMsg);
     getSendFunc(isPrivate)(msg)

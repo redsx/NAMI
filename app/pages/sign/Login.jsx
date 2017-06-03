@@ -26,7 +26,9 @@ class Login extends Component{
         return (
             <div className = 'sign-container'>
                 <div className = 'sign'>
-                    <SignOwl isFocus = {this.state.isFocus}/>
+                    <div className = 'login-SignOwl'>
+                        <SignOwl isFocus = {this.state.isFocus}/>
+                    </div>
                     <div className = 'sign-pad'>
                         <InputContainer>
                             <label className = 'sign-control-label'><i className = 'icon sign-icon'>&#xe92e;</i></label>

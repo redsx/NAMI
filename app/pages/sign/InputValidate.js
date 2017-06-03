@@ -50,7 +50,6 @@ const InputValidate = (WrappedComponent) => class extends Component{
         .catch((err)=>{
             this.setState({btnDisabled: false});
             pushSnackbar(language[err]);
-            console.log(language[err]);
         })
     }
     render(){

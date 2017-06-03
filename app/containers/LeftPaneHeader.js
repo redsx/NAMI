@@ -7,12 +7,24 @@ import IconMenu from '../components/IconMenu.jsx'
 import language from '../config/language.js'
 import { setLeftManager } from '../actions/pageUI.js'
 import { logout } from '../actions/combin.js'
+import { setMenuState } from '../actions/pageUI.js'
 
 function LeftPaneHeader(props){
-    console.log('LeftPaneHeader');
+    const style = {
+        background: props.onlineState === 'online' ? '#22f70e' : '#f73e0e',
+    }
     return (
         <Header 
-            leftElement = {<Avatar src = {props.avatar} size= {40} handleClick = {()=>setLeftManager({isShow:true, state: 'profile'})}/>}
+            leftElement = {
+                <div className = 'Header-onlineState-container'>
+                    <Avatar 
+                        src = {props.avatar} 
+                        size= {40}
+                        handleClick = {()=>setLeftManager({isShow:true, state: 'profile'})}
+                    />
+                    <div className = 'Header-onlineState' style = {style}></div>
+                 </div>
+            }
             rightElement = {
                 <div className = 'Header-leftElement'>
                     <i 
@@ -36,9 +48,16 @@ function LeftPaneHeader(props){
                             </li >
                         </ul>
                     </IconMenu>
+                    <i 
+                        className = 'icon Header-icon Header-close-btn' 
+                        onClick = {() => setMenuState(false)}
+                    >&#xe93d;</i>
                 </div>
             }
         />
     );
 }
-export default connect((state) =>({avatar: state.getIn(['user','avatar'])}))(PureRender(LeftPaneHeader));
+export default connect((state) =>({
+    avatar: state.getIn(['user', 'avatar']),
+    onlineState: state.getIn(['user', 'onlineState'])
+}))(PureRender(LeftPaneHeader));

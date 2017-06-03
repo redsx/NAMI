@@ -12,7 +12,6 @@ import { exitRoom, addBlock } from '../actions/combin.js'
 import AttachButton from './AttachButton.js'
 
 function MessageHeader(props){
-    console.log('MessageHeader');
     const { user, room, title, avatar, isPrivate } = props;
     return (
         <Header 

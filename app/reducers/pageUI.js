@@ -10,18 +10,31 @@ import {
     MESSAGE_CONTAINER_SCROLL,
     SET_EXPRESSION_STATE,
     SET_NOTIFICATIONS_STATE,
+    SET_MENU_STATE,
+    SET_OWL_STATE,
 } from '../constants/pageUI.js'
 import browers from '../util/browers.js'
 
 let defaultState = immutable.fromJS({
-    leftManagerState: {isShow: false},
-    rightManagerState: {isShow: false, state: 'invite'},
-    expressionState: false,
-    language: browers.language,
-    loadingState: {isShow: false, text: ''},
-    isSupportRecorder: recoderHandle.isSupport,
     snackbars: [],
-    msgContainerScroll: {needScroll: true, _id: Date.now()},
+    expressionState: false,
+    menuState: true,
+    owlState: false,
+    language: browers.language,
+    isSupportRecorder: false,
+    leftManagerState: {isShow: false},
+    rightManagerState: {
+        isShow: false, 
+        state: 'invite'
+    },
+    loadingState: {
+        isShow: false, 
+        text: ''
+    },
+    msgContainerScroll: {
+        needScroll: true, 
+        _id: Date.now()
+    },
     notifications: {
         desktopAlerts: true,
         showDesktopPreviews: true,
@@ -63,6 +76,16 @@ export default function reducer(state = defaultState,action) {
                 console.warn(err);
             }
             return state.set('notifications',notifications);
+        }
+        case SET_MENU_STATE: {
+            let ret = state;
+            if(action.payload) {
+                ret = state.set('owlState', false);
+            }
+            return ret.set('menuState', action.payload);
+        }
+        case SET_OWL_STATE: {
+            return state.set('owlState', action.payload)
         }
         default: {
             return state;

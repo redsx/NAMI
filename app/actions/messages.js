@@ -118,16 +118,22 @@ export const initItem = (isPrivate) => (isPrivate ? initPrivateItem : initRoomIt
 export const recevieMessage = dispatchThunk((payload) => {
     return (dispatch,getState) => {
         const state = getState();
-        if(!state.getIn(['activeList',payload.room])) initRoomItem(payload._id);
-        return addMessage(payload);
+         addMessage(payload);
+        if(!state.getIn(['activeList',payload.room])) {
+            return initRoomItem(payload._id);
+        }
+        return Promise.resolve();
     }
 })
 export const receviePrivate = dispatchThunk((payload) => {
     return (dispatch,getState) => {
         const state = getState();
         payload.room = payload.from;
-        if(!state.getIn(['activeList',payload.from]))  initPrivateItem(payload.from);
-        return addMessage(payload);
+        addMessage(payload);
+        if(!state.getIn(['activeList',payload.from]))  {
+            return initPrivateItem(payload.from);
+        }
+        return Promise.resolve();
     }
 })
 // - - - - - - - - - - -

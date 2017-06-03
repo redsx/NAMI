@@ -3,7 +3,6 @@ import PureRender from '../plugins/PureRender.js'
 import '../less/ChatMeta.less'
 
 function ChatMeta(props){
-    console.log('chatmeta');
     let { title, secondary, time, marker, Menu } = props;
     return (
         <div className = 'ChatMeta'>

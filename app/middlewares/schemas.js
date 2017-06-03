@@ -21,7 +21,6 @@ export const historySchema = [history];
 
 export const getInitPrivateData = (data) => {
     const normalizeData = normalize(data,privateSchema);
-    console.log(normalizeData);
     const { entities, result } = normalizeData;
     let { rooms, histories } = entities;
     result.forEach((key) => {

@@ -14,7 +14,6 @@ class MessageBox extends React.Component{
         super(props);
     }
     render(){
-        console.log('MessageBox');
         const { children, content } = this.props;
         const avatar = content.getIn(['owner','avatar']),
             ownerId = content.getIn(['owner','_id']),
@@ -69,7 +68,6 @@ function Nickname(props){
 }
 function MessageContent(props){
     let { Content, dir, Menu, isLoading } = props;
-    console.log('MessageContent');
     return (
         <div className = 'Message-content'>
             {Content}

@@ -27,7 +27,7 @@ function Layout(props){
                     <span className = 'manager-two '></span>
                     <span className = 'manager-three '> <RightManager /></span>
                 </div>
-                <span className = 'pane-one'>
+                <span className = {`pane-one pane-one-${props.menuState ? 'hidden' : 'show'}`}>
                     <LeftPaneHeader />
                     <ActiveList />
                 </span>

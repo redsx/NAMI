@@ -13,6 +13,10 @@
     height: 100%;
     width: 60%;
 }
+.Header-close-btn{
+    display: none;
+}
+
 
 @media screen and (max-height: 500px) {
     .Layout-container{
@@ -28,14 +32,34 @@
         position: absolute;
         width: 100%;
     }
+    .manager-three {
+        width: 100%;
+    }
     .pane-one {
+        top: 0px;
+        right: 0px;
         position: absolute;
         z-index: 21;
         width: 100%;
         background: white;
+        -ms-transition:all 0.35s cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+        -webkit-transition:all 0.35s cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+        transition:all 0.35s cubic-bezier(0.23, 1, 0.32, 1) 0ms;
     }
     .pane-two {
         width: 100%;
+    }
+    .MessageContainer-SignOwl{
+        display: block;
+    }
+    .Header-close-btn{
+        display: block;
+    }
+    .pane-one-hidden {
+        right: 0px;
+    }
+    .pane-one-show {
+        right: 100%;
     }
 }
 @media screen and (min-width: 1025px) {

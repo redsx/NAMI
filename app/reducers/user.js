@@ -5,10 +5,12 @@ import {
     PUSH_EXPRESSION,
     PUSH_BLOCK,
     DELETE_BLOCK,
+    SET_ONLINE_STATE,
 } from '../constants/user.js'
 
 let defaultState = immutable.fromJS({
         blocks: [],
+        onlineState: 'online',
 });
 
 export default function reducer(state = defaultState,action) {
@@ -37,6 +39,9 @@ export default function reducer(state = defaultState,action) {
                 blocks = blocks.delete(index);            
             }
             return state.set('blocks',blocks);
+        }
+        case SET_ONLINE_STATE: {
+            return state.set('onlineState', action.payload);
         }
         default: {
             return state;

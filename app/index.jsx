@@ -26,7 +26,8 @@ import {
 } from './actions/activeList.js'
 import { 
     pushSnackbar, 
-    setNotificationState 
+    setNotificationState,
+    setOwlState,
 } from './actions/pageUI.js'
 import { 
     recevieMessage, 
@@ -36,7 +37,8 @@ import {
 } from './actions/messages.js'
 import { 
     errPrint, 
-    changeRoom 
+    changeRoom,
+    logout,
 } from './actions/combin.js'
 import { 
     roomsSchema, 
@@ -98,27 +100,37 @@ const handleEnter = (nextState,replace) => {
         replace({pathname: '/login'});
     }
 }
-
-socket.on('newMessage',(message)=>{
-    console.log('newMessage: ',message);
-    addUnreadCount({_id: message.room});
+const getMessage = (message) => {
+    let owner = message.owner || {};
     const state = store.getState();
+    if(message.from){
+        const from = state.getIn(['activeList', message.from]);
+        owner.nickname = from.get('name');
+        owner.avatar = from.get('avatar');
+    }
     const desktopAlerts = state.getIn(['pageUI','notifications','desktopAlerts']),
+        curRoom = state.getIn(['user', 'curRoom']),
         showDesktopPreviews = state.getIn(['pageUI','notifications','showDesktopPreviews']);
+    if(curRoom !== message.room) {
+        addUnreadCount({_id: message.room});
+        window.innerWidth < 649 && setOwlState(true);
+    }
     if(document.hidden && desktopAlerts){
         notification.showNotification({
-            title: message.owner.nickname,
+            title: owner.nickname,
             body:  showDesktopPreviews ? handleMessage.getMessagePreview(message) : '[hidden]',
-            icon: message.owner.avatar,
+            icon: owner.avatar,
         })
     }
-    recevieMessage(message);
+}
 
+socket.on('newMessage',(message)=>{
+    recevieMessage(message)
+    .then(()=>getMessage(message));
 })
 socket.on('privateMessage',(message)=>{
-    console.log('recive private message: ',message);
-    addUnreadCount({_id: message.room});
-    receviePrivate(message);
+    receviePrivate(message)
+    .then(()=>getMessage(message));
 })
 socket.on('revokeMessage', (info) => {
     removeHistories([info._id]);
@@ -126,12 +138,12 @@ socket.on('revokeMessage', (info) => {
 
 let lastOnlineTime, lastRoom, disconnectCount = 0;
 socket.on('disconnect',()=>{
-    console.log('disconnect');
     const state = store.getState();
     const room = state.getIn(['user','curRoom']);
     const isPrivate = state.getIn(['activeList',room,'isPrivate']);
     lastRoom = { room, isPrivate };
     lastOnlineTime = Date.now();
+    mergeUserInfo({onlineState: 'offline'});
 })
 socket.on('reconnecting',()=>{
     disconnectCount ++;
@@ -141,9 +153,14 @@ socket.on('reconnect',()=>{
     console.log('reconnect success');
     disconnectCount = 0;
     const token = localStorage.getItem('token');
+    mergeUserInfo({onlineState: 'online'});
     disconnect({token,lastOnlineTime})
     .then((ret) => handleInit(token))
     .catch(err => errPrint(err))
+})
+socket.on('forcedOffline',()=>{
+    logout();
+    errPrint('ERROR10015');
 })
 render(
     <Provider store ={store}>

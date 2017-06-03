@@ -8,6 +8,8 @@ import {
     MESSAGE_CONTAINER_SCROLL,
     SET_EXPRESSION_STATE,
     SET_NOTIFICATIONS_STATE,
+    SET_MENU_STATE,
+    SET_OWL_STATE,
  } from '../constants/pageUI.js'
 // payload: bool
 export const setLeftManager = dispatchAction(SET_LEFT_MANAGER);
@@ -20,6 +22,10 @@ export const msgContainerScroll = dispatchAction(MESSAGE_CONTAINER_SCROLL);
 export const setExpressionState = dispatchAction(SET_EXPRESSION_STATE);
 
 export const setNotificationState = dispatchAction(SET_NOTIFICATIONS_STATE);
+
+export const setOwlState = dispatchAction(SET_OWL_STATE);
+
+export const setMenuState = dispatchAction(SET_MENU_STATE);
 
 export const pushSnackbar = (content) => {
     dispatchAction(PUSH_SNACKBAR)(content);

@@ -4,7 +4,6 @@ import uploadHandle from '../util/upload.js'
 import '../less/Avatar.less'
 
 function IconAvatar(props){
-    console.log('avatar');
     let { size, handleClick, radius, avatarBG, unicode } = props;
     size = size || 39;
     const avatarContainerStyle = {

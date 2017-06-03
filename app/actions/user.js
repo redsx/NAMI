@@ -4,6 +4,7 @@ import {
     PUSH_EXPRESSION,
     PUSH_BLOCK,
     DELETE_BLOCK,
+    SET_ONLINE_STATE,
 } from '../constants/user.js'
 
 export const login = socketEmit('login');
@@ -21,3 +22,4 @@ export const removeBlockContact = socketEmit('removeBlock');
 export const getBlockList = socketEmit('getBlockList');
 export const pushBlock = dispatchAction(PUSH_BLOCK);
 export const deleteBlock = dispatchAction(DELETE_BLOCK);
+export const setOnlineState = dispatchAction(SET_ONLINE_STATE);

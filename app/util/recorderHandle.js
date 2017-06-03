@@ -40,7 +40,6 @@ export default (function (){
         recorder.clear();
     }
     function startUserMedia() {
-        console.log('getUserMedia: ',getUserMedia);
         if(isSupport){
             navigator.mediaDevices.getUserMedia({audio: true})
             .then((inputStream) => {
@@ -68,7 +67,6 @@ export default (function (){
         return new Promise((resolve,reject) => {
             recorder && recorder.exportWAV(function(blob) {
                 // var url = URL.createObjectURL(blob);
-                console.log('blob: ',blob);
                 resolve(blob);
             });
         })
