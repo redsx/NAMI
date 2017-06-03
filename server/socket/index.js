@@ -130,7 +130,7 @@ module.exports = function (io) {
             .catch((err) => callbackError(cb,err));
         })
         socket.on('revokePrivate',(info,cb)=>{
-            co(private.revokePrivate(info,cb))
+            co(private.revokePrivate(info,socket,cb))
             .catch((err) => callbackError(cb,err));
         })
         socket.on('initPrivateList',(info,cb)=>{

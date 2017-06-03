@@ -31,7 +31,12 @@ module.exports = {
     verifyUser: function *(info,cb) {
         let { email, password } = info;
         let user = yield User.findOne({email: email});
-        if(!user) return cb({ isError: true, errMsg: 'ERROR1003'});
+        if(!user)  {
+            user = yield User.findOne({nickname: email});
+            if(!user){
+                return cb({ isError: true, errMsg: 'ERROR1003'});
+            }
+        }
         let resault = yield bluebird.promisify(bcrypt.compare)(password,user.password);
         if(resault){ 
             let exp = Math.floor((new Date().getTime())/1000) + 60 * 60 * 24 * 30;
@@ -58,6 +63,7 @@ module.exports = {
             let { nickname, avatar, _id, status, expressions, blocks, blockAll } = user;
             blocks = blocks || [];
             expressions = expressions || [];
+            socket.join(user._id);
             yield onliner.save();
             yield user.save();
             cb({nickname, avatar, device, _id, status, expressions, blocks , blockAll});

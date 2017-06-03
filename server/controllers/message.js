@@ -52,7 +52,6 @@ module.exports = {
         const _id = info._id,
             ownerId = info.ownerId;
         const ret = yield History.remove({_id: _id, owner: ownerId}); 
-        console.log('withdraw',info);
         if(ret){
             socket.broadcast.emit('revokeMessage', info);
             return cb({isOk: true});

@@ -79,8 +79,7 @@ module.exports = {
     refreshInviteLink: function *(info,cb){
         const room = yield Room.findOne({_id:info._id,creater: info.creater},'avatar name inviteLink');
         if(room){
-            let inviteLink = jwt.sign({ link: Date.now() },JWT_KEY);
-            inviteLink = inviteLink.slice(inviteLink.length-20,inviteLink.length);
+            let inviteLink = Date.now().toString(36) + Math.random().toString(36).slice(8);
             room.inviteLink = inviteLink;
             const success =  yield room.save();
             cb({inviteLink});

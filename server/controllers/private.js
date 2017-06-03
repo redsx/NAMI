@@ -66,11 +66,13 @@ module.exports = {
      * @param {object} info _id & ownerId
      * @param {function} cb callback
      */
-    revokePrivate: function*(info,cb){
+    revokePrivate: function*(info,socket,cb){
         const _id = info._id,
             userId = info.ownerId;
-        const ret = yield Private.remove({_id: _id, from: userId}); 
-        if(ret){
+        const message = yield Private.findOne({_id: id});
+        if(message){
+            const ret = yield Private.remove({_id: _id, from: userId}); 
+            socket.broadcast.to(message.to).emit('revokeMessage', info);
             return cb({isOk: true});
         } else{
             return cb({isError: true, errMsg:'ERROR1003'});
