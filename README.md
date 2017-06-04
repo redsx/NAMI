@@ -26,7 +26,7 @@ NAMI取自LOL娜美，他源于之前的项目[CR](https://github.com/redsx/NAMI
 git clone https://github.com/redsx/CR.git
 cd NAMI
 npm install
-npm run pro # 打包前端或者使用npm run dev (开发模式)
+npm run prod # 打包前端或者使用npm run dev (开发模式)
 npm start # open server, open http://locahost:3002
 ```
 
