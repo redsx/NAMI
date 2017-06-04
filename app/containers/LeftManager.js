@@ -6,8 +6,8 @@ import NewContact from '../components/NewContact.jsx'
 import CreateGroup from './CreateGroup.js'
 import NotificationSetting from './NotificationSetting.js'
 import BlockContact from './BlockContact.js'
+import Setting from './Setting.js'
 
-import Setting from '../components/Setting.jsx'
 function select(state){
     switch(state){
         case 'createGroup': return <CreateGroup />;

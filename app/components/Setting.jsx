@@ -23,9 +23,9 @@ function Setting(props){
         <div className = 'Profile-container'>
             <ProfileHeader title = {language.setting} />
             <ProfileSection className = 'Invite-Section'>
-                <Avatar size = {82} />
+                <Avatar size = {82} src = {props.avatar}/>
                 <div className = 'Invite-link-container'>
-                    <p>{'MD纸一张'}</p>
+                    <p>{props.nickname}</p>
                 </div>
             </ProfileSection>
             <ProfileButton text = {language.notifications} unicode = '&#xe844;' color = '#888' handleClick = {()=>setLeftManager({isShow: true,state: 'notificationSetting'})}/>
