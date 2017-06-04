@@ -15,6 +15,8 @@ import language from './config/language.js'
 import notification from './util/notification.js'
 import handleMessage from './util/message.js'
 import { disconnect } from './actions/connect.js'
+import favico from './util/favico.js'
+
 import { 
     getUserInfo, 
     mergeUserInfo 
@@ -47,13 +49,13 @@ import {
 } from './middlewares/schemas.js'
 import { normalize } from 'normalizr'
 
-
 import './less/media.less'
 import './less/CSSTransition.less'
 import './less/List.less'
 import './less/Profile.less'
 
 notification.requestPermission();
+favico.resetWhenDocVisibility();
 
 const device = browser.versions;
 function initLocalSetting(){
@@ -115,6 +117,9 @@ const getMessage = (message) => {
         addUnreadCount({_id: message.room});
         window.innerWidth < 649 && setOwlState(true);
     }
+    if(document.hidden){
+        favico.addBage();
+    }
     if(document.hidden && desktopAlerts){
         notification.showNotification({
             title: owner.nickname,
@@ -143,6 +148,7 @@ socket.on('disconnect',()=>{
     const isPrivate = state.getIn(['activeList',room,'isPrivate']);
     lastRoom = { room, isPrivate };
     lastOnlineTime = Date.now();
+    favico.errorBage();
     mergeUserInfo({onlineState: 'offline'});
 })
 socket.on('reconnecting',()=>{
@@ -153,6 +159,7 @@ socket.on('reconnect',()=>{
     console.log('reconnect success');
     disconnectCount = 0;
     const token = localStorage.getItem('token');
+    favico.resetBage();
     mergeUserInfo({onlineState: 'online'});
     disconnect({token,lastOnlineTime})
     .then((ret) => handleInit(token))
