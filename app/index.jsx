@@ -55,7 +55,7 @@ import './less/Profile.less'
 
 notification.requestPermission();
 
-const device = browser.versions.mobile ? 'mobile' : 'PC';
+const device = browser.versions;
 function initLocalSetting(){
     let notifications = {};
     try{
@@ -92,7 +92,7 @@ const handleInit = (token) => {
 }
 const handleEnter = (nextState,replace) => {
     const state = store.getState();
-    const token = localStorage.getItem('token') || state.getIn(['user','token']);
+    const token = localStorage.getItem('token');
     const userId = state.getIn(['user','_id']);
     if(token){
         if(!userId) return handleInit(token);
@@ -158,10 +158,12 @@ socket.on('reconnect',()=>{
     .then((ret) => handleInit(token))
     .catch(err => errPrint(err))
 })
-socket.on('forcedOffline',()=>{
-    logout();
-    errPrint('ERROR10015');
-})
+
+// 不允许多端同时登录
+// socket.on('forcedOffline',()=>{
+//     logout();
+//     errPrint('ERROR10015');
+// })
 render(
     <Provider store ={store}>
     <div>

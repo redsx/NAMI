@@ -128,7 +128,7 @@ export const recevieMessage = dispatchThunk((payload) => {
 export const receviePrivate = dispatchThunk((payload) => {
     return (dispatch,getState) => {
         const state = getState();
-        payload.room = payload.from;
+        // payload.room = payload.from;
         addMessage(payload);
         if(!state.getIn(['activeList',payload.from]))  {
             return initPrivateItem(payload.from);

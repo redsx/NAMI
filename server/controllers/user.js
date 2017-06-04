@@ -11,10 +11,13 @@ module.exports = {
     createUser: function *(info,cb) {
         let { password, nickname, email } = info;
         let user = yield User.findOne({email: email}),
+            userN = yield User.findOne({nickname: nickname}),
             room = yield Room.findOne({name: config.INIT_ROOM}),
             salt = yield bluebird.promisify(bcrypt.genSalt)(10);
         password = yield bluebird.promisify(bcrypt.hash)(password,salt,null); 
-        if(user && room)  return cb({ isError: true, errMsg: 'ERROR1002'});
+        if(user && room && userN)  {
+            return cb({ isError: true, errMsg: 'ERROR1002'});
+        }
         let rooms = [room._id];
         let resault  = yield User.create({ nickname, email, password, rooms });
         if(resault){ 
@@ -41,29 +44,30 @@ module.exports = {
         if(resault){ 
             let exp = Math.floor((new Date().getTime())/1000) + 60 * 60 * 24 * 30;
             let verify = jwt.sign({user: user._id, exp: exp },JWT_KEY);
+            const room = yield Room.findOne({name: config.INIT_ROOM});
             return cb({ token:verify });
         }
         return cb({isError: true, errMsg: 'ERROR1004'});
     },
 
     getUserInfo: function*(info,socket,cb){
-        socket.join(socket.id);
         let { token, device } = info;
         let user = yield User.findOne({_id: token.user}).populate('online');
         if(user){
             // 判断是否在线，如果在线将之前在线用户踢下线
-            if(user.online){
-                console.log('forcedOffline: ',user.nickname);
-                socket.broadcast.to(user.online.socket).emit('forcedOffline');
-            }
+            // if(user.online){
+            //     console.log('forcedOffline: ',user.nickname);
+            //     socket.broadcast.to(user.online.socket).emit('forcedOffline');
+            // }
             let onliner = new Online({socket: socket.id,user: user._id});
+            socket.join(user._id);
             user.device = device;
             user.onlineState = 'online';
             user.online = onliner._id;
+            user.onlineDevice = user.onlineDevice && user.onlineDevice > 0 ? user.onlineDevice + 1 : 1;
             let { nickname, avatar, _id, status, expressions, blocks, blockAll } = user;
             blocks = blocks || [];
             expressions = expressions || [];
-            socket.join(user._id);
             yield onliner.save();
             yield user.save();
             cb({nickname, avatar, device, _id, status, expressions, blocks , blockAll});
@@ -90,7 +94,11 @@ module.exports = {
         }else{
             info.nickname = new RegExp(info.nickname,'i');
         }
-        const users = yield User.find(info,'_id avatar nickname status onlineState',{limit: 20, sort: '-lastOnlineTime'});
+        const users = yield User.find(
+            info,
+            '_id avatar nickname status onlineState device',
+            {limit: 20, sort: '-lastOnlineTime'}
+        );
         cb(users);
     },
     addExpression: function*(info,cb){

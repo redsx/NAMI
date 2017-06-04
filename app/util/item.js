@@ -30,8 +30,12 @@ export default {
     },
     getUserInfo: function(){
         const user = this.props.user;
-        const { avatar, onlineState, nickname , status } = user;
-        const secondary = `[${onlineState || 'offline'}] ${status|| '...'}`;
+        const { avatar, onlineState, nickname , status, device } = user;
+        let sec = onlineState || 'offline';
+        if(onlineState === 'online' && device){
+            sec = device;
+        }
+        const secondary = `[ ${sec} ] ${status|| '...'}`;
         return {secondary,avatar,name: nickname};
     }
 }

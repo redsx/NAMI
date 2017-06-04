@@ -1,7 +1,6 @@
 const request = require('request')
     , bluebird = require('bluebird')
     , User = require('../models/user-mongo')
-    , Online = require('../models/online-mongo')
     , History = require('../models/history-mongo')
     , Private = require('../models/private-mongo')
     , RichText = require('../models/richtext-mongo')

@@ -122,13 +122,17 @@ module.exports = {
     },
     getRoomUsers: function *(info,cb){
         let userInfo = {}
-        if(info.nickname.trim()!=='') userInfo.nickname = new RegExp(info.nickname,'i');
-        if(info.onlineState) userInfo.onlineState = info.onlineState;
+        if(info.nickname.trim()!=='') {
+            userInfo.nickname = new RegExp(info.nickname,'i');
+        }
+        if(info.onlineState) {
+            userInfo.onlineState = info.onlineState;
+        }
         const room = yield Room.findOne({_id: info.room}).populate({
             path: 'users', 
             options: {limit: 20, sort: '-lastOnlineTime'},
             match: userInfo,
-            select: '_id avatar nickname status onlineState'
+            select: '_id avatar nickname status onlineState device'
         })
         cb(room.users);
     }

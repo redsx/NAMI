@@ -5,7 +5,7 @@ module.exports = {
         const _id = info.token.user;
         const user = yield User.findOne({_id: _id});
         if(user){
-            const lastOnlineTime = user.lastOnlineTime;
+            const lastOnlineTime = user.lastOnlineTime - 12*60*60;
             const privateHistories = yield Private.find(
                 {timestamp: {$gt: lastOnlineTime},to: _id},
                 null,
@@ -20,7 +20,7 @@ module.exports = {
         let { from, to, content, type } = message,
             timestamp = Date.now();
         content = content.slice(0,500);
-        const toUser = yield User.findOne({_id: to}).populate('online'),
+        const toUser = yield User.findOne({_id: to}),
               fromUser = yield User.findOne({_id: from});
         if(fromUser && toUser){
             const msg = {from, to, timestamp, type, content };
@@ -29,8 +29,13 @@ module.exports = {
             }
             const privateMessage = new Private(msg);
             yield privateMessage.save();
-            if(toUser.online) {
-                socket.broadcast.to(toUser.online.socket).emit('privateMessage',privateMessage);
+            msg.room = msg.from;
+            msg._id = privateMessage._id;
+            if(toUser.onlineDevice > 0) {
+                // 多端同步
+                socket.broadcast.to(toUser._id).emit('privateMessage',msg);
+                const retMsg = Object.assign({},msg,{room: msg.to});
+                socket.broadcast.to(fromUser._id).emit('privateMessage',retMsg);
             }
             cb(privateMessage);
         } else{

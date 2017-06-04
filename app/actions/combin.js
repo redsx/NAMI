@@ -3,7 +3,7 @@ import stateManege from '../util/stateManage.js'
 import config from '../config/config.js'
 import socket from './socket.js'
 import { browserHistory } from 'react-router'
-import { pushSnackbar, setRightManager, setLeftManager, msgContainerScroll } from './pageUI.js'
+import { pushSnackbar, setRightManager, setLeftManager, msgContainerScroll, setMenuState } from './pageUI.js'
 import { roomsSchema , historySchema } from '../middlewares/schemas.js'
 import { socketEmit, dispatchAction, dispatchThunk } from './common.js'
 import { updateRoomInfo, mergeRoomInfo, clearUnreadCount } from './activeList.js'
@@ -120,6 +120,7 @@ export const changeRoom = isPrivate => curRoom => {
     clearHistory();
     clearUnreadCount({_id: curRoom});
     mergeUserInfo({curRoom});
+    setMenuState(false);
     dispatchThunk(() => (dispatch,getState) =>{
         const state = getState(),
               maxLength = config.ScreenMessageLenght;
@@ -217,6 +218,7 @@ export const removeBlock = (info) => {
 export const logout = () => {
     browserHistory.push('/login');
     delete localStorage.token;
+    mergeUserInfo({});
     socket.disconnect();
     socket.connect();
 }

@@ -11,22 +11,38 @@ const jwt = require('jsonwebtoken')
 
 module.exports = {
     autoDisconnect: function *(socket,info) {
-        let online = yield Online.findOne({socket:socket.id}).populate('user','_id nickname');
+        let online = yield Online.findOne({socket:socket.id}).populate('user','_id nickname onlineDevice');
         if(online){
             console.log(online.user.nickname,' --------------->  offline');
-            yield User.update({_id: online.user._id},{$set: {onlineState: 'offline', lastOnlineTime: Date.now()}});
+            const onlineDevice = online.user.onlineDevice;
+            if(onlineDevice > 1) {
+                yield User.update({_id: online.user._id},{$set: {onlineDevice: onlineDevice - 1}});
+            } else {
+                yield User.update(
+                    {_id: online.user._id},
+                    {
+                        $set: {
+                            onlineState: 'offline', 
+                            lastOnlineTime: Date.now(),
+                            onlineDevice: 0,
+                        }
+                    }
+                );
+            }
             yield Online.remove({socket:socket.id});
         }
     },
     frontDisconnect: function *(info,cb) {
-        let user = yield User.findOne({_id: info.token.user}).populate('online');
+        // 此处为前端断开连接后重连触发
+        const user = yield User.findOne({_id: info.token.user});
         console.log(user.nickname,' ---------------> offline');
-        if(user.online){
-            yield user.online.remove();
+        const onlineDevice = user.onlineDevice;
+        if(onlineDevice <= 1){
             user.onlineState = 'offline';
-            user.lastOnlineTime = info.lastOnlineTime || Date.now();
-            yield user.save();
         }
+        user.onlineDevice = onlineDevice - 1;
+        user.lastOnlineTime = info.lastOnlineTime || Date.now();
+        yield user.save();
         cb({isOk: true});
     },
 }
