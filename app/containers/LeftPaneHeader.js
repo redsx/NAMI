@@ -11,7 +11,7 @@ import { setMenuState } from '../actions/pageUI.js'
 
 function LeftPaneHeader(props){
     const style = {
-        background: props.onlineState === 'online' ? '#22f70e' : '#f73e0e',
+        background: props.onlineState === 'online' ? 'rgb(53, 195, 40)' : '#f73e0e',
     }
     return (
         <Header 

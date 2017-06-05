@@ -106,7 +106,7 @@ const getMessage = (message) => {
     let owner = message.owner || {};
     const state = store.getState();
     if(message.from){
-        const from = state.getIn(['activeList', message.from]);
+        const from = state.getIn(['activeList', message.room]);
         owner.nickname = from.get('name');
         owner.avatar = from.get('avatar');
     }
