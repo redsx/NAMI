@@ -198,6 +198,15 @@ export const addExpression = (info) => {
     .catch((err)=>errPrint(err));
 };
 
+// export const deleteExpression = (info) => {
+//     socketEmit('deleteExpression')(info)
+//     .then(()=>{
+//         pushExpression(info.expression);
+//         pushSnackbar(language.addExpression);
+//     })
+//     .catch((err)=>errPrint(err));
+// };
+
 export const addBlock = (info) => {
     addBlockContact(info)
     .then(()=>{
@@ -231,7 +240,11 @@ export const logout = () => {
  */
 export const revokeMessage = (info) => {
     const _id = info.Tid || info._id;
-    getRevokeFunc(info.isPrivate)({ownerId: info.ownerId, _id})
+    const timestamp = info.timestamp;
+    if(Date.now() - timestamp > config.revokeMsgTimeLimit){
+        return errPrint('ERROR10016');
+    }
+    getRevokeFunc(info.isPrivate)({ownerId: info.ownerId, _id, timestamp})
     .then(()=>{
         removeHistories([info._id]);
         pushSnackbar(language.withdrawn);

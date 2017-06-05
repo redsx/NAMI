@@ -60,6 +60,7 @@ export default connect(state => {
         isPrivate,
         user,
         isBlock,
-        isSupportRecorder: state.getIn(['pageUI','isSupportRecorder'])
+        isSupportRecorder: state.getIn(['pageUI','isSupportRecorder']),
+        showExpressions: state.getIn(['pageUI','notifications', 'showExpressions'])
     }
 })(InputContentWarp(InputContent));

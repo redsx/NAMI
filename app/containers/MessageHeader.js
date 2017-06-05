@@ -7,7 +7,7 @@ import Avatar from '../components/Avatar.jsx'
 import IconMenu from '../components/IconMenu.jsx'
 import language from '../config/language.js'
 import stateManage from '../util/stateManage.js'
-import { setRightManager } from '../actions/pageUI.js'
+import { setRightManager, setMenuState } from '../actions/pageUI.js'
 import { exitRoom, addBlock } from '../actions/combin.js'
 import AttachButton from './AttachButton.js'
 
@@ -16,7 +16,16 @@ function MessageHeader(props){
     return (
         <Header 
             title = {title}
-            leftElement = {<Avatar src = {avatar} size= {40} handleClick = {()=>setRightManager({isShow:true, state: 'profile'})}/>}
+            leftElement = {
+                [
+                    <div className = 'Header-media-l' key = 'media-l'>
+                        <Avatar src = {avatar} size= {40} handleClick = {()=>setRightManager({isShow:true, state: 'profile'})}/>
+                    </div>,
+                    <div className = 'Header-media-s' key = 'media-s' onClick = {() => setMenuState(true)}>
+                        <i className = 'icon' >&#xe640;</i>
+                    </div>
+                ]
+            }
             rightElement = {
                 <div className = 'Header-leftElement'>
                    { !isPrivate && <i className = 'icon Header-icon' title = {language.search} onClick = {()=>setRightManager({isShow:true, state: 'roomUsers'})}>&#xe601;</i> }

@@ -116,6 +116,21 @@ module.exports = {
             cb({ isError: true, errMsg:'ERROR1003' });
         }
     },
+    deleteExpression: function*(info,cb){
+        const { expression, _id } = info;
+        const user = yield User.findOne({_id: _id});
+        if(user){
+            const expressions = user.expressions || [];
+            const index = expressions.indexOf(expression);
+            if(index !== -1){
+                user.expressions.splice(expression, 1);
+                yield user.save();
+            }
+            cb({isOk: true});
+        } else{
+            cb({ isError: true, errMsg:'ERROR1003' });
+        }
+    },
     addBlock: function*(info,cb){
         const { blockId, _id } = info;
         const user = yield User.findOne({_id: _id});

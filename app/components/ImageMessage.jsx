@@ -36,7 +36,11 @@ class ImageMessage extends Component{
         return(
             <MessageBox {...this.props}>
                 <div onClick = {()=>this.setState({showImagePanel: true})}>
-                    <img  className = 'Message-image' src={content} style = {showImage?{}:blur}/>
+                    <img  
+                        className = 'Message-image' 
+                        src={content} 
+                        style = {showImage ? {} : blur} 
+                        onError= {(e)=>{e.target.style.display = 'none'}}/>
                 </div>
                 <ImagePanel 
                     content = {this.props.content}

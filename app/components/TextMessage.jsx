@@ -8,11 +8,15 @@ function replaceContent(content){
     const regLink = /((http|https):\/\/)?(\w(\:\w)?@)?([0-9a-z_-]+\.)*?([a-z0-9-]+\.[a-z]{2,6}(\.[a-z]{2})?(\:[0-9]{2,6})?)((\/[^?#<>\/\\*":]*)+(\?[^#]*)?(#.*)?)?$/i,
         regImg = /https?:\/\/.+\.(jpg|gif|png|svg|jpeg)/i,
         http = /^http/,
+        regExp = /#\([\u4e00-\u9fa5a-z]+\)/g,
         regInvite = new RegExp(config.inviteLink,'i');
-
+    repContent = repContent.replace(
+        regExp, 
+        r => `<img src="images/expressions/${r.match(/[^#()]+/)[0]}.png" alt="${r}" onerror="this.style.display=\'none\'"/>`
+    );
     repContent = repContent.replace(regLink, (r) =>{
         if(regImg.test(r)){
-            return `<img class = 'Message-image' src = '${r}' />`;
+            return `<img class = 'Message-image' src = '${r}' onerror="this.style.display=\'none\'"/>`;
         }
         if(regInvite.test(r)){
             return `<a href='${r}' target='_self' rel='noreferrer'>${r}</a>`;

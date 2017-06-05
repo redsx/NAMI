@@ -40,6 +40,7 @@ let defaultState = immutable.fromJS({
         showDesktopPreviews: true,
         showMessagePreviews: true,
         showImages: true,
+        showExpressions: true,
     }
 });
 

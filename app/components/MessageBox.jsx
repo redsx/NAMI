@@ -25,7 +25,7 @@ class MessageBox extends React.Component{
             isLoading = content.get('isLoading'),
             timestamp = content.get('timestamp');
         const time = timeDeal.getTimeString(timestamp);
-        const menuProps = {isPrivate, _id, Tid, ownerId, dir}
+        const menuProps = {isPrivate, _id, Tid, ownerId, dir, timestamp}
         return (
             <div className= 'Message-list-item'>
                 <div className = 'Message-container'>
@@ -84,14 +84,14 @@ function MessageContent(props){
 }
 // 菜单
 function Menu(props){
-    const { _id, isPrivate, ownerId, dir, Tid } = props;
+    const { _id, isPrivate, ownerId, dir, Tid, timestamp } = props;
     let list = [];
     if(dir === 'right'){
         list.push(
             <li 
                 className = 'List-item'
                 key = {`${_id}-3`}
-                onClick = {() => revokeMessage({_id,Tid,ownerId,isPrivate})}
+                onClick = {() => revokeMessage({_id, Tid, ownerId, isPrivate, timestamp})}
             >
                 {language.withdrawn}
             </li >

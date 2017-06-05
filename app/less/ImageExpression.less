@@ -22,17 +22,19 @@
 .ImageExpression-image-zoom{
     position: absolute;
     opacity: 0px;
-    top: -88px;
-    right: 30px;
-    transform: scale(0);
+    bottom: 50px;
+    left: 50%;
+    max-width: 120px;
+    max-height: 120px;
+    transform: scale(0) translate(-50%);
     pointer-events: none;
-    transform-origin: right bottom;
+    transform-origin: center center;
     border-radius: 5px;
     transition: all 0.25s ease-in-out;
     max-width: 200px;
     z-index: 10;
 }
 .ImageExpression-image-container:hover .ImageExpression-image-zoom{
-    transform: scale(1);
+    transform: scale(1) translate(-50%);
     opacity: 1;
 }   
