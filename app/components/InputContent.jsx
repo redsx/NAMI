@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import autobind from 'autobind-decorator'
 import language from '../config/language.js'
+import config from '../config/config.js'
 import InputButton from './InputButton.jsx'
 import Expressions from './Expressions.jsx'
 import { setExpressionState } from '../actions/pageUI.js'
@@ -15,30 +16,26 @@ class InputContent extends Component{
             isInput: !props.isSupportRecorder,
             expressionState: false,
         };
-        this.dbTime = 0;
     }
     @autobind
     handleClick(){
         const content = this.input.value ? this.input.value.trim() : '';
         this.props.handleSend(content);
         this.input.value = '';
+        this.input.focus();
     }
     @autobind
     handleKeyDown(e){
-        let isDbSpace = false;
-        if(e.keyCode === 32){
-            if(Date.now() - this.dbTime < 200){
+        if(e.ctrlKey || e.metaKey){
+            // '⌘'
+            if(e.keyCode === 13){
+                this.handleToggleExp(!this.state.expressionState);
+            } else if(this.props.showExpressions && config.keyMap[e.key] && e.target === this.input){
                 e.preventDefault();
-                isDbSpace = true;
-            } 
-            this.dbTime = Date.now();
-        }
-        if(e.keyCode === 13 && e.target === this.input){
+                handleClipboard.insertAtCursor(this.input, `#(${config.keyMap[e.key]})`, true);
+            }
+        } else if(e.keyCode === 13 && e.target === this.input){
             this.handleClick();
-        }
-        if(isDbSpace && e.target === this.input && this.props.showExpressions){
-            const expressionState = !this.state.expressionState
-            this.setState({expressionState});
         }
     }
     @autobind
@@ -57,6 +54,10 @@ class InputContent extends Component{
         handleClipboard.insertAtCursor(this.input, val);
         this.input.focus();
     }
+    @autobind
+    handleToggleExp(state){
+        this.setState({expressionState: state})
+    }    
     componentDidMount(){
         document.addEventListener('keydown',this.handleKeyDown);
     }
@@ -64,20 +65,24 @@ class InputContent extends Component{
         document.removeEventListener('keydown',this.handleKeyDown);
     }
     render(){
+        const expressionState = this.state.expressionState;
         return (
             <div className = 'InputArea-input-content'>
-                <div className = 'InputArea-Expressions'>
-                    <Expressions addExpression = {this.addExpression} expressionState = {this.state.expressionState}/>
+                <div className = 'InputArea-Expressions' onClick = {()=>this.handleToggleExp(false)}>
+                    <Expressions addExpression = {this.addExpression} expressionState = {expressionState}/>
                 </div>
                 <input 
                     className = 'InputArea-input'
                     ref = {ref => this.input = ref} 
                     disabled = {this.props.isBlock}
-                    placeholder = {this.props.isBlock?language.blockAreaPlaceholder:language.showExpressions}
+                    placeholder = {this.props.isBlock?language.blockAreaPlaceholder:language.inputAreaPlaceholder}
                     onPaste = {this.props.handlePaste}
                     onChange = {this.handleChange}
                     onFocus = {() => setExpressionState(false)}
                 />
+                <button onClick = {()=>this.handleToggleExp(!expressionState)} className = 'InputArea-default-emoji'>
+                    <i className = 'icon'> &#xe78a;</i>
+                </button>
                 {
                     !this.state.isInput?
                     <InputButton handleClick = {this.handleClick} title = {language.send} unicode = '&#xe666;'/>
