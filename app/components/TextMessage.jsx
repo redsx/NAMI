@@ -10,6 +10,11 @@ function replaceContent(content){
         http = /^http/,
         regExp = /#\([\u4e00-\u9fa5a-z]+\)/g,
         regInvite = new RegExp(config.inviteLink,'i');
+    repContent = repContent.replace(/&/g,'&amp')
+                            .replace(/\"/g,'&quot')
+                            .replace(/</g,'&lt;')
+                            .replace(/>/g,'&gt;')
+                            .replace(/\'/g,'&apos;');
     repContent = repContent.replace(
         regExp, 
         r => `<img src="images/expressions/${r.match(/[^#()]+/)[0]}.png" alt="${r}" onerror="this.style.display=\'none\'"/>`

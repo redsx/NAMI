@@ -28,11 +28,12 @@ class InputContent extends Component{
     handleKeyDown(e){
         if(e.ctrlKey || e.metaKey){
             // '⌘'
+            const key = e.key.toLocaleUpperCase();
             if(e.keyCode === 13){
                 this.handleToggleExp(!this.state.expressionState);
-            } else if(this.props.showExpressions && config.keyMap[e.key] && e.target === this.input){
+            } else if(this.props.showExpressions && config.keyMap[key] && e.target === this.input){
                 e.preventDefault();
-                handleClipboard.insertAtCursor(this.input, `#(${config.keyMap[e.key]})`, true);
+                handleClipboard.insertAtCursor(this.input, `#(${config.keyMap[key]})`, true);
             }
         } else if(e.keyCode === 13 && e.target === this.input){
             this.handleClick();
@@ -56,7 +57,8 @@ class InputContent extends Component{
     }
     @autobind
     handleToggleExp(state){
-        this.setState({expressionState: state})
+        this.setState({expressionState: state});
+        this.input.focus();
     }    
     componentDidMount(){
         document.addEventListener('keydown',this.handleKeyDown);
