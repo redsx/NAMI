@@ -9,9 +9,9 @@ import messageMiddle from '../middlewares/message.js'
 import SignOwl from './SignOwl.jsx'
 import Loading from './Loading.jsx'
 import language from '../config/language.js'
+import fiora from '../middlewares/fiora.js'
 import { loadRoomHistory, errPrint } from '../actions/combin.js'
 import { setMenuState } from '../actions/pageUI.js'
-
 import '../less/MessageContainer.less'
 
 class MessageContainer extends Component{
@@ -108,6 +108,7 @@ class MessageContainer extends Component{
                                 return null;
                             }
                             let message = messageMiddle.priToGro(messagesObj.get(id),roomInfo,user);
+                            message = immutable.fromJS( fiora.dealFioraMessage(message.toJS()));
                             const dir =  user.get('_id') === message.getIn(['owner','_id']) ? 'right' : 'left';
                             message = message.set('dir',dir);
                             switch(message.get('type')){

@@ -10,9 +10,10 @@ const request = require('request')
 let filterNum = 0;
 module.exports = {
     saveMessage: function *(message,socket,cb) {
-        let { _id, room, content, type } = message,
+        let { _id, room, content, type, token } = message,
             timestamp = Date.now();
         content = message.content.slice(0,500);
+        _id = _id || token.user;
         let history = { room, type, content, timestamp };
         if(test(content)){
             filterNum++;

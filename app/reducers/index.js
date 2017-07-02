@@ -3,7 +3,6 @@ import batchReducer from './batchReducer.js'
 import logSlowReducers from './logSlowReducers.js'
 import pageUI from './pageUI.js'
 import user from './user.js'
-import generateReducer from './generateReducer.js'
 import messages from './messages.js'
 import activeList from './activeList.js'
 

@@ -17,8 +17,9 @@ module.exports = {
         }
     },
     savePrivateMessage: function *(message,socket,cb) {
-        let { from, to, content, type } = message,
+        let { from, to, content, type, token } = message,
             timestamp = Date.now();
+        from = from || token.user;
         content = content.slice(0,500);
         const toUser = yield User.findOne({_id: to}),
               fromUser = yield User.findOne({_id: from});

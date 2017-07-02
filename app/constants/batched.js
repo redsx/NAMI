@@ -1,1 +1,2 @@
 export const BATCHED_ACTIONS = 'BATCHED_ACTIONS';
+export const INIT_STATE = 'INIT_STATE';

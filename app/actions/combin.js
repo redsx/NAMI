@@ -1,13 +1,22 @@
+import { browserHistory } from 'react-router'
+
 import language from '../config/language.js'
 import stateManege from '../util/stateManage.js'
 import config from '../config/config.js'
 import socket from './socket.js'
-import { browserHistory } from 'react-router'
-import { pushSnackbar, setRightManager, setLeftManager, msgContainerScroll, setMenuState } from './pageUI.js'
+
+import { normalize } from 'normalizr'
+import { initState } from './batched.js'
 import { roomsSchema , historySchema } from '../middlewares/schemas.js'
 import { socketEmit, dispatchAction, dispatchThunk } from './common.js'
 import { updateRoomInfo, mergeRoomInfo, clearUnreadCount } from './activeList.js'
-import { normalize } from 'normalizr'
+import { 
+    pushSnackbar, 
+    setRightManager,
+    setLeftManager, 
+    msgContainerScroll, 
+    setMenuState 
+} from './pageUI.js'
 import { 
     getSendFunc, 
     mergeMessage, 
@@ -225,9 +234,9 @@ export const removeBlock = (info) => {
 }
 
 export const logout = () => {
+    initState();
     browserHistory.push('/login');
     delete localStorage.token;
-    mergeUserInfo({});
     socket.disconnect();
     socket.connect();
 }

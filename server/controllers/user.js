@@ -70,7 +70,17 @@ module.exports = {
             expressions = expressions || [];
             yield onliner.save();
             yield user.save();
-            cb({nickname, avatar, device, _id, status, expressions, blocks , blockAll});
+            cb({
+                nickname, 
+                avatar, 
+                device, 
+                _id, 
+                status, 
+                expressions, 
+                blocks , 
+                blockAll, 
+                onlineState: 'online',
+            });
         } else {
             cb({ isError: true, errMsg:'ERROR1003' });
         }
