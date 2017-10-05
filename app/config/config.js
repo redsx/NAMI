@@ -51,4 +51,3 @@ export default {
 //     title: 'Camera',
 //     coordinate:[-458,-456]
 // }
-	

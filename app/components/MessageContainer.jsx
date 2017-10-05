@@ -12,17 +12,29 @@ import language from '../config/language.js'
 import fiora from '../middlewares/fiora.js'
 import { loadRoomHistory, errPrint } from '../actions/combin.js'
 import { setMenuState } from '../actions/pageUI.js'
+import scroll from '../util/scroll.js'
 import '../less/MessageContainer.less'
 
 class MessageContainer extends Component{
     constructor(props){
         super(props);
         this.needScroll = true;
+        // 保留上次滚动条所在高度，用于回滚
+        this.preHeight = 0;
         this.state = {loading: false, scrollToBottom: false};
     }
     @autobind
     scrollToBottom(){
-        if(this.msgContent) this.msgContent.scrollTop = this.msgContent.scrollHeight;
+        if(this.msgContent){
+            const msg = this.msgContent;
+            scroll.scrollTo(
+                msg.scrollTop, 
+                msg.scrollHeight, 
+                500, 
+                (val, finish) => {
+                msg.scrollTop = val;
+            })
+        }
     }
     @autobind
     handleScroll(e){
@@ -30,11 +42,18 @@ class MessageContainer extends Component{
         if(target !== this.msgContent){
             return;
         }
-        if(target.scrollHeight !== target.offsetHeight && target.scrollTop === 0 && !this.state.loading){
+        if(
+            target.scrollHeight !== target.offsetHeight && 
+            target.scrollTop === 0 && !this.state.loading
+        ){
             this.needScroll = false;
+            this.preHeight = target.scrollHeight;
             this.setState({loading: true});
             loadRoomHistory()
             .then(ret=>this.setState({loading: false}))
+            .then(ret => {
+                target.scrollTop = target.scrollHeight - this.preHeight;
+            })
             .catch(err => errPrint(err))
         }
         if(target.scrollHeight < target.offsetHeight + target.scrollTop +10){
