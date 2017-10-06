@@ -5,6 +5,7 @@ import config from '../config/config.js'
 import { sendFile } from '../actions/combin.js'
 import uploadHandle from '../util/upload.js'
 import message from '../util/message.js'
+import Trigger from '../containers/Trigger.js'
 
 import '../less/AttachButton.less'
 
@@ -29,6 +30,13 @@ class AttachButton extends Component{
             this.setState({showMenu: false});
         }
     }
+    componentDidMount() {
+        this.props.onPopup &&
+        this.props.onPopup(
+            'click',
+            () => this.handleClose()
+        )
+    }
     render(){
         const showMenu = this.state.showMenu;
         return (
@@ -51,11 +59,11 @@ class AttachButton extends Component{
                             showMenu = {showMenu}
                             handleChange = {this.handleSend('file')}
                         />
-                        <ButtonItem 
+                        {/*<ButtonItem 
                             info = {config.bgCoordinates[2]}
                             index = {2}
                             showMenu = {showMenu}
-                        />
+                        />*/}
                         
                     </ul>
                 </div>
@@ -84,4 +92,4 @@ function ButtonItem(props){
     );
 }
 
-export default AttachButton;
+export default Trigger(AttachButton);

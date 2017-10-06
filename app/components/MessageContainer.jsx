@@ -30,7 +30,7 @@ class MessageContainer extends Component{
             scroll.scrollTo(
                 msg.scrollTop, 
                 msg.scrollHeight, 
-                500, 
+                300, 
                 (val, finish) => {
                 msg.scrollTop = val;
             })
@@ -79,7 +79,7 @@ class MessageContainer extends Component{
     }
     componentWillReceiveProps(nextProps){
         const thisProps = this.props,
-              msgContent = this.msgContent;
+              msgContent = this.msgContent || {};
         const tScrollId = thisProps.msgContainerScroll.get('_id'),
               nScrollId = nextProps.msgContainerScroll.get('_id');
         // 判断所有可能改变滚动情况

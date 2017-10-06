@@ -2,6 +2,7 @@ import React , {Component} from 'react'
 import autobind from 'autobind-decorator'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { shouldComponentUpdate } from '../plugins/PureRender.js'
+import Trigger from '../containers/Trigger.js'
 import '../less/IconMenu.less'
 
 class IconMenu extends Component{
@@ -12,21 +13,21 @@ class IconMenu extends Component{
     }
     @autobind
     handleClick(e){
-        e.stopPropagation();
         if(this.state.isShow){
             this.setState({isShow: false});
         } else{
-            let x = e.pageX,
-                y = e.pageY,
+            let pX = e.pageX,
+                pY = e.pageY,
                 winX = window.innerWidth,
                 winY = window.innerHeight,
                 menuX = this.props.width || 195,
                 menuY = this.props.height || 160;
-            if(menuX > winX - x){
-                x = x - (menuX + x - winX) - 15;
+            let x = 38, y = 22;
+            if(menuX > winX - pX){
+                x = -menuX + 38 ;
             }
-            if(menuY > winY - y){
-                y = y - (menuY + y -winY) - 15;
+            if(menuY > winY - pY){
+                y = -menuY - 22;
             }
             this.setState({
                 isShow: true,
@@ -37,26 +38,41 @@ class IconMenu extends Component{
                 }
             });
         }
-        
-        
+    }
+    componentDidMount() {
+        this.props.onPopup &&
+        this.props.onPopup(
+            'click',
+            () => this.setState(() => ({isShow: false}))
+        )
     }
     render(){
         let { iconButtonElement, className } = this.props;
         return (
-            <div onClick = {this.handleClick} className = {'IconMenu-container'+ ' '+className}>
-            {iconButtonElement}
-            {this.state.isShow && <div className = 'IconMenu-menu-container'></div>}
+            <div 
+                onClick = {this.handleClick} 
+                className = {'IconMenu-container'+ ' '+className}
+            >
+                {iconButtonElement}
             <ReactCSSTransitionGroup
                 component = 'div'
                 transitionName = {'IconMenu'}
                 transitionEnterTimeout = {250}
                 transitionLeaveTimeout = {250}
             >
-            { this.state.isShow && <div className = 'IconMenu-menu' style = {this.state.menuStyle}> {this.props.children}</div>}
+                { 
+                    this.state.isShow &&
+                    <div
+                        className = 'IconMenu-menu' 
+                        style = {this.state.menuStyle}
+                    >
+                        {this.props.children}
+                    </div>
+                }
             </ReactCSSTransitionGroup>
             </div>
         );
     }
 }
 
-export default IconMenu;
+export default Trigger(IconMenu);

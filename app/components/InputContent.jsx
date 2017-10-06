@@ -16,6 +16,7 @@ class InputContent extends Component{
             isInput: !props.isSupportRecorder,
             expressionState: false,
         };
+        this.handleCloseExp = this.handleToggleExp.bind(this, false);
     }
     @autobind
     handleClick(){
@@ -71,7 +72,11 @@ class InputContent extends Component{
         return (
             <div className = 'InputArea-input-content'>
                 <div className = 'InputArea-Expressions' onClick = {()=>this.handleToggleExp(false)}>
-                    <Expressions addExpression = {this.addExpression} expressionState = {expressionState}/>
+                    <Expressions 
+                        addExpression = {this.addExpression} 
+                        expressionState = {expressionState}
+                        handleClose = {this.handleCloseExp}
+                    />
                 </div>
                 <input 
                     className = 'InputArea-input'
