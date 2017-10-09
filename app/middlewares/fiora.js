@@ -3,8 +3,9 @@ import pluginConfig from '../config/plugins.js'
 const fioraMiddleware = {
     dealFioraMessage: function(message){
         if(message.owner.nickname === pluginConfig.PLUGIN_ROBOT){
+            let fioraMsg = {};
             try{
-                let fioraMsg = JSON.parse(message.content);
+                fioraMsg = JSON.parse(message.content);
             } catch(err){
                 return message;
             }
@@ -20,13 +21,16 @@ const fioraMiddleware = {
                 fioraMsg.avatar = pluginConfig.DEFAULT_AVATAR;
             }
             fioraMsg = {
-                _id: message._id,
                 owner: {
                     nickname: `fiora-${fioraMsg.name}`,
                     avatar: fioraMsg.avatar,
                     _id: message.owner._id,
                 },
+                _id: message._id,
                 content: fioraMsg.content,
+                isPrivate: message.isPrivate,
+                room: message.room,
+                type: message.type,
                 timestamp: message.timestamp,
             }
             return fioraMsg;

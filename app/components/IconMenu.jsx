@@ -22,12 +22,12 @@ class IconMenu extends Component{
                 winY = window.innerHeight,
                 menuX = this.props.width || 195,
                 menuY = this.props.height || 160;
-            let x = 38, y = 22;
+            let x = 20, y = 22;
             if(menuX > winX - pX){
-                x = -menuX + 38 ;
+                x = -menuX + 10;
             }
             if(menuY > winY - pY){
-                y = -menuY - 22;
+                y = -menuY + 100;
             }
             this.setState({
                 isShow: true,

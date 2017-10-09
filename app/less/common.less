@@ -38,9 +38,9 @@ body, html, div {
     .transitionCubic();
 }
 .noSelect{
-    user-select: none;
-    -webkit-user-select: -webkit-none;
-    -moz-user-select: -moz-none;
+    // user-select: none;
+    // -webkit-user-select: -webkit-none;
+    // -moz-user-select: -moz-none;
 }
 .select{
     user-select: initial;
@@ -52,7 +52,9 @@ body, html, div {
     font-style: normal;
     text-align: center;
     cursor: pointer;
-    .noSelect;
+   user-select: none;
+    -webkit-user-select: -webkit-none;
+    -moz-user-select: -moz-none;
 }
 .displayFlex{
     display: -webkit-box;

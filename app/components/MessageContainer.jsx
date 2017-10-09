@@ -60,8 +60,16 @@ class MessageContainer extends Component{
             if(this.state.scrollToBottom) this.setState({scrollToBottom: false});
             if(!this.needScroll) this.needScroll = true;
         }
-        if(target.scrollHeight > target.offsetHeight + target.scrollTop +30 && !this.state.scrollToBottom){
+        if(
+            target.scrollHeight > target.offsetHeight + target.scrollTop +30 &&
+            !this.state.scrollToBottom
+        ){
             this.needScroll = false;
+        }
+        if(
+            target.scrollHeight > target.offsetHeight + target.scrollTop +130 &&
+            !this.state.scrollToBottom
+        ){
             this.setState({scrollToBottom: true});
         }
     }
