@@ -10,6 +10,7 @@ import Layout from './containers/Layout.js'
 import Login from './pages/sign/Login.jsx'
 import SignUp from './pages/sign/SignUp.jsx'
 import Join from './pages/join/index.jsx'
+import Chat from './pages/chat/index.jsx'
 import browser from './util/browers.js' 
 import language from './config/language.js'
 import notification from './util/notification.js'
@@ -179,6 +180,9 @@ render(
                 <IndexRoute component = {Layout} onEnter = {(nextState,replace)=>handleEnter(nextState,replace)}/>
                 <Route path = '/invite' component = {Layout} onEnter = {(nextState,replace)=>handleEnter(nextState,replace)}>
                     <Route path = '/invite/:link' component = {Join}/>
+                </Route>
+                <Route path = '/chat' component = {Layout} onEnter = {(nextState,replace)=>handleEnter(nextState,replace)}>
+                    <Route path = '/chat/:link' component = {Chat}/>
                 </Route>
                 <Route path = '/login' component = {Login}/>
                 <Route path = '/signup' component = {SignUp}/>
