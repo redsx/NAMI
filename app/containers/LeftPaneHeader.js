@@ -32,6 +32,10 @@ function LeftPaneHeader(props){
                         title = {language.conversation} 
                         onClick = {()=>setLeftManager({isShow: true, state: 'newContact'})}
                     >&#xe621;</i>
+                    <i 
+                        className = 'icon Header-icon' 
+                        onClick = {() => setLeftManager({isShow: true, state: 'friendList'})}
+                    >&#xe629;</i>
                     <IconMenu iconButtonElement={<i className = 'icon Header-icon'>&#xe612;</i>}>
                         <ul className = 'List'>
                             <li className = 'List-item' onClick = {() => setLeftManager({isShow: true, state: 'createGroup'})}>
@@ -52,6 +56,7 @@ function LeftPaneHeader(props){
                         className = 'icon Header-icon Header-close-btn' 
                         onClick = {() => setMenuState(false)}
                     >&#xe93d;</i>
+                    
                 </div>
             }
         />

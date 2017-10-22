@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import UserProfile from './UserProfile.js'
 import ManagerContainer from '../components/ManagerContainer.jsx'
 import NewContact from '../components/NewContact.jsx'
+import FriendList from '../components/FriendList.jsx'
 import CreateGroup from './CreateGroup.js'
 import NotificationSetting from './NotificationSetting.js'
 import BlockContact from './BlockContact.js'
@@ -15,6 +16,7 @@ function select(state){
         case 'setting': return <Setting />;
         case 'notificationSetting': return <NotificationSetting />;
         case 'blockContact': return <BlockContact />;
+        case 'friendList': return <FriendList />;
         case 'profile':
         default: return <UserProfile />;
     }

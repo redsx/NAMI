@@ -6,6 +6,12 @@
     padding: 0px;
     margin: 0px;
     list-style: none;
+    // height: calc(100% - 49px);
+    // overflow-y: auto;
+    &-nestedItems {
+        padding-left: 14px;
+        background: rgba(255, 255, 255, 0.965215);
+    }
 }
 .List-item{
     width: 100%;
@@ -17,6 +23,9 @@
     cursor: pointer;
     .transitionCubic(0.35s);
 }
-.List-item:hover{
+.List-item-hover{
     background: rgba(0,0,0,0.03);
 }
+// .List-item:hover{
+//     background: rgba(0,0,0,0.03);
+// }

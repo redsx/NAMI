@@ -19,6 +19,10 @@ const user = new Schema({
         type: Array,
         default: []
     },
+    relation: [{
+        type: Schema.Types.ObjectId,
+        ref: 'relation',
+    }],
     blocks: [{
         type: Schema.Types.ObjectId,
         ref: 'user'

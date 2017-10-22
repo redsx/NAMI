@@ -1,6 +1,5 @@
 import immutable from 'immutable'
 import autobind from 'autobind-decorator'
-import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import Loading from '../components/Loading.jsx'
 import PureRender, { shouldComponentUpdate } from '../plugins/PureRender.js'

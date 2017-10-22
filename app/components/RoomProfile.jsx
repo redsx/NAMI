@@ -58,7 +58,12 @@ function RoomProfile(props){
                         <ProfileSection className = 'RoomProfile-section RoomProfile-margin' title = {language.participants} titleClass = 'RoomProfile-section-title'>
                             <ul className = 'List'>
                                 {/*<ListItem name = {language.addPart} icon = '&#xe60a;' avatarStyle = {avatarStyle}/>*/}
-                                <ListItem name = {language.inviteLink} icon = '&#xe605;' avatarStyle = {avatarStyle} handleClick = {()=>{setRightManager({isShow:true,state:'invite'})}}/>
+                                <ListItem 
+                                    name = {language.inviteLink} 
+                                    icon = '&#xe605;' 
+                                    avatarStyle = {avatarStyle} 
+                                    handleClick = {()=>{setRightManager({isShow:true,state:'invite'})}}
+                                />
                                 {
                                     creater 
                                     &&

@@ -1,6 +1,7 @@
 const User = require('../models/user-mongo')
     , Online = require('../models/online-mongo')
     , Room = require('../models/room-mongo')
+    , Relation = require('../models/relation-mongo')
     , bcrypt = require('bcrypt-nodejs')
     , bluebird = require('bluebird')
     , moment = require('moment')
@@ -19,10 +20,19 @@ module.exports = {
             return cb({ isError: true, errMsg: 'ERROR1002'});
         }
         let rooms = [room._id];
+        
         let resault  = yield User.create({ nickname, email, password, rooms });
+        
         if(resault){ 
+            let relation = yield Relation.create({
+                name: '好友列表',
+                users: [resault._id],
+                creater: resault._id,
+            });
             room.users.push(resault._id);
+            resault.relation = [relation._id];
             if(email === config.INIT_ADMIN_EMAIL) room.creater = resault._id;
+            yield resault.save();
             yield room.save();
             let exp = Math.floor((new Date().getTime())/1000) + 60 * 60 * 24 * 30;
             let verify = jwt.sign({ user: resault._id, exp: exp },JWT_KEY);
@@ -42,6 +52,16 @@ module.exports = {
         }
         let resault = yield bluebird.promisify(bcrypt.compare)(password,user.password);
         if(resault){ 
+            // 老用户添加分组
+            if(resault.relation && resault.relation.length<1) {
+                let relation = yield Relation.create({
+                    name: '好友列表',
+                    users: [resault._id],
+                    creater: resault._id,
+                });
+                resault.relation = [relation._id];
+                yield resault.save();
+            }
             let exp = Math.floor((new Date().getTime())/1000) + 60 * 60 * 24 * 30;
             let verify = jwt.sign({user: user._id, exp: exp },JWT_KEY);
             const room = yield Room.findOne({name: config.INIT_ROOM});
@@ -99,7 +119,7 @@ module.exports = {
         cb({ isError: true, errMsg:'ERROR1003'});
     },
     getUsersList: function*(info,cb){
-        if(info.nickname.trim()===''){
+        if(info.nickname && info.nickname.trim()===''){
             delete info.nickname;
         }else{
             info.nickname = new RegExp(info.nickname,'i');
@@ -110,6 +130,15 @@ module.exports = {
             {limit: 20, sort: '-lastOnlineTime'}
         );
         cb(users);
+    },
+    getFriendList: function *(info, cb) {
+        const rooms = yield Relation.find({creater: info._id}).populate({
+            path: 'users', 
+            options: {limit: 20, sort: '-lastOnlineTime'},
+            select: '_id avatar nickname status onlineState device'
+        })
+        console.log('------ rooms: ', rooms);
+        cb(rooms);
     },
     addExpression: function*(info,cb){
         const { expression, _id } = info;
@@ -190,6 +219,7 @@ module.exports = {
             cb({ isError: true, errMsg:'ERROR1003' });
         }
     },
+
     getAdminId: function*(cb){
         const admin = yield User.findOne({email: config.INIT_ADMIN_EMAIL});
         if(admin){

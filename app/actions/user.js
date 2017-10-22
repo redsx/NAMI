@@ -12,6 +12,7 @@ export const signUp = socketEmit('signUp');
 export const getUserInfo = socketEmit('getUserInfo');
 export const createRoom = socketEmit('createRoom');
 export const updateUserInfo = socketEmit('updateUserInfo');
+export const getFriendList = socketEmit('getFriendList');
 // payload object
 export const mergeUserInfo = dispatchAction(MERGE_USER_INFO);
 

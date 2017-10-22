@@ -50,6 +50,10 @@ module.exports = function (io) {
             co(user.getUsersList(info,cb))
             .catch((err) => callbackError(cb,err));
         })
+        socket.on('getFriendList', (info, cb) => {
+            co(user.getFriendList(info,cb))
+            .catch((err) => callbackError(cb,err));
+        })
         socket.on('updateUserInfo',(info,cb)=>{
             co(user.updateUserInfo(info,cb))
             .catch((err) => callbackError(cb,err));
