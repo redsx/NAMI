@@ -132,12 +132,13 @@ module.exports = {
         cb(users);
     },
     getFriendList: function *(info, cb) {
-        const rooms = yield Relation.find({creater: info._id}).populate({
+        const user = yield User.findOne({_id: info._id});
+        const relation = user.relation || [];
+        const rooms = yield Relation.find({_id: {$in: relation}}).populate({
             path: 'users', 
             options: {limit: 20, sort: '-lastOnlineTime'},
             select: '_id avatar nickname status onlineState device'
         })
-        console.log('------ rooms: ', rooms);
         cb(rooms);
     },
     addExpression: function*(info,cb){
