@@ -1,4 +1,5 @@
 const User = require('../models/user-mongo')
+    , userCtrl = require('./user')
     , Private = require('../models/private-mongo');
 module.exports = {
     initPrivateList: function *(info,cb){
@@ -63,7 +64,14 @@ module.exports = {
         },
         null,
         {sort:'-_id',limit})
-        if(privateMessage) return cb(privateMessage);
+        if(privateMessage) {
+            yield userCtrl.addRelationUser({
+                userId: toUserId,
+                friendId: fromUserId,
+                relationName: '好友列表',
+            });
+            return cb(privateMessage);
+        }
         return cb({ isError: true, errMsg:'ERROR1005'});
     },
     /**

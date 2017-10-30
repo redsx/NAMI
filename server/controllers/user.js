@@ -8,6 +8,10 @@ const User = require('../models/user-mongo')
     , jwt = require('jsonwebtoken')
     , config = require('../config/cr-config')
     , JWT_KEY = require('../config/cr-config').JWT_KEY;
+
+function isFunction(func) {
+    return typeof func === 'function';
+}
 module.exports = {
     createUser: function *(info,cb) {
         let { password, nickname, email } = info;
@@ -156,16 +160,18 @@ module.exports = {
     },
     addRelationUser: function *(info, cb) {
         const { userId, friendId, relationName } = info;
-        const relation = Relation.findOne({
+        const relation = yield Relation.findOne({
             name: relationName,
             creater: userId,
         });
         if(relation) {
-            relation.users.push(friendId);
+            if(relation.users && relation.users.indexOf(friendId) === -1){
+                relation.users.push(friendId);
+            }
             yield relation.save();
-            cb({isOk: true});
+            isFunction(cb) && cb({isOk: true});
         } else {
-            cb({isError: true, errMsg: 'ERROR1000'})
+            isFunction(cb) && cb({isError: true, errMsg: 'ERROR1000'})
         }
     },
     addExpression: function*(info,cb){
