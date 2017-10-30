@@ -33,7 +33,7 @@ const FriendListWrap = (ItemComponent) => class extends Component{
                         this.state.lists.map((item) => {
                             return (
                                 <ListItem 
-                                    icon = {'友'}
+                                    icon = {item.name.slice(0,1)}
                                     name = {item.name}
                                     key = {item._id}
                                     nestedItems = {this.getNestedItems(item.users)}

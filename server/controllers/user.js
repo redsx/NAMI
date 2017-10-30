@@ -24,13 +24,26 @@ module.exports = {
         let resault  = yield User.create({ nickname, email, password, rooms });
         
         if(resault){ 
-            let relation = yield Relation.create({
-                name: '好友列表',
-                users: [resault._id],
-                creater: resault._id,
-            });
+            let relations = yield Relation.create([
+                {
+                    name: '好友列表',
+                    users: [resault._id],
+                    creater: resault._id,
+                },{
+                    name: '同城列表',
+                    users: [resault._id],
+                    creater: resault._id,
+                },{
+                    name: '微商列表',
+                    users: [resault._id],
+                    creater: resault._id,
+                }
+            ]);
             room.users.push(resault._id);
-            resault.relation = [relation._id];
+            resault.relation = [];
+            relations.map((relation) => {
+                resault.relation.push(relation._id);
+            })
             if(email === config.INIT_ADMIN_EMAIL) room.creater = resault._id;
             yield resault.save();
             yield room.save();
@@ -140,6 +153,20 @@ module.exports = {
             select: '_id avatar nickname status onlineState device'
         })
         cb(rooms);
+    },
+    addRelationUser: function *(info, cb) {
+        const { userId, friendId, relationName } = info;
+        const relation = Relation.findOne({
+            name: relationName,
+            creater: userId,
+        });
+        if(relation) {
+            relation.users.push(friendId);
+            yield relation.save();
+            cb({isOk: true});
+        } else {
+            cb({isError: true, errMsg: 'ERROR1000'})
+        }
     },
     addExpression: function*(info,cb){
         const { expression, _id } = info;
