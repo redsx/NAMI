@@ -323,15 +323,18 @@
     fromUserId, toUserId, limit
 }
 
-[
-    {
-        from,
-        timestamp,
-        to,
-        type,
-        content,
-    }
-]
+{
+    relationName, // 分组列表名
+    histories: [
+        {
+            from,
+            timestamp,
+            to,
+            type,
+            content,
+        }
+    ]
+}
 
 // createRoom 创建房间
 

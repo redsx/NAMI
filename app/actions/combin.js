@@ -105,7 +105,7 @@ export const loadRoomHistory = dispatchThunk( () => {
                 toUserId: userId,
             })
             .then((ret) => {
-                const normalizeHis = normalize(ret,historySchema);
+                const normalizeHis = normalize(ret.histories,historySchema);
                 addHistories({
                     histories: normalizeHis.entities.histories, 
                     room: {_id , histories: normalizeHis.result} 

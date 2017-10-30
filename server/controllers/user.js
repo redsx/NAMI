@@ -174,6 +174,14 @@ module.exports = {
             isFunction(cb) && cb({isError: true, errMsg: 'ERROR1000'})
         }
     },
+    getRelation: function *(info) {
+        const { userId, friendId } = info;
+       const relation =  yield Relation.findOne({
+            creater: userId,
+            users: friendId,
+       });
+       return relation || {};
+    },
     addExpression: function*(info,cb){
         const { expression, _id } = info;
         const user = yield User.findOne({_id: _id});

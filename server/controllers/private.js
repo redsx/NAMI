@@ -58,19 +58,29 @@ module.exports = {
         const { fromUserId, toUserId, limit } = info;
         const timestamp = info.timestamp || Date.now();
         const privateMessage = yield Private.find(
-        { 
-            $or: [{from: fromUserId, to: toUserId},{from: toUserId, to: fromUserId}],
-            timestamp: {'$lt': timestamp}
-        },
-        null,
-        {sort:'-_id',limit})
-        if(privateMessage) {
+            { 
+                $or: [{from: fromUserId, to: toUserId},{from: toUserId, to: fromUserId}],
+                timestamp: {'$lt': timestamp}
+            },
+            null,
+            {sort:'-_id',limit}
+        )
+        const relation = yield userCtrl.getRelation({
+            userId: toUserId,
+            friendId: fromUserId,
+        });
+        if(!relation || !relation.name) {
             yield userCtrl.addRelationUser({
                 userId: toUserId,
                 friendId: fromUserId,
                 relationName: '好友列表',
             });
-            return cb(privateMessage);
+        }
+        if(privateMessage) {
+            return cb({
+                histories: privateMessage,
+                relationName: relation.name || '好友列表'
+            });
         }
         return cb({ isError: true, errMsg:'ERROR1005'});
     },
