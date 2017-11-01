@@ -8,6 +8,10 @@ const private = new Schema({
     },
     to: String,    
     timestamp: Number,
-    type: String
+    type: String,
+    conversation: {
+        type: Schema.Types.ObjectId,
+        ref: 'conversation'
+    }
 });
 module.exports = mongoose.model('private',private);

@@ -1,5 +1,6 @@
 const User = require('../models/user-mongo')
     , userCtrl = require('./user')
+    , Conv = require('../models/conversation-mongo')
     , Private = require('../models/private-mongo');
 module.exports = {
     initPrivateList: function *(info,cb){
@@ -24,13 +25,16 @@ module.exports = {
         content = content.slice(0,500);
         const toUser = yield User.findOne({_id: to}),
               fromUser = yield User.findOne({_id: from});
+        const conv = yield Conv.getConv([fromUser._id, toUser._id]);
         if(fromUser && toUser){
-            const msg = {from, to, timestamp, type, content };
+            const msg = {from, to, timestamp, type, content, conversation: conv._id };
             if(toUser.blocks.indexOf(from) !== -1 || toUser.blockAll){
                 return cb(msg);
             }
             const privateMessage = new Private(msg);
+            conv.histories.push(privateMessage._id);
             yield privateMessage.save();
+            yield conv.save();
             msg.room = msg.from;
             msg._id = privateMessage._id;
             if(toUser.onlineDevice > 0) {
@@ -69,12 +73,18 @@ module.exports = {
             userId: toUserId,
             friendId: fromUserId,
         });
+        // 建立关系
+        let conv = yield Conv.getConv([fromUserId, toUserId]);
+        if(!conv) {
+            conv = yield Conv.create({from: fromUserId, to: toUserId});
+        }
         if(!relation || !relation.name) {
-            yield userCtrl.addRelationUser({
+            const relation = yield userCtrl.addRelationUser({
                 userId: toUserId,
                 friendId: fromUserId,
                 relationName: '好友列表',
             });
+            yield relation.save();
         }
         if(privateMessage) {
             return cb({

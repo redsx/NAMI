@@ -164,7 +164,10 @@ module.exports = function (io) {
             .then(msg=>co(private.savePrivateMessage(msg,socket,cb)))
             .catch((err) => callbackError(cb,err));
         })
-        
+        socket.on('initRelationList', (info, cb) => {
+            co(user.initRelationList(info,cb))
+            .catch((err) => callbackError(cb,err));
+        })
         socket.on('createRoom',(info,cb) => {
             co(room.createRoom(info,socket,cb))
             .catch((err) => callbackError(cb,err));

@@ -357,6 +357,17 @@
 }
 
 {isOk: true}
+
+// initRelationList
+{_id}
+
+{
+    from // user id
+    to // friend id
+    histories
+    relation
+}
+
 // 4.上传图片 ajax 
     {
         method: 'POST',

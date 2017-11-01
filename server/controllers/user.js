@@ -2,6 +2,7 @@ const User = require('../models/user-mongo')
     , Online = require('../models/online-mongo')
     , Room = require('../models/room-mongo')
     , Relation = require('../models/relation-mongo')
+    , Conv = require('../models/conversation-mongo')
     , bcrypt = require('bcrypt-nodejs')
     , bluebird = require('bluebird')
     , moment = require('moment')
@@ -158,6 +159,18 @@ module.exports = {
         })
         cb(rooms);
     },
+    initRelationList: function *(info, cb) {
+       const list = yield Conv.find({$or: [{from: info._id}, {to: info._id}]}).populate({
+            path: 'histories',
+            options: { limit: 10, sort: '-_id' },
+            populate: {path: 'owner', select: '_id avatar nickname'}
+        })
+        .populate({
+            path: 'relation',
+            select: 'name',            
+        });
+        cb({histories: list});
+    },
     addRelationUser: function *(info, cb) {
         const { userId, friendId, relationName } = info;
         const relation = yield Relation.findOne({
@@ -167,12 +180,18 @@ module.exports = {
         if(relation) {
             if(relation.users && relation.users.indexOf(friendId) === -1){
                 relation.users.push(friendId);
+                let conv = yield Conv.getConv([userId, friendId]);
+                if(!conv.relation) conv.relation = [];
+                console.log('relation: ', relation._id, relation.relationName);
+                conv.relation.push(relation._id);
+                yield conv.save();
+                yield relation.save();
             }
-            yield relation.save();
             isFunction(cb) && cb({isOk: true});
         } else {
             isFunction(cb) && cb({isError: true, errMsg: 'ERROR1000'})
         }
+        return relation;
     },
     getRelation: function *(info) {
         const { userId, friendId } = info;
