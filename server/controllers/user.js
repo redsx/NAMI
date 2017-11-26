@@ -182,8 +182,10 @@ module.exports = {
                 relation.users.push(friendId);
                 let conv = yield Conv.getConv([userId, friendId]);
                 if(!conv.relation) conv.relation = [];
+                if(!relation.conversation) relation.conversation = [];
                 console.log('relation: ', relation._id, relation.relationName);
                 conv.relation.push(relation._id);
+                relation.conversation.push(conv._id);
                 yield conv.save();
                 yield relation.save();
             }

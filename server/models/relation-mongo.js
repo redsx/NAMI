@@ -12,6 +12,10 @@ const relation = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'user'
     }],
+    conversation: [{
+        type: Schema.Types.ObjectId,
+        ref: 'conversation',
+    }],
     creater: {
         type: Schema.Types.ObjectId,
         ref: 'user'
