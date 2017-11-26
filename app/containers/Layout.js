@@ -7,4 +7,5 @@ export default connect(state => ({
     curRoom: state.getIn(['user','curRoom']),
     showExpression: state.getIn(['pageUI','expressionState']),
     menuState: state.getIn(['pageUI', 'menuState']),
+    videoCtrlState: state.getIn(['pageUI', 'videoCtrlState']),
 }))(PureRender(Layout));

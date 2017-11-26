@@ -10,6 +10,7 @@ import {
     SET_NOTIFICATIONS_STATE,
     SET_MENU_STATE,
     SET_OWL_STATE,
+    SET_VIDEO_STATE
  } from '../constants/pageUI.js'
 // payload: bool
 export const setLeftManager = dispatchAction(SET_LEFT_MANAGER);
@@ -26,6 +27,8 @@ export const setNotificationState = dispatchAction(SET_NOTIFICATIONS_STATE);
 export const setOwlState = dispatchAction(SET_OWL_STATE);
 
 export const setMenuState = dispatchAction(SET_MENU_STATE);
+
+export const setVideoCtrlState = dispatchAction(SET_VIDEO_STATE);
 
 export const pushSnackbar = (content) => {
     dispatchAction(PUSH_SNACKBAR)(content);

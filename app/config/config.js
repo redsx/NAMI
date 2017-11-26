@@ -2,6 +2,7 @@ export default {
     MAXFileSize: 5,
     CompressAvatarSize: 100,
     revokeMsgTimeLimit: 2*60*1000,
+    videoLink: 'http://www.w3school.com.cn/i/movie.ogg',
     inviteLink: 'http://nami.mdzzapp.com/invite/',
     ImageStyle: '?imageView2/1/w/250/h/169/interlace/1/q/100', //七牛图片处理样式
     imageDomain: 'http://oj7h98lzb.bkt.clouddn.com',

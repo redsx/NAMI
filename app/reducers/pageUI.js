@@ -12,6 +12,7 @@ import {
     SET_NOTIFICATIONS_STATE,
     SET_MENU_STATE,
     SET_OWL_STATE,
+    SET_VIDEO_STATE,
 } from '../constants/pageUI.js'
 import browers from '../util/browers.js'
 
@@ -19,6 +20,7 @@ let defaultState = immutable.fromJS({
     snackbars: [],
     expressionState: false,
     menuState: true,
+    videoCtrlState: true,
     owlState: false,
     language: browers.language,
     isSupportRecorder: false,
@@ -84,6 +86,9 @@ export default function reducer(state = defaultState,action) {
                 ret = state.set('owlState', false);
             }
             return ret.set('menuState', action.payload);
+        }
+        case SET_VIDEO_STATE: {
+            return state.set('videoCtrlState', action.payload);
         }
         case SET_OWL_STATE: {
             return state.set('owlState', action.payload)

@@ -11,15 +11,25 @@ import ActiveList from '../containers/ActiveList.js'
 import LeftManager from '../containers/LeftManager.js'
 import RightManager from '../containers/RightManager.js'
 import Welcome from './Welcome.jsx'
+import VideoCtrl from './VideoCtrl.jsx'
+import config from '../config/config.js'
 import '../less/Layout.less'
 
 import ImageExpression from '../containers/ImageExpression.js'
 
 
 function Layout(props){
+    const videoCtrlState = props.videoCtrlState;
+    const videoStyle = { display: videoCtrlState ? 'none' : 'flex' }
     return (
         <div className = 'Layout-wrapper'>
             {props.children}
+            <div className= 'Layout-video' style = {videoStyle}>
+                <video src = {config.videoLink} controls = 'controls'>
+                    your browser does not support the video tag
+                </video>
+            </div>
+            <VideoCtrl videoCtrlState = {videoCtrlState}/>
             <PokeballLoading />
             <div className = 'Layout-container'>
                 <div className = 'manager-container'>
